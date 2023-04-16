@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ce1emjxqtsay6"]
+
+[ext_resource type="Script" path="res://addons/retro_console_emulator/tests/test_nes.gd" id="1_88h0s"]
+
+[node name="TestNes" type="Node"]
+script = ExtResource("1_88h0s")
