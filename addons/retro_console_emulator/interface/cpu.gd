@@ -7,12 +7,19 @@ var registers: Dictionary = {
 	&"PC": program_counter
 }
 
+var instructionset: Dictionary = {
+	0x00: OpCode.new(0x00, "BRK", 1, 1, quit)
+}
+
+var is_running: bool = false
+
 func load_and_run(p_program: PackedByteArray):
 	self.load(p_program)
 	self.reset()
 	self.run()
 
 func reset():
+	is_running = false
 	assert(true, "This method should be implemented in inherited class")
 
 func load(p_program: PackedByteArray):
@@ -20,12 +27,16 @@ func load(p_program: PackedByteArray):
 
 ## VIRTUAL: This method runs the program loaded into the CPU's memory.
 func run():
+	is_running = true
 	assert(memory != null, "Memory not initialized")
 	assert(true, "This method should be implemented in inherited class")
 
 func get_operand_address(p_mode: int) -> int:
 	assert(true, "This method should be implemented in inherited class")
 	return 0x00
+
+func quit():
+	is_running = false
 
 #8 bit register
 class Register8bits:

@@ -26,13 +26,53 @@ func _init() -> void:
 	registers[&"Y"] = register_y
 	registers[&"P"] = flags
 	memory = Memory.new(0xFFFF)
+	
+	#register instructions
+	var instructions: Array[OpCode] = [
+		# LDA
+		OpCode.new(0xA9, &"LDA", 2, 2, load_register8.bind(register_a, AddressingMode.Immediate)),
+		OpCode.new(0xA5, &"LDA", 2, 3, load_register8.bind(register_a, AddressingMode.ZeroPage)),
+		OpCode.new(0xAD, &"LDA", 3, 4, load_register8.bind(register_a, AddressingMode.Absolute)),
+		OpCode.new(0xB5, &"LDA", 2, 4, load_register8.bind(register_a, AddressingMode.ZeroPage_X)),
+		OpCode.new(0xBD, &"LDA", 3, 4, load_register8.bind(register_a, AddressingMode.Absolute_X)),
+		OpCode.new(0xB9, &"LDA", 3, 4, load_register8.bind(register_a, AddressingMode.Absolute_Y)),
+		OpCode.new(0xA1, &"LDA", 2, 6, load_register8.bind(register_a, AddressingMode.Indirect_X)),
+		OpCode.new(0xB1, &"LDA", 2, 5, load_register8.bind(register_a, AddressingMode.Indirect_Y)),
+		# STA
+		OpCode.new(0x85, &"STA", 2, 3, store_from_register.bind(register_a, AddressingMode.ZeroPage)),
+		OpCode.new(0x8D, &"STA", 3, 4, store_from_register.bind(register_a, AddressingMode.Absolute)),
+		OpCode.new(0x95, &"STA", 2, 4, store_from_register.bind(register_a, AddressingMode.ZeroPage_X)),
+		OpCode.new(0x9D, &"STA", 3, 5, store_from_register.bind(register_a, AddressingMode.Absolute_X)),
+		OpCode.new(0x99, &"STA", 3, 5, store_from_register.bind(register_a, AddressingMode.Absolute_Y)),
+		OpCode.new(0x81, &"STA", 2, 6, store_from_register.bind(register_a, AddressingMode.Indirect_X)),
+		OpCode.new(0x91, &"STA", 2, 6, store_from_register.bind(register_a, AddressingMode.Indirect_Y)),
+		# STX
+		OpCode.new(0x86, &"STX", 2, 3, store_from_register.bind(register_x, AddressingMode.ZeroPage)),
+		OpCode.new(0x8E, &"STX", 3, 4, store_from_register.bind(register_x, AddressingMode.Absolute)),
+		OpCode.new(0x96, &"STX", 2, 4, store_from_register.bind(register_x, AddressingMode.ZeroPage_Y)),
+		# STY
+		OpCode.new(0x84, &"STY", 2, 3, store_from_register.bind(register_y, AddressingMode.ZeroPage)),
+		OpCode.new(0x8C, &"STY", 3, 4, store_from_register.bind(register_y, AddressingMode.Absolute)),
+		OpCode.new(0x94, &"STY", 2, 4, store_from_register.bind(register_y, AddressingMode.ZeroPage_X)),
+		# TAX
+		OpCode.new(0xAA, &"TAX", 1, 2, transfer_register_from_to.bind(register_a, register_x)),
+		# TAY
+		OpCode.new(0xA8, &"TAY", 1, 2, transfer_register_from_to.bind(register_a, register_y)),
+		# INX
+		OpCode.new(0xE8, &"INX", 1, 2, increment_register.bind(register_x)),
+		# INY
+		OpCode.new(0xC8, &"INY", 1, 2, increment_register.bind(register_y)),
+	]
+	
+	for instruction in instructions:
+		instructionset[instruction.code] = instruction
 
 func reset():
+	is_running = false
 	register_a.value = 0
 	register_x.value = 0
 	register_y.value = 0
 	flags.value = 0
-	
 	program_counter.value = memory.mem_read_16(0xFFFC)
 
 func load(p_program: PackedByteArray):
@@ -43,29 +83,16 @@ func load(p_program: PackedByteArray):
 ## VIRTUAL: This method runs the program loaded into the CPU's memory.
 func run():
 	assert(memory != null, "Memory not initialized")
-	
-	while true:
+	is_running = true
+	while is_running:
 		var opcode = memory.mem_read(program_counter.value)
 		program_counter.value += 1
 		
-		match opcode:
-			0xA9:
-				var param: int = memory.mem_read(program_counter.value)
-				program_counter.value += 1
-				load_register8(register_a, param)
-			0xAA: # TAX
-				transfer_register_from_to(register_a, register_x)
-			0xA8: #TAY
-				transfer_register_from_to(register_a, register_y)
-			0xE8: #INX
-				increment_register(register_x)
-			0xC8: #INY
-				increment_register(register_y)
-			0x00: # BRK
-				break
-			_:
-				# TODO
-				pass
+		var instruction: OpCode = instructionset.get(opcode, null)
+		assert(instruction, "Unknown instruction with code %d" % opcode)
+		assert(instruction.callback.is_valid(), "Invalid callable for opcode %d" % opcode)
+		instruction.callback.call()
+		program_counter.value += (instruction.size - 1)
 
 
 func get_operand_address(p_mode: int) -> int:
@@ -92,11 +119,11 @@ func get_operand_address(p_mode: int) -> int:
 			var addr: int = (pos + register_y.value) % 0xFF
 			return addr
 		AddressingMode.Absolute_X:
-			var base: int = memory.mem_read_u16(self.program_counter)
+			var base: int = memory.mem_read_16(self.program_counter.value)
 			var addr: int = (base + register_x.value) % 0xFFFF
 			return addr
 		AddressingMode.Absolute_Y:
-			var base: int = memory.mem_read_u16(self.program_counter)
+			var base: int = memory.mem_read_16(self.program_counter.value)
 			var addr: int = (base + register_y.value) % 0xFFFF
 			return addr
 		AddressingMode.Indirect_X:
@@ -117,10 +144,20 @@ func get_operand_address(p_mode: int) -> int:
 			assert(false, "Adressing mode not supported!")
 			return 0x00
 
+
 #LDA
-func load_register8(p_register: Register8bits, p_value: int):
-	p_register.value = p_value
-	update_z_n_flags(p_value)
+func load_register8(p_register: Register8bits, p_addressing_mode: AddressingMode):
+	var addr: int = get_operand_address(p_addressing_mode)
+	var value: int = memory.mem_read(addr)
+	p_register.value = value
+	update_z_n_flags(value)
+
+
+#STA
+func store_from_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
+	var addr = self.get_operand_address(p_addressing_mode)
+	memory.mem_write(addr, p_register.value)
+
 
 #TAX
 func transfer_register_from_to(p_from: Register8bits, p_to: Register8bits):
