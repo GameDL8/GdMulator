@@ -29,6 +29,24 @@ func _init() -> void:
 	
 	#register instructions
 	var instructions: Array[OpCode] = [
+		# ADC - Add with Carry
+		OpCode.new(0x69, &"ADC", 2, 2, add_with_carry_to_register.bind(register_a, AddressingMode.Immediate)),
+		OpCode.new(0x65, &"ADC", 2, 3, add_with_carry_to_register.bind(register_a, AddressingMode.ZeroPage)),
+		OpCode.new(0x75, &"ADC", 2, 4, add_with_carry_to_register.bind(register_a, AddressingMode.ZeroPage_X)),
+		OpCode.new(0x6D, &"ADC", 3, 4, add_with_carry_to_register.bind(register_a, AddressingMode.Absolute)),
+		OpCode.new(0x7D, &"ADC", 3, 4, add_with_carry_to_register.bind(register_a, AddressingMode.Absolute_X)),
+		OpCode.new(0x79, &"ADC", 3, 4, add_with_carry_to_register.bind(register_a, AddressingMode.Absolute_Y)),
+		OpCode.new(0x61, &"ADC", 2, 6, add_with_carry_to_register.bind(register_a, AddressingMode.Indirect_X)),
+		OpCode.new(0x71, &"ADC", 2, 5, add_with_carry_to_register.bind(register_a, AddressingMode.Indirect_Y)),
+		# AND
+		OpCode.new(0x29, &"AND", 2, 2, bitwise_and_with_register.bind(register_a, AddressingMode.Immediate)),
+		OpCode.new(0x25, &"AND", 2, 3, bitwise_and_with_register.bind(register_a, AddressingMode.ZeroPage)),
+		OpCode.new(0x35, &"AND", 2, 4, bitwise_and_with_register.bind(register_a, AddressingMode.ZeroPage_X)),
+		OpCode.new(0x2D, &"AND", 3, 4, bitwise_and_with_register.bind(register_a, AddressingMode.Absolute)),
+		OpCode.new(0x3D, &"AND", 3, 4, bitwise_and_with_register.bind(register_a, AddressingMode.Absolute_X)),
+		OpCode.new(0x39, &"AND", 3, 4, bitwise_and_with_register.bind(register_a, AddressingMode.Absolute_Y)),
+		OpCode.new(0x21, &"AND", 2, 6, bitwise_and_with_register.bind(register_a, AddressingMode.Indirect_X)),
+		OpCode.new(0x31, &"AND", 2, 5, bitwise_and_with_register.bind(register_a, AddressingMode.Indirect_Y)),
 		# LDA
 		OpCode.new(0xA9, &"LDA", 2, 2, load_register8.bind(register_a, AddressingMode.Immediate)),
 		OpCode.new(0xA5, &"LDA", 2, 3, load_register8.bind(register_a, AddressingMode.ZeroPage)),
@@ -144,6 +162,25 @@ func get_operand_address(p_mode: int) -> int:
 			assert(false, "Adressing mode not supported!")
 			return 0x00
 
+# ADC - Add with Carry
+func add_with_carry_to_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
+	var addr: int = get_operand_address(p_addressing_mode)
+	var value: int = memory.mem_read(addr)
+	var previous: int = p_register.value
+	var result: int = p_register.value + value
+	p_register.value = result & 0b11111111
+	update_c_flag(result)
+	update_v_flag(previous, value, result)
+	update_z_n_flags(p_register.value)
+
+
+#AND
+func bitwise_and_with_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
+	var addr: int = get_operand_address(p_addressing_mode)
+	var value: int = memory.mem_read(addr)
+	p_register.value &= value
+	update_z_n_flags(p_register.value)
+
 
 #LDA
 func load_register8(p_register: Register8bits, p_addressing_mode: AddressingMode):
@@ -164,11 +201,26 @@ func transfer_register_from_to(p_from: Register8bits, p_to: Register8bits):
 	p_to.value = p_from.value
 	update_z_n_flags(p_from.value)
 
+
 #INC
 func increment_register(p_register: Register8bits):
 	var val: int = p_register.value + 1
 	p_register.value = val & 0b11111111
 	update_z_n_flags(p_register.value)
+
+
+func update_c_flag(p_value: int):
+	var did_carry: bool = p_value & 0xFF00
+	flags.C.value = did_carry
+
+
+func update_v_flag(p_a: int, p_b: int, p_result: int):
+	var sign_bit: int = 0b10000000
+	if p_a & sign_bit == p_b & sign_bit and p_result & sign_bit != p_a & sign_bit:
+		flags.V.value = true
+	else:
+		flags.V.value = false
+
 
 func update_z_n_flags(p_value: int):
 	flags.Z.value = (p_value == 0)
