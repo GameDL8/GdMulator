@@ -53,6 +53,9 @@ func _init() -> void:
 		OpCode.new(0x16, &"ASL", 2, 6, arithmetic_shift_left.bind(AddressingMode.ZeroPage_X)),
 		OpCode.new(0x0E, &"ASL", 3, 6, arithmetic_shift_left.bind(AddressingMode.Absolute)),
 		OpCode.new(0x1E, &"ASL", 3, 7, arithmetic_shift_left.bind(AddressingMode.Absolute_X)),
+		# BCC - BCS
+		OpCode.new(0x90, &"BCC", 2, 2, branch_if_flag_matches.bind(flags.C, false)),
+		OpCode.new(0xB0, &"BCS", 2, 2, branch_if_flag_matches.bind(flags.C, true)),
 		# LDA
 		OpCode.new(0xA9, &"LDA", 2, 2, load_register8.bind(register_a, AddressingMode.Immediate)),
 		OpCode.new(0xA5, &"LDA", 2, 3, load_register8.bind(register_a, AddressingMode.ZeroPage)),
@@ -109,14 +112,17 @@ func run():
 	assert(memory != null, "Memory not initialized")
 	is_running = true
 	while is_running:
-		var opcode = memory.mem_read(program_counter.value)
+		var opcode: int = memory.mem_read(program_counter.value)
 		program_counter.value += 1
+		var current_pc = program_counter.value
 		
 		var instruction: OpCode = instructionset.get(opcode, null)
 		assert(instruction, "Unknown instruction with code %d" % opcode)
 		assert(instruction.callback.is_valid(), "Invalid callable for opcode %d" % opcode)
 		instruction.callback.call()
-		program_counter.value += (instruction.size - 1)
+		if current_pc == program_counter.value:
+			# There was not a jump
+			program_counter.value += (instruction.size - 1)
 
 
 func get_operand_address(p_mode: int) -> int:
@@ -206,6 +212,17 @@ func arithmetic_shift_left(p_addressing_mode: AddressingMode):
 	memory.mem_write(addr, result)
 	update_c_flag(shifted)
 	update_z_n_flags(result)
+
+
+#BCC - BCS
+func branch_if_flag_matches(p_flag: BitFlag, p_is_set: bool):
+	var addr: int = program_counter.value
+	var jump: int = memory.mem_read(addr)
+	if jump & 0b10000000:
+		jump = -(jump | 0b01111111)
+	jump += 1
+	program_counter.value += jump
+
 
 #LDA
 func load_register8(p_register: Register8bits, p_addressing_mode: AddressingMode):
