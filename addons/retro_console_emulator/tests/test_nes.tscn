@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://ce1emjxqtsay6"]
+[gd_scene load_steps=9 format=3 uid="uid://ce1emjxqtsay6"]
 
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/test_nes.gd" id="1_88h0s"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/test_group.gd" id="2_4t8q6"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/lda.gd" id="2_u43m7"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/adc.gd" id="3_25ae1"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/and.gd" id="4_bipia"]
+[ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/asl.gd" id="5_faxfu"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/sta.gd" id="6_k5e0y"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/tax_tay.gd" id="7_f1w6n"]
 
@@ -19,6 +20,9 @@ script = ExtResource("3_25ae1")
 
 [node name="AND" type="Node" parent="CpuTests"]
 script = ExtResource("4_bipia")
+
+[node name="ASL" type="Node" parent="CpuTests"]
+script = ExtResource("5_faxfu")
 
 [node name="LDA" type="Node" parent="CpuTests"]
 script = ExtResource("2_u43m7")
