@@ -47,6 +47,12 @@ func _init() -> void:
 		OpCode.new(0x39, &"AND", 3, 4, bitwise_and_with_register.bind(register_a, AddressingMode.Absolute_Y)),
 		OpCode.new(0x21, &"AND", 2, 6, bitwise_and_with_register.bind(register_a, AddressingMode.Indirect_X)),
 		OpCode.new(0x31, &"AND", 2, 5, bitwise_and_with_register.bind(register_a, AddressingMode.Indirect_Y)),
+		# ASL
+		OpCode.new(0x0A, &"ASL", 1, 2, arithmetic_shift_left_register.bind(register_a)),
+		OpCode.new(0x06, &"ASL", 2, 5, arithmetic_shift_left.bind(AddressingMode.ZeroPage)),
+		OpCode.new(0x16, &"ASL", 2, 6, arithmetic_shift_left.bind(AddressingMode.ZeroPage_X)),
+		OpCode.new(0x0E, &"ASL", 3, 6, arithmetic_shift_left.bind(AddressingMode.Absolute)),
+		OpCode.new(0x1E, &"ASL", 3, 7, arithmetic_shift_left.bind(AddressingMode.Absolute_X)),
 		# LDA
 		OpCode.new(0xA9, &"LDA", 2, 2, load_register8.bind(register_a, AddressingMode.Immediate)),
 		OpCode.new(0xA5, &"LDA", 2, 3, load_register8.bind(register_a, AddressingMode.ZeroPage)),
@@ -181,6 +187,25 @@ func bitwise_and_with_register(p_register: Register8bits, p_addressing_mode: Add
 	p_register.value &= value
 	update_z_n_flags(p_register.value)
 
+
+#ASL
+func arithmetic_shift_left_register(p_register: Register8bits):
+	var value: int = p_register.value
+	var shifted: int = value << 1
+	var result: int = shifted & 0xFF
+	p_register.value = result
+	update_c_flag(shifted)
+	update_z_n_flags(result)
+
+
+func arithmetic_shift_left(p_addressing_mode: AddressingMode):
+	var addr: int = get_operand_address(p_addressing_mode)
+	var value: int = memory.mem_read(addr)
+	var shifted: int = value << 1
+	var result: int = shifted & 0xFF
+	memory.mem_write(addr, result)
+	update_c_flag(shifted)
+	update_z_n_flags(result)
 
 #LDA
 func load_register8(p_register: Register8bits, p_addressing_mode: AddressingMode):
