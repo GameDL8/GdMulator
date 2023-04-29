@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c261qvitmi5d7"]
+[gd_scene load_steps=12 format=3 uid="uid://c261qvitmi5d7"]
 
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/test_nes.gd" id="1_88h0s"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/test_group.gd" id="2_4t8q6"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/sta.gd" id="6_k5e0y"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/bit.gd" id="7_02ysb"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/tax_tay.gd" id="7_f1w6n"]
+[ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/bmi_bpl.gd" id="7_u8shs"]
 
 [node name="TestNes" type="Node"]
 script = ExtResource("1_88h0s")
@@ -28,6 +29,9 @@ script = ExtResource("5_faxfu")
 
 [node name="BCC_BCS_BEQ" type="Node" parent="CpuTests"]
 script = ExtResource("6_b3qn3")
+
+[node name="BMI_BPL" type="Node" parent="CpuTests"]
+script = ExtResource("7_u8shs")
 
 [node name="BIT" type="Node" parent="CpuTests"]
 script = ExtResource("7_02ysb")
