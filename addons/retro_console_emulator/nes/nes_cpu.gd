@@ -65,6 +65,9 @@ func _init() -> void:
 		# BMI - BPL
 		OpCode.new(0x30, &"BMI", 2, 2, branch_if_flag_matches.bind(flags.N, true)),
 		OpCode.new(0x10, &"BPL", 2, 2, branch_if_flag_matches.bind(flags.N, false)),
+		# BVC - BVS
+		OpCode.new(0x50, &"BVC", 2, 2, branch_if_flag_matches.bind(flags.V, false)),
+		OpCode.new(0x70, &"BVS", 2, 2, branch_if_flag_matches.bind(flags.V, true)),
 		# LDA
 		OpCode.new(0xA9, &"LDA", 2, 2, load_register8.bind(register_a, AddressingMode.Immediate)),
 		OpCode.new(0xA5, &"LDA", 2, 3, load_register8.bind(register_a, AddressingMode.ZeroPage)),
