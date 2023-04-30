@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bl33njwnxfo1w"]
+[gd_scene load_steps=16 format=3 uid="uid://bl33njwnxfo1w"]
 
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/test_nes.gd" id="1_88h0s"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/test_group.gd" id="2_4t8q6"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/beq_bnq.gd" id="8_ynwyl"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/bvc_bvs.gd" id="10_k3j84"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/set_clear_flag.gd" id="11_eg514"]
+[ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/cmp.gd" id="12_hlkv7"]
 
 [node name="TestNes" type="Node"]
 script = ExtResource("1_88h0s")
@@ -47,6 +48,9 @@ script = ExtResource("10_k3j84")
 
 [node name="SET_CLEAR_FLAG" type="Node" parent="CpuTests"]
 script = ExtResource("11_eg514")
+
+[node name="CMP" type="Node" parent="CpuTests"]
+script = ExtResource("12_hlkv7")
 
 [node name="LDA" type="Node" parent="CpuTests"]
 script = ExtResource("2_u43m7")
