@@ -87,13 +87,13 @@ func _init() -> void:
 		OpCode.new(0xC1, &"CMP", 2, 6, compare_register.bind(register_a, AddressingMode.Indirect_X)),
 		OpCode.new(0xD1, &"CMP", 2, 5, compare_register.bind(register_a, AddressingMode.Indirect_Y)),
 		# CPX
-		OpCode.new(0xE0, &"CMX", 2, 2, compare_register.bind(register_x, AddressingMode.Immediate)),
-		OpCode.new(0xE4, &"CMX", 2, 3, compare_register.bind(register_x, AddressingMode.ZeroPage)),
-		OpCode.new(0xEC, &"CMX", 3, 4, compare_register.bind(register_x, AddressingMode.Absolute)),
+		OpCode.new(0xE0, &"CPX", 2, 2, compare_register.bind(register_x, AddressingMode.Immediate)),
+		OpCode.new(0xE4, &"CPX", 2, 3, compare_register.bind(register_x, AddressingMode.ZeroPage)),
+		OpCode.new(0xEC, &"CPX", 3, 4, compare_register.bind(register_x, AddressingMode.Absolute)),
 		# CPY
-		OpCode.new(0xC0, &"CMX", 2, 2, compare_register.bind(register_y, AddressingMode.Immediate)),
-		OpCode.new(0xC4, &"CMX", 2, 3, compare_register.bind(register_y, AddressingMode.ZeroPage)),
-		OpCode.new(0xCC, &"CMX", 3, 4, compare_register.bind(register_y, AddressingMode.Absolute)),
+		OpCode.new(0xC0, &"CPY", 2, 2, compare_register.bind(register_y, AddressingMode.Immediate)),
+		OpCode.new(0xC4, &"CPY", 2, 3, compare_register.bind(register_y, AddressingMode.ZeroPage)),
+		OpCode.new(0xCC, &"CPY", 3, 4, compare_register.bind(register_y, AddressingMode.Absolute)),
 		# LDA
 		OpCode.new(0xA9, &"LDA", 2, 2, load_register8.bind(register_a, AddressingMode.Immediate)),
 		OpCode.new(0xA5, &"LDA", 2, 3, load_register8.bind(register_a, AddressingMode.ZeroPage)),
