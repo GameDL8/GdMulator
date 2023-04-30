@@ -77,6 +77,23 @@ func _init() -> void:
 		OpCode.new(0x38, &"SEC", 1, 2, set_flag.bind(flags.C, true)),
 		OpCode.new(0xF8, &"SED", 1, 2, set_flag.bind(flags.D, true)),
 		OpCode.new(0x78, &"SEI", 1, 2, set_flag.bind(flags.I, true)),
+		# CMP
+		OpCode.new(0xC9, &"CMP", 2, 2, compare_register.bind(register_a, AddressingMode.Immediate)),
+		OpCode.new(0xC5, &"CMP", 2, 3, compare_register.bind(register_a, AddressingMode.ZeroPage)),
+		OpCode.new(0xD5, &"CMP", 2, 4, compare_register.bind(register_a, AddressingMode.ZeroPage_X)),
+		OpCode.new(0xCD, &"CMP", 3, 4, compare_register.bind(register_a, AddressingMode.Absolute)),
+		OpCode.new(0xDD, &"CMP", 3, 4, compare_register.bind(register_a, AddressingMode.Absolute_X)),
+		OpCode.new(0xD9, &"CMP", 3, 4, compare_register.bind(register_a, AddressingMode.Absolute_Y)),
+		OpCode.new(0xC1, &"CMP", 2, 6, compare_register.bind(register_a, AddressingMode.Indirect_X)),
+		OpCode.new(0xD1, &"CMP", 2, 5, compare_register.bind(register_a, AddressingMode.Indirect_Y)),
+		# CPX
+		OpCode.new(0xE0, &"CMX", 2, 2, compare_register.bind(register_x, AddressingMode.Immediate)),
+		OpCode.new(0xE4, &"CMX", 2, 3, compare_register.bind(register_x, AddressingMode.ZeroPage)),
+		OpCode.new(0xEC, &"CMX", 3, 4, compare_register.bind(register_x, AddressingMode.Absolute)),
+		# CPY
+		OpCode.new(0xC0, &"CMX", 2, 2, compare_register.bind(register_y, AddressingMode.Immediate)),
+		OpCode.new(0xC4, &"CMX", 2, 3, compare_register.bind(register_y, AddressingMode.ZeroPage)),
+		OpCode.new(0xCC, &"CMX", 3, 4, compare_register.bind(register_y, AddressingMode.Absolute)),
 		# LDA
 		OpCode.new(0xA9, &"LDA", 2, 2, load_register8.bind(register_a, AddressingMode.Immediate)),
 		OpCode.new(0xA5, &"LDA", 2, 3, load_register8.bind(register_a, AddressingMode.ZeroPage)),
@@ -260,6 +277,19 @@ func bit_test_register(p_register: Register8bits, p_addressing_mode: AddressingM
 #SEC - SED - SEI - SEV
 func set_flag(p_flag: BitFlag, p_is_set: bool):
 	p_flag.value = p_is_set
+
+
+#CMP - CPX - CPY
+func compare_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
+	var addr: int = get_operand_address(p_addressing_mode)
+	var value: int = memory.mem_read(addr)
+	var result: int = p_register.value - value
+	if result < 0:
+		result = abs(result)
+		result |= 1 << 7
+	set_flag(flags.C, p_register.value >= value)
+	set_flag(flags.Z, result == 0)
+	set_flag(flags.N, p_register.value < value)
 
 
 #LDA
