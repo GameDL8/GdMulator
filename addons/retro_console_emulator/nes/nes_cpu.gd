@@ -59,6 +59,9 @@ func _init() -> void:
 		# BEQ - BNE
 		OpCode.new(0xF0, &"BEQ", 2, 2, branch_if_flag_matches.bind(flags.Z, true)),
 		OpCode.new(0xD0, &"BNE", 2, 2, branch_if_flag_matches.bind(flags.Z, false)),
+		# BIT
+		OpCode.new(0x24, &"BIT", 2, 3, bit_test_register.bind(register_a, AddressingMode.ZeroPage)),
+		OpCode.new(0x2C, &"BIT", 3, 4, bit_test_register.bind(register_a, AddressingMode.Absolute)),
 		# LDA
 		OpCode.new(0xA9, &"LDA", 2, 2, load_register8.bind(register_a, AddressingMode.Immediate)),
 		OpCode.new(0xA5, &"LDA", 2, 3, load_register8.bind(register_a, AddressingMode.ZeroPage)),
@@ -226,6 +229,16 @@ func branch_if_flag_matches(p_flag: BitFlag, p_is_set: bool):
 			jump = -(jump | 0b01111111)
 		jump += 1
 		program_counter.value += jump
+
+
+#BIT
+func bit_test_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
+	var addr: int = get_operand_address(p_addressing_mode)
+	var value: int = memory.mem_read(addr)
+	var result: int = value & p_register.value
+	flags.Z.value = (result == 0)
+	flags.N.value = value & (1 << 7)
+	flags.V.value = value & (1 << 6)
 
 
 #LDA
