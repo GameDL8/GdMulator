@@ -68,6 +68,15 @@ func _init() -> void:
 		# BVC - BVS
 		OpCode.new(0x50, &"BVC", 2, 2, branch_if_flag_matches.bind(flags.V, false)),
 		OpCode.new(0x70, &"BVS", 2, 2, branch_if_flag_matches.bind(flags.V, true)),
+		# CLC - CLD - CLI - CLV
+		OpCode.new(0x18, &"CLC", 1, 2, set_flag.bind(flags.C, false)),
+		OpCode.new(0xD8, &"CLD", 1, 2, set_flag.bind(flags.D, false)),
+		OpCode.new(0x58, &"CLI", 1, 2, set_flag.bind(flags.I, false)),
+		OpCode.new(0xB8, &"CLV", 1, 2, set_flag.bind(flags.V, false)),
+		# SEC - SED - SEI
+		OpCode.new(0x38, &"SEC", 1, 2, set_flag.bind(flags.C, true)),
+		OpCode.new(0xF8, &"SED", 1, 2, set_flag.bind(flags.D, true)),
+		OpCode.new(0x78, &"SEI", 1, 2, set_flag.bind(flags.I, true)),
 		# LDA
 		OpCode.new(0xA9, &"LDA", 2, 2, load_register8.bind(register_a, AddressingMode.Immediate)),
 		OpCode.new(0xA5, &"LDA", 2, 3, load_register8.bind(register_a, AddressingMode.ZeroPage)),
@@ -245,6 +254,12 @@ func bit_test_register(p_register: Register8bits, p_addressing_mode: AddressingM
 	flags.Z.value = (result == 0)
 	flags.N.value = value & (1 << 7)
 	flags.V.value = value & (1 << 6)
+
+
+#CLC - CLD - CLI - CLV
+#SEC - SED - SEI - SEV
+func set_flag(p_flag: BitFlag, p_is_set: bool):
+	p_flag.value = p_is_set
 
 
 #LDA
