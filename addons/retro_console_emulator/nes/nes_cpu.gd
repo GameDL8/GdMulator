@@ -56,6 +56,9 @@ func _init() -> void:
 		# BCC - BCS
 		OpCode.new(0x90, &"BCC", 2, 2, branch_if_flag_matches.bind(flags.C, false)),
 		OpCode.new(0xB0, &"BCS", 2, 2, branch_if_flag_matches.bind(flags.C, true)),
+		# BEQ - BNE
+		OpCode.new(0xF0, &"BEQ", 2, 2, branch_if_flag_matches.bind(flags.Z, true)),
+		OpCode.new(0xD0, &"BNE", 2, 2, branch_if_flag_matches.bind(flags.Z, false)),
 		# LDA
 		OpCode.new(0xA9, &"LDA", 2, 2, load_register8.bind(register_a, AddressingMode.Immediate)),
 		OpCode.new(0xA5, &"LDA", 2, 3, load_register8.bind(register_a, AddressingMode.ZeroPage)),
@@ -216,12 +219,13 @@ func arithmetic_shift_left(p_addressing_mode: AddressingMode):
 
 #BCC - BCS
 func branch_if_flag_matches(p_flag: BitFlag, p_is_set: bool):
-	var addr: int = program_counter.value
-	var jump: int = memory.mem_read(addr)
-	if jump & 0b10000000:
-		jump = -(jump | 0b01111111)
-	jump += 1
-	program_counter.value += jump
+	if p_flag.value == p_is_set:
+		var addr: int = program_counter.value
+		var jump: int = memory.mem_read(addr)
+		if jump & 0b10000000:
+			jump = -(jump | 0b01111111)
+		jump += 1
+		program_counter.value += jump
 
 
 #LDA
