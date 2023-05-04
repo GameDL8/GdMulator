@@ -123,6 +123,16 @@ func _init() -> void:
 		OpCode.new(0xAA, &"TAX", 1, 2, transfer_register_from_to.bind(register_a, register_x)),
 		# TAY
 		OpCode.new(0xA8, &"TAY", 1, 2, transfer_register_from_to.bind(register_a, register_y)),
+		# INC
+		OpCode.new(0xe6, &"INC", 2, 5, increment_memory.bind(1, AddressingMode.ZeroPage)),
+		OpCode.new(0xf6, &"INC", 2, 6, increment_memory.bind(1, AddressingMode.ZeroPage_X)),
+		OpCode.new(0xee, &"INC", 3, 6, increment_memory.bind(1, AddressingMode.Absolute)),
+		OpCode.new(0xfe, &"INC", 3, 7, increment_memory.bind(1, AddressingMode.Absolute_X)),
+		# DEC
+		OpCode.new(0xc6, &"DEC", 2, 5, increment_memory.bind(-1, AddressingMode.ZeroPage)),
+		OpCode.new(0xd6, &"DEC", 2, 6, increment_memory.bind(-1, AddressingMode.ZeroPage_X)),
+		OpCode.new(0xce, &"DEC", 3, 6, increment_memory.bind(-1, AddressingMode.Absolute)),
+		OpCode.new(0xde, &"DEC", 3, 7, increment_memory.bind(-1, AddressingMode.Absolute_X)),
 		# INX
 		OpCode.new(0xE8, &"INX", 1, 2, increment_register.bind(register_x)),
 		# INY
@@ -313,6 +323,19 @@ func transfer_register_from_to(p_from: Register8bits, p_to: Register8bits):
 
 
 #INC
+func increment_memory(p_by_amount: int, p_addressing_mode: AddressingMode):
+	var addr = self.get_operand_address(p_addressing_mode)
+#	var addr: int = memory.mem_read(addr_addr)
+	var value: int = memory.mem_read(addr)
+	var result: int = value + p_by_amount
+	if result > 0xFF:
+		result -= 0x0100
+	elif result < 0x00:
+		result += 0x0100
+	memory.mem_write(addr, result)
+	update_z_n_flags(result)
+
+#INX - INY
 func increment_register(p_register: Register8bits):
 	var val: int = p_register.value + 1
 	p_register.value = val & 0b11111111
