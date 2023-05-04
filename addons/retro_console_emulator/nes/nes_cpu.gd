@@ -134,9 +134,13 @@ func _init() -> void:
 		OpCode.new(0xce, &"DEC", 3, 6, increment_memory.bind(-1, AddressingMode.Absolute)),
 		OpCode.new(0xde, &"DEC", 3, 7, increment_memory.bind(-1, AddressingMode.Absolute_X)),
 		# INX
-		OpCode.new(0xE8, &"INX", 1, 2, increment_register.bind(register_x)),
+		OpCode.new(0xE8, &"INX", 1, 2, increment_register.bind(1, register_x)),
 		# INY
-		OpCode.new(0xC8, &"INY", 1, 2, increment_register.bind(register_y)),
+		OpCode.new(0xC8, &"INY", 1, 2, increment_register.bind(1, register_y)),
+		# DEX
+		OpCode.new(0xCA, &"DEX", 1, 2, increment_register.bind(-1, register_x)),
+		# DEY
+		OpCode.new(0x88, &"DEY", 1, 2, increment_register.bind(-1, register_y)),
 	]
 	
 	for instruction in instructions:
@@ -335,10 +339,14 @@ func increment_memory(p_by_amount: int, p_addressing_mode: AddressingMode):
 	memory.mem_write(addr, result)
 	update_z_n_flags(result)
 
-#INX - INY
-func increment_register(p_register: Register8bits):
-	var val: int = p_register.value + 1
-	p_register.value = val & 0b11111111
+#INX - INY - DEX - DEY
+func increment_register(p_by_amount: int, p_register: Register8bits):
+	var val: int = p_register.value + p_by_amount
+	if val > 0xFF:
+		val -= 0x0100
+	elif val < 0x00:
+		val += 0x0100
+	p_register.value = val
 	update_z_n_flags(p_register.value)
 
 
