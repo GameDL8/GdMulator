@@ -15,7 +15,7 @@ func test_0x4c_jmp_absolute_jump():
 		0x00
 	])
 	assert(cpu.register_a.value == 0x05)
-	print("test_0x4c_jmp_absolute_jump passed!")
+	print("test_0x4c_jmp_absolute_jump PASSED!")
 
 func test_0x6c_jmp_indirect_jump():
 	var cpu = NesCPU.new()
@@ -37,4 +37,4 @@ func test_0x6c_jmp_indirect_jump():
 		0x00
 	])
 	assert(cpu.register_a.value == 0x05)
-	print("test_0x6c_jmp_indirect_jump passed!")
+	print("test_0x6c_jmp_indirect_jump PASSED!")

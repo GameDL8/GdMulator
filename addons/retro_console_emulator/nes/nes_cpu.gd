@@ -16,10 +16,16 @@ enum AddressingMode {
 	NoneAddressing
 }
 
+
+const STACK: int       = 0x0100;
+const STACK_RESET: int = 0xfd
+
+
 var register_a := Register8bits.new()
 var register_x := Register8bits.new()
 var register_y := Register8bits.new()
 var flags := NesRegisterFlags.new()
+var stack_pointer: int = STACK_RESET
 
 func _init() -> void:
 	registers[&"A"] = register_a
@@ -141,7 +147,8 @@ func _init() -> void:
 		# JMP
 		OpCode.new(0x4C, &"JMP", 3, 3, jump.bind(AddressingMode.Absolute)),
 		OpCode.new(0x6C, &"JMP", 3, 5, jump.bind(AddressingMode.Indirect)),
-		
+		# JSR
+		OpCode.new(0x20, &"JSR", 3, 6, jump_to_subrountine.bind(AddressingMode.Absolute)),
 		# DEX
 		OpCode.new(0xCA, &"DEX", 1, 2, increment_register.bind(-1, register_x)),
 		# DEY
@@ -167,6 +174,7 @@ func reset():
 	register_x.value = 0
 	register_y.value = 0
 	flags.value = 0
+	stack_pointer = STACK_RESET
 	program_counter.value = memory.mem_read_16(0xFFFC)
 
 func load(p_program: PackedByteArray):
@@ -385,6 +393,15 @@ func jump(p_addressing_mode: AddressingMode):
 		_:
 			assert(false, "Invalid addressing mode %d for Jump instruction" % p_addressing_mode)
 
+
+#JSR
+func jump_to_subrountine(p_addressing_mode: AddressingMode):
+	assert(p_addressing_mode == AddressingMode.Absolute, "Invalid adressing mode %d for jump to subrutine instruction" % p_addressing_mode)
+	stack_push_16(program_counter.value + 2 - 1)
+	var addr: int = memory.mem_read_16(program_counter.value)
+	program_counter.value = addr
+
+
 #EOR
 func exclusive_or_with_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
 	var addr = self.get_operand_address(p_addressing_mode)
@@ -410,6 +427,47 @@ func update_v_flag(p_a: int, p_b: int, p_result: int):
 func update_z_n_flags(p_value: int):
 	flags.Z.value = (p_value == 0)
 	flags.N.value = (p_value & 0b10000000)
+
+
+
+func stack_push_8(p_8bit_address: int):
+	memory.mem_write(_get_stack_address(), p_8bit_address)
+	_on_stack_push()
+
+
+func stack_pop_8() -> int:
+	_on_stack_pop()
+	var value: int = memory.mem_read(_get_stack_address())
+	return value
+
+
+func stack_push_16(p_16bit_address: int):
+	var hi: int = p_16bit_address >> 8
+	var lo: int = p_16bit_address & 0xFF
+	stack_push_8(hi)
+	stack_push_8(lo)
+
+
+func stack_pop_16() -> int:
+	var lo: int = stack_pop_8()
+	var hi: int = stack_pop_8()
+	return (hi << 8) | lo
+
+
+func _get_stack_address() -> int:
+	return STACK + stack_pointer
+
+
+func _on_stack_push():
+	stack_pointer -= 1
+	if stack_pointer < 0:
+		stack_pointer += 0x0100
+
+
+func _on_stack_pop():
+	stack_pointer += 1
+	if stack_pointer > 0xFF:
+		stack_pointer -= 0x0100
 
 
 class NesRegisterFlags extends CPU.RegisterFlags:
