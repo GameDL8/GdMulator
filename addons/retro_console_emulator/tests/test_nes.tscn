@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bl33njwnxfo1w"]
+[gd_scene load_steps=23 format=3 uid="uid://bl33njwnxfo1w"]
 
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/test_nes.gd" id="1_88h0s"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/test_group.gd" id="2_4t8q6"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/dec.gd" id="15_ryvf2"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/inc.gd" id="15_vfngk"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/dex_dey.gd" id="16_vejxy"]
+[ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/eor.gd" id="17_hliix"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/inx_iny.gd" id="18_n3cx6"]
 
 [node name="TestNes" type="Node"]
@@ -69,6 +70,9 @@ script = ExtResource("15_ryvf2")
 
 [node name="DEX_DEY" type="Node" parent="CpuTests"]
 script = ExtResource("16_vejxy")
+
+[node name="EOR" type="Node" parent="CpuTests"]
+script = ExtResource("17_hliix")
 
 [node name="INC" type="Node" parent="CpuTests"]
 script = ExtResource("15_vfngk")

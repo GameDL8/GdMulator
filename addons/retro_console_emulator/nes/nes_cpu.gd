@@ -141,6 +141,16 @@ func _init() -> void:
 		OpCode.new(0xCA, &"DEX", 1, 2, increment_register.bind(-1, register_x)),
 		# DEY
 		OpCode.new(0x88, &"DEY", 1, 2, increment_register.bind(-1, register_y)),
+		# EOR
+		OpCode.new(0x49, &"EOR", 2, 2, exclusive_or_with_register.bind(register_a, AddressingMode.Immediate)),
+		OpCode.new(0x45, &"EOR", 2, 3, exclusive_or_with_register.bind(register_a, AddressingMode.ZeroPage)),
+		OpCode.new(0x55, &"EOR", 2, 4, exclusive_or_with_register.bind(register_a, AddressingMode.ZeroPage_X)),
+		OpCode.new(0x4D, &"EOR", 3, 4, exclusive_or_with_register.bind(register_a, AddressingMode.Absolute)),
+		OpCode.new(0x5D, &"EOR", 3, 4, exclusive_or_with_register.bind(register_a, AddressingMode.Absolute_X)),
+		OpCode.new(0x59, &"EOR", 3, 4, exclusive_or_with_register.bind(register_a, AddressingMode.Absolute_Y)),
+		OpCode.new(0x41, &"EOR", 2, 6, exclusive_or_with_register.bind(register_a, AddressingMode.Indirect_X)),
+		OpCode.new(0x51, &"EOR", 2, 5, exclusive_or_with_register.bind(register_a, AddressingMode.Indirect_Y)),
+		
 	]
 	
 	for instruction in instructions:
@@ -329,7 +339,6 @@ func transfer_register_from_to(p_from: Register8bits, p_to: Register8bits):
 #INC
 func increment_memory(p_by_amount: int, p_addressing_mode: AddressingMode):
 	var addr = self.get_operand_address(p_addressing_mode)
-#	var addr: int = memory.mem_read(addr_addr)
 	var value: int = memory.mem_read(addr)
 	var result: int = value + p_by_amount
 	if result > 0xFF:
@@ -348,6 +357,15 @@ func increment_register(p_by_amount: int, p_register: Register8bits):
 		val += 0x0100
 	p_register.value = val
 	update_z_n_flags(p_register.value)
+
+
+#EOR
+func exclusive_or_with_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
+	var addr = self.get_operand_address(p_addressing_mode)
+	var value: int = memory.mem_read(addr)
+	var result: int = value ^ p_register.value
+	p_register.value = result
+	update_z_n_flags(result)
 
 
 func update_c_flag(p_value: int):
