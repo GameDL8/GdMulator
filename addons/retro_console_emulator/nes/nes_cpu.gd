@@ -10,6 +10,7 @@ enum AddressingMode {
 	Absolute,
 	Absolute_X,
 	Absolute_Y,
+	Indirect,
 	Indirect_X,
 	Indirect_Y,
 	NoneAddressing
@@ -137,6 +138,10 @@ func _init() -> void:
 		OpCode.new(0xE8, &"INX", 1, 2, increment_register.bind(1, register_x)),
 		# INY
 		OpCode.new(0xC8, &"INY", 1, 2, increment_register.bind(1, register_y)),
+		# JMP
+		OpCode.new(0x4C, &"JMP", 3, 3, jump.bind(AddressingMode.Absolute)),
+		OpCode.new(0x6C, &"JMP", 3, 5, jump.bind(AddressingMode.Indirect)),
+		
 		# DEX
 		OpCode.new(0xCA, &"DEX", 1, 2, increment_register.bind(-1, register_x)),
 		# DEY
@@ -358,6 +363,27 @@ func increment_register(p_by_amount: int, p_register: Register8bits):
 	p_register.value = val
 	update_z_n_flags(p_register.value)
 
+
+#JMP
+func jump(p_addressing_mode: AddressingMode):
+	match p_addressing_mode:
+		AddressingMode.Absolute:
+			var addr: int = memory.mem_read_16(program_counter.value)
+			program_counter.value = addr
+		AddressingMode.Indirect:
+			var addr_addr: int = memory.mem_read_16(program_counter.value)
+			var addr: int = memory.mem_read_16(addr_addr)
+			# 6502 bug mode with with page boundary:
+			# if address $3000 contains $40, $30FF contains $80, and $3100 contains $50,
+			# the result of JMP ($30FF) will be a transfer of control to $4080 rather than $5080 as you intended
+			# i.e. the 6502 took the low byte of the address from $30FF and the high byte from $3000
+			if addr_addr & 0x00FF == 0x00FF:
+				var lo: int = memory.mem_read(addr_addr)
+				var hi: int = memory.mem_read(addr_addr & 0xFF00)
+				addr = hi << 8 | lo
+			program_counter.value = addr
+		_:
+			assert(false, "Invalid addressing mode %d for Jump instruction" % p_addressing_mode)
 
 #EOR
 func exclusive_or_with_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
