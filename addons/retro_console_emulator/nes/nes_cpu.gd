@@ -110,6 +110,18 @@ func _init() -> void:
 		OpCode.new(0xB9, &"LDA", 3, 4, load_register8.bind(register_a, AddressingMode.Absolute_Y)),
 		OpCode.new(0xA1, &"LDA", 2, 6, load_register8.bind(register_a, AddressingMode.Indirect_X)),
 		OpCode.new(0xB1, &"LDA", 2, 5, load_register8.bind(register_a, AddressingMode.Indirect_Y)),
+		#LDX
+		OpCode.new(0xA2, &"LDX", 2, 2, load_register8.bind(register_x, AddressingMode.Immediate)),
+		OpCode.new(0xA6, &"LDX", 2, 3, load_register8.bind(register_x, AddressingMode.ZeroPage)),
+		OpCode.new(0xB6, &"LDX", 2, 4, load_register8.bind(register_x, AddressingMode.ZeroPage_Y)),
+		OpCode.new(0xAE, &"LDX", 3, 4, load_register8.bind(register_x, AddressingMode.Absolute)),
+		OpCode.new(0xBE, &"LDX", 3, 4, load_register8.bind(register_x, AddressingMode.Absolute_Y)),
+		#LDY
+		OpCode.new(0xA0, &"LDY", 2, 2, load_register8.bind(register_y, AddressingMode.Immediate)),
+		OpCode.new(0xA4, &"LDY", 2, 3, load_register8.bind(register_y, AddressingMode.ZeroPage)),
+		OpCode.new(0xB4, &"LDY", 2, 4, load_register8.bind(register_y, AddressingMode.ZeroPage_X)),
+		OpCode.new(0xAC, &"LDY", 3, 4, load_register8.bind(register_y, AddressingMode.Absolute)),
+		OpCode.new(0xBC, &"LDY", 3, 4, load_register8.bind(register_y, AddressingMode.Absolute_X)),
 		# STA
 		OpCode.new(0x85, &"STA", 2, 3, store_from_register.bind(register_a, AddressingMode.ZeroPage)),
 		OpCode.new(0x8D, &"STA", 3, 4, store_from_register.bind(register_a, AddressingMode.Absolute)),
