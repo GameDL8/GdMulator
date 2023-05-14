@@ -128,6 +128,8 @@ func _init() -> void:
 		OpCode.new(0x56, &"LSR", 5, 6, logical_shift_right_memory.bind(AddressingMode.ZeroPage_X)),
 		OpCode.new(0x4E, &"LSR", 3, 6, logical_shift_right_memory.bind(AddressingMode.Absolute)),
 		OpCode.new(0x5E, &"LSR", 3, 7, logical_shift_right_memory.bind(AddressingMode.Absolute_X)),
+		# NOP
+		OpCode.new(0xEA, &"NOP", 1, 2, no_operation),
 		# STA
 		OpCode.new(0x85, &"STA", 2, 3, store_from_register.bind(register_a, AddressingMode.ZeroPage)),
 		OpCode.new(0x8D, &"STA", 3, 4, store_from_register.bind(register_a, AddressingMode.Absolute)),
@@ -323,6 +325,10 @@ func logical_shift_right_memory(p_addressing_mode: AddressingMode):
 	memory.mem_write(addr, shifted)
 	update_z_n_flags(shifted)
 
+
+#NOP
+func no_operation():
+	pass
 
 #BCC - BCS
 func branch_if_flag_matches(p_flag: BitFlag, p_is_set: bool):
