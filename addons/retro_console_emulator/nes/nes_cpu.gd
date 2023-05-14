@@ -139,6 +139,14 @@ func _init() -> void:
 		OpCode.new(0x19, &"ORA", 3, 4, inclusive_or_with_register.bind(register_a, AddressingMode.Absolute_Y)),
 		OpCode.new(0x01, &"ORA", 2, 6, inclusive_or_with_register.bind(register_a, AddressingMode.Indirect_X)),
 		OpCode.new(0x11, &"ORA", 2, 5, inclusive_or_with_register.bind(register_a, AddressingMode.Indirect_Y)),
+		# PHA
+		OpCode.new(0x48, &"PHA", 1, 3, push_register_to_stack.bind(register_a)),
+		# PHP
+		OpCode.new(0x08, &"PHP", 1, 3, push_register_to_stack.bind(flags)),
+		# PLA
+		OpCode.new(0x68, &"PLA", 1, 4, pull_register_from_stack.bind(register_a)),
+		# PLP
+		OpCode.new(0x28, &"PLP", 1, 4, pull_register_from_stack.bind(flags)),
 		# STA
 		OpCode.new(0x85, &"STA", 2, 3, store_from_register.bind(register_a, AddressingMode.ZeroPage)),
 		OpCode.new(0x8D, &"STA", 3, 4, store_from_register.bind(register_a, AddressingMode.Absolute)),
@@ -347,6 +355,20 @@ func inclusive_or_with_register(p_register: Register8bits, p_addressing_mode: Ad
 	var or_result: int = p_register.value | value
 	p_register.value = or_result
 	update_z_n_flags(or_result)
+
+
+#PHA - PHP
+# p_register can be Register8bits or NesRegisterFlags
+func push_register_to_stack(p_register: Variant):
+	stack_push_8(p_register.value)
+
+
+#PLA - PLP
+# p_register can be Register8bits or NesRegisterFlags
+func pull_register_from_stack(p_register: Variant):
+	p_register.value = stack_pop_8()
+	if p_register != flags:
+		update_z_n_flags(p_register.value)
 
 
 #BCC - BCS

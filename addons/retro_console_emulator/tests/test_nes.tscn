@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bl33njwnxfo1w"]
+[gd_scene load_steps=34 format=3 uid="uid://bl33njwnxfo1w"]
 
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/test_nes.gd" id="1_88h0s"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/test_group.gd" id="2_4t8q6"]
@@ -29,6 +29,10 @@
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/lsr.gd" id="25_7qmvs"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/nop.gd" id="26_42ohk"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/ora.gd" id="27_sbwni"]
+[ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/pha.gd" id="28_gjy2g"]
+[ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/php.gd" id="29_n3cak"]
+[ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/pla.gd" id="30_8qf5x"]
+[ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/plp.gd" id="31_k6fhs"]
 
 [node name="TestNes" type="Node"]
 script = ExtResource("1_88h0s")
@@ -110,6 +114,18 @@ script = ExtResource("26_42ohk")
 
 [node name="ORA" type="Node" parent="CpuTests"]
 script = ExtResource("27_sbwni")
+
+[node name="PHA" type="Node" parent="CpuTests"]
+script = ExtResource("28_gjy2g")
+
+[node name="PHP" type="Node" parent="CpuTests"]
+script = ExtResource("29_n3cak")
+
+[node name="PLA" type="Node" parent="CpuTests"]
+script = ExtResource("30_8qf5x")
+
+[node name="PLP" type="Node" parent="CpuTests"]
+script = ExtResource("31_k6fhs")
 
 [node name="STA" type="Node" parent="CpuTests"]
 script = ExtResource("6_k5e0y")
