@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bl33njwnxfo1w"]
+[gd_scene load_steps=30 format=3 uid="uid://bl33njwnxfo1w"]
 
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/test_nes.gd" id="1_88h0s"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/test_group.gd" id="2_4t8q6"]
@@ -28,6 +28,7 @@
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/ldy.gd" id="24_dkhe5"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/lsr.gd" id="25_7qmvs"]
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/nop.gd" id="26_42ohk"]
+[ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_tests/ora.gd" id="27_sbwni"]
 
 [node name="TestNes" type="Node"]
 script = ExtResource("1_88h0s")
@@ -106,6 +107,9 @@ script = ExtResource("25_7qmvs")
 
 [node name="NOP" type="Node" parent="CpuTests"]
 script = ExtResource("26_42ohk")
+
+[node name="ORA" type="Node" parent="CpuTests"]
+script = ExtResource("27_sbwni")
 
 [node name="STA" type="Node" parent="CpuTests"]
 script = ExtResource("6_k5e0y")

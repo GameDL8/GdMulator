@@ -130,6 +130,15 @@ func _init() -> void:
 		OpCode.new(0x5E, &"LSR", 3, 7, logical_shift_right_memory.bind(AddressingMode.Absolute_X)),
 		# NOP
 		OpCode.new(0xEA, &"NOP", 1, 2, no_operation),
+		# ORA
+		OpCode.new(0x09, &"ORA", 2, 2, inclusive_or_with_register.bind(register_a, AddressingMode.Immediate)),
+		OpCode.new(0x05, &"ORA", 2, 3, inclusive_or_with_register.bind(register_a, AddressingMode.ZeroPage)),
+		OpCode.new(0x15, &"ORA", 2, 4, inclusive_or_with_register.bind(register_a, AddressingMode.ZeroPage_X)),
+		OpCode.new(0x0D, &"ORA", 3, 4, inclusive_or_with_register.bind(register_a, AddressingMode.Absolute)),
+		OpCode.new(0x1D, &"ORA", 3, 4, inclusive_or_with_register.bind(register_a, AddressingMode.Absolute_X)),
+		OpCode.new(0x19, &"ORA", 3, 4, inclusive_or_with_register.bind(register_a, AddressingMode.Absolute_Y)),
+		OpCode.new(0x01, &"ORA", 2, 6, inclusive_or_with_register.bind(register_a, AddressingMode.Indirect_X)),
+		OpCode.new(0x11, &"ORA", 2, 5, inclusive_or_with_register.bind(register_a, AddressingMode.Indirect_Y)),
 		# STA
 		OpCode.new(0x85, &"STA", 2, 3, store_from_register.bind(register_a, AddressingMode.ZeroPage)),
 		OpCode.new(0x8D, &"STA", 3, 4, store_from_register.bind(register_a, AddressingMode.Absolute)),
@@ -329,6 +338,16 @@ func logical_shift_right_memory(p_addressing_mode: AddressingMode):
 #NOP
 func no_operation():
 	pass
+
+
+#ORA
+func inclusive_or_with_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
+	var addr: int = get_operand_address(p_addressing_mode)
+	var value: int = memory.mem_read(addr)
+	var or_result: int = p_register.value | value
+	p_register.value = or_result
+	update_z_n_flags(or_result)
+
 
 #BCC - BCS
 func branch_if_flag_matches(p_flag: BitFlag, p_is_set: bool):
