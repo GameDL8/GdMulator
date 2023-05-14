@@ -56,10 +56,10 @@ func _init() -> void:
 		OpCode.new(0x31, &"AND", 2, 5, bitwise_and_with_register.bind(register_a, AddressingMode.Indirect_Y)),
 		# ASL
 		OpCode.new(0x0A, &"ASL", 1, 2, arithmetic_shift_left_register.bind(register_a)),
-		OpCode.new(0x06, &"ASL", 2, 5, arithmetic_shift_left.bind(AddressingMode.ZeroPage)),
-		OpCode.new(0x16, &"ASL", 2, 6, arithmetic_shift_left.bind(AddressingMode.ZeroPage_X)),
-		OpCode.new(0x0E, &"ASL", 3, 6, arithmetic_shift_left.bind(AddressingMode.Absolute)),
-		OpCode.new(0x1E, &"ASL", 3, 7, arithmetic_shift_left.bind(AddressingMode.Absolute_X)),
+		OpCode.new(0x06, &"ASL", 2, 5, arithmetic_shift_left_memory.bind(AddressingMode.ZeroPage)),
+		OpCode.new(0x16, &"ASL", 2, 6, arithmetic_shift_left_memory.bind(AddressingMode.ZeroPage_X)),
+		OpCode.new(0x0E, &"ASL", 3, 6, arithmetic_shift_left_memory.bind(AddressingMode.Absolute)),
+		OpCode.new(0x1E, &"ASL", 3, 7, arithmetic_shift_left_memory.bind(AddressingMode.Absolute_X)),
 		# BCC - BCS
 		OpCode.new(0x90, &"BCC", 2, 2, branch_if_flag_matches.bind(flags.C, false)),
 		OpCode.new(0xB0, &"BCS", 2, 2, branch_if_flag_matches.bind(flags.C, true)),
@@ -110,18 +110,24 @@ func _init() -> void:
 		OpCode.new(0xB9, &"LDA", 3, 4, load_register8.bind(register_a, AddressingMode.Absolute_Y)),
 		OpCode.new(0xA1, &"LDA", 2, 6, load_register8.bind(register_a, AddressingMode.Indirect_X)),
 		OpCode.new(0xB1, &"LDA", 2, 5, load_register8.bind(register_a, AddressingMode.Indirect_Y)),
-		#LDX
+		# LDX
 		OpCode.new(0xA2, &"LDX", 2, 2, load_register8.bind(register_x, AddressingMode.Immediate)),
 		OpCode.new(0xA6, &"LDX", 2, 3, load_register8.bind(register_x, AddressingMode.ZeroPage)),
 		OpCode.new(0xB6, &"LDX", 2, 4, load_register8.bind(register_x, AddressingMode.ZeroPage_Y)),
 		OpCode.new(0xAE, &"LDX", 3, 4, load_register8.bind(register_x, AddressingMode.Absolute)),
 		OpCode.new(0xBE, &"LDX", 3, 4, load_register8.bind(register_x, AddressingMode.Absolute_Y)),
-		#LDY
+		# LDY
 		OpCode.new(0xA0, &"LDY", 2, 2, load_register8.bind(register_y, AddressingMode.Immediate)),
 		OpCode.new(0xA4, &"LDY", 2, 3, load_register8.bind(register_y, AddressingMode.ZeroPage)),
 		OpCode.new(0xB4, &"LDY", 2, 4, load_register8.bind(register_y, AddressingMode.ZeroPage_X)),
 		OpCode.new(0xAC, &"LDY", 3, 4, load_register8.bind(register_y, AddressingMode.Absolute)),
 		OpCode.new(0xBC, &"LDY", 3, 4, load_register8.bind(register_y, AddressingMode.Absolute_X)),
+		# LSR
+		OpCode.new(0x4A, &"LSR", 1, 2, logical_shift_right_register.bind(register_a)),
+		OpCode.new(0x46, &"LSR", 2, 5, logical_shift_right_memory.bind(AddressingMode.ZeroPage)),
+		OpCode.new(0x56, &"LSR", 5, 6, logical_shift_right_memory.bind(AddressingMode.ZeroPage_X)),
+		OpCode.new(0x4E, &"LSR", 3, 6, logical_shift_right_memory.bind(AddressingMode.Absolute)),
+		OpCode.new(0x5E, &"LSR", 3, 7, logical_shift_right_memory.bind(AddressingMode.Absolute_X)),
 		# STA
 		OpCode.new(0x85, &"STA", 2, 3, store_from_register.bind(register_a, AddressingMode.ZeroPage)),
 		OpCode.new(0x8D, &"STA", 3, 4, store_from_register.bind(register_a, AddressingMode.Absolute)),
@@ -291,7 +297,7 @@ func arithmetic_shift_left_register(p_register: Register8bits):
 	update_z_n_flags(result)
 
 
-func arithmetic_shift_left(p_addressing_mode: AddressingMode):
+func arithmetic_shift_left_memory(p_addressing_mode: AddressingMode):
 	var addr: int = get_operand_address(p_addressing_mode)
 	var value: int = memory.mem_read(addr)
 	var shifted: int = value << 1
@@ -299,6 +305,23 @@ func arithmetic_shift_left(p_addressing_mode: AddressingMode):
 	memory.mem_write(addr, result)
 	update_c_flag(shifted)
 	update_z_n_flags(result)
+
+#LSR
+func logical_shift_right_register(p_register: Register8bits):
+	var value: int = p_register.value
+	flags.C.value = value & 0x01
+	var shifted: int = value >> 1
+	p_register.value = shifted
+	update_z_n_flags(shifted)
+
+
+func logical_shift_right_memory(p_addressing_mode: AddressingMode):
+	var addr: int = get_operand_address(p_addressing_mode)
+	var value: int = memory.mem_read(addr)
+	flags.C.value = value & 0x01
+	var shifted: int = value >> 1
+	memory.mem_write(addr, shifted)
+	update_z_n_flags(shifted)
 
 
 #BCC - BCS
