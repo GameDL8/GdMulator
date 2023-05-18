@@ -153,6 +153,12 @@ func _init() -> void:
 		OpCode.new(0x36, &"ROL", 2, 6, rotate_left_memory.bind(AddressingMode.ZeroPage_X)),
 		OpCode.new(0x2E, &"ROL", 3, 6, rotate_left_memory.bind(AddressingMode.Absolute)),
 		OpCode.new(0x3E, &"ROL", 3, 7, rotate_left_memory.bind(AddressingMode.Absolute_X)),
+		# ROL
+		OpCode.new(0x6A, &"ROR", 1, 2, rotate_right_register.bind(register_a)),
+		OpCode.new(0x66, &"ROR", 2, 5, rotate_right_memory.bind(AddressingMode.ZeroPage)),
+		OpCode.new(0x76, &"ROR", 2, 6, rotate_right_memory.bind(AddressingMode.ZeroPage_X)),
+		OpCode.new(0x6E, &"ROR", 3, 6, rotate_right_memory.bind(AddressingMode.Absolute)),
+		OpCode.new(0x7E, &"ROR", 3, 7, rotate_right_memory.bind(AddressingMode.Absolute_X)),
 		# STA
 		OpCode.new(0x85, &"STA", 2, 3, store_from_register.bind(register_a, AddressingMode.ZeroPage)),
 		OpCode.new(0x8D, &"STA", 3, 4, store_from_register.bind(register_a, AddressingMode.Absolute)),
@@ -393,6 +399,26 @@ func rotate_left_memory(p_addressing_mode: AddressingMode):
 	value |= 0x01 if flags.C.value else 0x00
 	flags.C.value = 0b100000000
 	value &= 0xFF
+	memory.mem_write(addr, value)
+	update_z_n_flags(value)
+
+
+#ROR
+func rotate_right_register(p_register: Register8bits):
+	var value: int = p_register.value
+	value |= 0b100000000 if flags.C.value else 0x00
+	flags.C.value = true if value & 0x01 else false
+	value = value >> 1
+	p_register.value = value
+	update_z_n_flags(value)
+
+
+func rotate_right_memory(p_addressing_mode: AddressingMode):
+	var addr: int = get_operand_address(p_addressing_mode)
+	var value: int = memory.mem_read(addr)
+	value |= 0b100000000 if flags.C.value else 0x00
+	flags.C.value = true if value & 0x01 else false
+	value = value >> 1
 	memory.mem_write(addr, value)
 	update_z_n_flags(value)
 
