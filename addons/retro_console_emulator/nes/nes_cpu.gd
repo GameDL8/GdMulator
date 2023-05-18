@@ -147,6 +147,12 @@ func _init() -> void:
 		OpCode.new(0x68, &"PLA", 1, 4, pull_register_from_stack.bind(register_a)),
 		# PLP
 		OpCode.new(0x28, &"PLP", 1, 4, pull_register_from_stack.bind(flags)),
+		# ROL
+		OpCode.new(0x2A, &"ROL", 1, 2, rotate_left_register.bind(register_a)),
+		OpCode.new(0x26, &"ROL", 2, 5, rotate_left_memory.bind(AddressingMode.ZeroPage)),
+		OpCode.new(0x36, &"ROL", 2, 6, rotate_left_memory.bind(AddressingMode.ZeroPage_X)),
+		OpCode.new(0x2E, &"ROL", 3, 6, rotate_left_memory.bind(AddressingMode.Absolute)),
+		OpCode.new(0x3E, &"ROL", 3, 7, rotate_left_memory.bind(AddressingMode.Absolute_X)),
 		# STA
 		OpCode.new(0x85, &"STA", 2, 3, store_from_register.bind(register_a, AddressingMode.ZeroPage)),
 		OpCode.new(0x8D, &"STA", 3, 4, store_from_register.bind(register_a, AddressingMode.Absolute)),
@@ -369,6 +375,26 @@ func pull_register_from_stack(p_register: Variant):
 	p_register.value = stack_pop_8()
 	if p_register != flags:
 		update_z_n_flags(p_register.value)
+
+
+#ROL
+func rotate_left_register(p_register: Register8bits):
+	var value: int = p_register.value << 1
+	value |= 0x01 if flags.C.value else 0x00
+	flags.C.value = 0b100000000
+	value &= 0xFF
+	p_register.value = value
+	update_z_n_flags(value)
+
+
+func rotate_left_memory(p_addressing_mode: AddressingMode):
+	var addr: int = get_operand_address(p_addressing_mode)
+	var value: int = memory.mem_read(addr) << 1
+	value |= 0x01 if flags.C.value else 0x00
+	flags.C.value = 0b100000000
+	value &= 0xFF
+	memory.mem_write(addr, value)
+	update_z_n_flags(value)
 
 
 #BCC - BCS
