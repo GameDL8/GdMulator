@@ -8,7 +8,7 @@ var registers: Dictionary = {
 }
 
 var instructionset: Dictionary = {
-	0x00: OpCode.new(0x00, "BRK", 1, 1, quit)
+	0x00: OpCode.new(0x00, &"BRK", 1, 1, quit)
 }
 
 var is_running: bool = false

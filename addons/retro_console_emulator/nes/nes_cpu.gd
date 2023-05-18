@@ -36,6 +36,8 @@ func _init() -> void:
 	
 	#register instructions
 	var instructions: Array[OpCode] = [
+		# BRK on NES system forces an interrupt
+		OpCode.new(0x00, &"BRK", 1, 1, nes_break),
 		# ADC - Add with Carry
 		OpCode.new(0x69, &"ADC", 2, 2, add_with_carry_to_register.bind(register_a, AddressingMode.Immediate)),
 		OpCode.new(0x65, &"ADC", 2, 3, add_with_carry_to_register.bind(register_a, AddressingMode.ZeroPage)),
@@ -159,6 +161,8 @@ func _init() -> void:
 		OpCode.new(0x76, &"ROR", 2, 6, rotate_right_memory.bind(AddressingMode.ZeroPage_X)),
 		OpCode.new(0x6E, &"ROR", 3, 6, rotate_right_memory.bind(AddressingMode.Absolute)),
 		OpCode.new(0x7E, &"ROR", 3, 7, rotate_right_memory.bind(AddressingMode.Absolute_X)),
+		# RTI
+		OpCode.new(0x40, &"RTI", 1, 6, return_from_interrupt),
 		# STA
 		OpCode.new(0x85, &"STA", 2, 3, store_from_register.bind(register_a, AddressingMode.ZeroPage)),
 		OpCode.new(0x8D, &"STA", 3, 4, store_from_register.bind(register_a, AddressingMode.Absolute)),
@@ -306,6 +310,16 @@ func get_operand_address(p_mode: int) -> int:
 			assert(false, "Adressing mode not supported!")
 			return 0x00
 
+
+# BRK
+func nes_break():
+	flags.B.value = true
+	flags.B2.value = true
+	stack_push_16(program_counter.value)
+	stack_push_8(flags.value)
+	is_running = false
+
+
 # ADC - Add with Carry
 func add_with_carry_to_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
 	var addr: int = get_operand_address(p_addressing_mode)
@@ -380,6 +394,9 @@ func inclusive_or_with_register(p_register: Register8bits, p_addressing_mode: Ad
 #PHA - PHP
 # p_register can be Register8bits or NesRegisterFlags
 func push_register_to_stack(p_register: Variant):
+	if p_register is NesRegisterFlags:
+		flags.B.value = true
+		flags.B2.value = true
 	stack_push_8(p_register.value)
 
 
@@ -429,6 +446,13 @@ func rotate_right_memory(p_addressing_mode: AddressingMode):
 	value = value >> 1
 	memory.mem_write(addr, value)
 	update_z_n_flags(value)
+
+
+#RTI
+func return_from_interrupt():
+	flags.value = stack_pop_8()
+	program_counter.value = stack_pop_16()
+	is_running = true
 
 
 #BCC - BCS
@@ -629,5 +653,6 @@ class NesRegisterFlags extends CPU.RegisterFlags:
 	var I = BitFlag.new(self, 2)
 	var D = BitFlag.new(self, 3)
 	var B = BitFlag.new(self, 4)
+	var B2 = BitFlag.new(self, 5)
 	var V = BitFlag.new(self, 6)
 	var N = BitFlag.new(self, 7)
