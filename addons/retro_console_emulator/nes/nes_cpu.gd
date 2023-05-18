@@ -179,6 +179,10 @@ func _init() -> void:
 		OpCode.new(0xAA, &"TAX", 1, 2, transfer_register_from_to.bind(register_a, register_x)),
 		# TAY
 		OpCode.new(0xA8, &"TAY", 1, 2, transfer_register_from_to.bind(register_a, register_y)),
+		# TXA
+		OpCode.new(0x8A, &"TXA", 1, 2, transfer_register_from_to.bind(register_x, register_a)),
+		# TYA
+		OpCode.new(0x98, &"TYA", 1, 2, transfer_register_from_to.bind(register_y, register_a)),
 		# INC
 		OpCode.new(0xe6, &"INC", 2, 5, increment_memory.bind(1, AddressingMode.ZeroPage)),
 		OpCode.new(0xf6, &"INC", 2, 6, increment_memory.bind(1, AddressingMode.ZeroPage_X)),
