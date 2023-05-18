@@ -163,6 +163,8 @@ func _init() -> void:
 		OpCode.new(0x7E, &"ROR", 3, 7, rotate_right_memory.bind(AddressingMode.Absolute_X)),
 		# RTI
 		OpCode.new(0x40, &"RTI", 1, 6, return_from_interrupt),
+		# RTS
+		OpCode.new(0x60, &"RTS", 1, 6, return_from_subroutine),
 		# STA
 		OpCode.new(0x85, &"STA", 2, 3, store_from_register.bind(register_a, AddressingMode.ZeroPage)),
 		OpCode.new(0x8D, &"STA", 3, 4, store_from_register.bind(register_a, AddressingMode.Absolute)),
@@ -453,6 +455,11 @@ func return_from_interrupt():
 	flags.value = stack_pop_8()
 	program_counter.value = stack_pop_16()
 	is_running = true
+
+
+#RTS
+func return_from_subroutine():
+	program_counter.value = stack_pop_16() + 1
 
 
 #BCC - BCS
