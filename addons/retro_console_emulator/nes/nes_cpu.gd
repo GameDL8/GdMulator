@@ -179,8 +179,12 @@ func _init() -> void:
 		OpCode.new(0xAA, &"TAX", 1, 2, transfer_register_from_to.bind(register_a, register_x)),
 		# TAY
 		OpCode.new(0xA8, &"TAY", 1, 2, transfer_register_from_to.bind(register_a, register_y)),
+		# TSX
+		OpCode.new(0xBA, &"TSX", 1, 2, transfer_stack_pointer_to_register.bind(register_x)),
 		# TXA
 		OpCode.new(0x8A, &"TXA", 1, 2, transfer_register_from_to.bind(register_x, register_a)),
+		# TXS
+		OpCode.new(0x9A, &"TXS", 1, 2, transfer_register_to_stack_pointer.bind(register_x)),
 		# TYA
 		OpCode.new(0x98, &"TYA", 1, 2, transfer_register_from_to.bind(register_y, register_a)),
 		# INC
@@ -485,6 +489,17 @@ func store_from_register(p_register: Register8bits, p_addressing_mode: Addressin
 func transfer_register_from_to(p_from: Register8bits, p_to: Register8bits):
 	p_to.value = p_from.value
 	update_z_n_flags(p_from.value)
+
+
+#TSX
+func transfer_stack_pointer_to_register(p_register: Register8bits):
+	p_register.value = stack_pointer
+	update_z_n_flags(stack_pointer)
+
+
+#TXS
+func transfer_register_to_stack_pointer(p_register: Register8bits):
+	stack_pointer = p_register.value
 
 
 #INC
