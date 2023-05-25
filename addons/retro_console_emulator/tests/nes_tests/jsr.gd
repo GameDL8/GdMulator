@@ -14,5 +14,7 @@ func test_0x20_jsr_absolute_jump_to_subroutine():
 		0x00
 	])
 	assert(cpu.register_a.value == 0x05)
+	var _pushed_procesor_flags: int = cpu.stack_pop_8()
+	var _pushed_program_counter: int = cpu.stack_pop_16()
 	assert(cpu.stack_pop_16() == 0x8002)
 	print("test_0x20_jsr_absolute_jump_to_subroutine PASSED!")
