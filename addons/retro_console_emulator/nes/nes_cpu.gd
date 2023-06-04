@@ -165,6 +165,16 @@ func _init() -> void:
 		OpCode.new(0x40, &"RTI", 1, 6, return_from_interrupt),
 		# RTS
 		OpCode.new(0x60, &"RTS", 1, 6, return_from_subroutine),
+		# SBC
+		OpCode.new(0xE9, &"SBC", 2, 2, substract_with_carry_to_register.bind(register_a, AddressingMode.Immediate)),
+		OpCode.new(0xE5, &"SBC", 2, 3, substract_with_carry_to_register.bind(register_a, AddressingMode.ZeroPage)),
+		OpCode.new(0xF5, &"SBC", 2, 4, substract_with_carry_to_register.bind(register_a, AddressingMode.ZeroPage_X)),
+		OpCode.new(0xED, &"SBC", 3, 4, substract_with_carry_to_register.bind(register_a, AddressingMode.Absolute)),
+		OpCode.new(0xFD, &"SBC", 3, 4, substract_with_carry_to_register.bind(register_a, AddressingMode.Absolute_X)),
+		OpCode.new(0xF9, &"SBC", 3, 4, substract_with_carry_to_register.bind(register_a, AddressingMode.Absolute_Y)),
+		OpCode.new(0xE1, &"SBC", 2, 6, substract_with_carry_to_register.bind(register_a, AddressingMode.Indirect_X)),
+		OpCode.new(0xF1, &"SBC", 2, 5, substract_with_carry_to_register.bind(register_a, AddressingMode.Indirect_Y)),
+		
 		# STA
 		OpCode.new(0x85, &"STA", 2, 3, store_from_register.bind(register_a, AddressingMode.ZeroPage)),
 		OpCode.new(0x8D, &"STA", 3, 4, store_from_register.bind(register_a, AddressingMode.Absolute)),
@@ -467,6 +477,17 @@ func return_from_interrupt():
 func return_from_subroutine():
 	program_counter.value = stack_pop_16() + 1
 
+#SBC
+func substract_with_carry_to_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
+	var addr: int = get_operand_address(p_addressing_mode)
+	var value: int = memory.mem_read(addr)
+	var previous: int = p_register.value
+	var negative = ((~value)+1) & 0b11111111
+	var result: int = p_register.value + negative
+	p_register.value = result & 0b11111111
+	update_c_flag(result)
+	update_v_flag(previous, value, result)
+	update_z_n_flags(p_register.value)
 
 #BCC - BCS
 func branch_if_flag_matches(p_flag: BitFlag, p_is_set: bool):
