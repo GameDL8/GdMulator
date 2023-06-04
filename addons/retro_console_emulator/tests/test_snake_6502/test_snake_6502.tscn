@@ -5073,7 +5073,6 @@ layout_mode = 2
 texture = ExtResource("2_tu6bb")
 
 [node name="Pixel1011" type="TextureRect" parent="test_snake_6502"]
-visible = false
 self_modulate = Color(0.2, 1, 0.760784, 1)
 layout_mode = 2
 texture = ExtResource("2_tu6bb")
@@ -5139,11 +5138,6 @@ layout_mode = 2
 texture = ExtResource("2_tu6bb")
 
 [node name="Pixel1024" type="TextureRect" parent="test_snake_6502"]
-self_modulate = Color(0.2, 1, 0.760784, 1)
-layout_mode = 2
-texture = ExtResource("2_tu6bb")
-
-[node name="Pixel1025" type="TextureRect" parent="test_snake_6502"]
 self_modulate = Color(0.2, 1, 0.760784, 1)
 layout_mode = 2
 texture = ExtResource("2_tu6bb")
