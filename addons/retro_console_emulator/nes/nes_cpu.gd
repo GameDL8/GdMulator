@@ -250,6 +250,7 @@ func run():
 	assert(memory != null, "Memory not initialized")
 	is_running = true
 	while is_running:
+		await _about_to_execute_instruction()
 		var opcode: int = memory.mem_read(program_counter.value)
 		program_counter.value += 1
 		var current_pc = program_counter.value
@@ -257,10 +258,15 @@ func run():
 		var instruction: OpCode = instructionset.get(opcode, null)
 		assert(instruction, "Unknown instruction with code %d" % opcode)
 		assert(instruction.callback.is_valid(), "Invalid callable for opcode %d" % opcode)
-		instruction.callback.call()
+		await instruction.callback.call()
 		if current_pc == program_counter.value:
 			# There was not a jump
 			program_counter.value += (instruction.size - 1)
+
+
+# VIRTUAL OVERRIDE
+func _about_to_execute_instruction():
+	pass
 
 
 func get_operand_address(p_mode: int) -> int:
@@ -468,7 +474,7 @@ func branch_if_flag_matches(p_flag: BitFlag, p_is_set: bool):
 		var addr: int = program_counter.value
 		var jump: int = memory.mem_read(addr)
 		if jump & 0b10000000:
-			jump = -(jump | 0b01111111)
+			jump = -(((~jump) & 0b01111111)+1)
 		jump += 1
 		program_counter.value += jump
 

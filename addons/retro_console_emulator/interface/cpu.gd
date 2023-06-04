@@ -38,6 +38,11 @@ func get_operand_address(p_mode: int) -> int:
 func quit():
 	is_running = false
 
+
+func _about_to_execute_instruction():
+	# VIRTUAL, implement in each cpu as needed
+	pass
+
 #8 bit register
 class Register8bits:
 	var value: int
