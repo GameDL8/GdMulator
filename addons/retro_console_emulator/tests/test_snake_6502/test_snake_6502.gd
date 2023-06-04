@@ -58,6 +58,7 @@ class Snake6502Cpu extends NesCPU:
 	
 	func _init() -> void:
 		super()
+		memory = Memory.new(0xFFFF)
 		instructionset[0xEA] = OpCode.new(0xEA, &"NOP", 1, 2, await_frame)
 	
 	func await_frame():

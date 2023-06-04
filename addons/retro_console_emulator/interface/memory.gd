@@ -43,7 +43,7 @@ func size() -> int:
 
 func slice(begin: int, end: int = -1):
 	if end == -1:
-		end = _memory.size() -1
+		end = _memory.size()
 	return _memory.slice(begin, end)
 
 

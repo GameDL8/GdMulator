@@ -32,7 +32,7 @@ func _init() -> void:
 	registers[&"X"] = register_x
 	registers[&"Y"] = register_y
 	registers[&"P"] = flags
-	memory = Memory.new(0xFFFF)
+	memory = NesMemory.new()
 	
 	#register instructions
 	var instructions: Array[OpCode] = [
