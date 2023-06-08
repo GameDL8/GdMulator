@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Nes Emulator"
-run/main_scene="res://addons/retro_console_emulator/tests/test_snake_6502/test_snake_6502.tscn"
+run/main_scene="res://addons/retro_console_emulator/tests/nes_rom_test/nes_rom_test.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 

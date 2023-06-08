@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctfr550w3kckh"]
+
+[ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_rom_test/nes_rom_test.gd" id="1_xj4ti"]
+
+[node name="nes_rom_test" type="Node"]
+script = ExtResource("1_xj4ti")
