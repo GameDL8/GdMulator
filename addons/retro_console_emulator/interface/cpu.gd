@@ -1,10 +1,10 @@
 class_name CPU extends RefCounted
 
-var program_counter := Register16bits.new()
+var program_counter := Register16bits.new(&"PC")
 var memory: Memory = null
 
 var registers: Dictionary = {
-	&"PC": program_counter
+	program_counter.name : program_counter
 }
 
 var instructionset: Dictionary = {
@@ -46,26 +46,43 @@ func _about_to_execute_instruction():
 #8 bit register
 class Register8bits:
 	var value: int
+	var name := StringName()
 	
+	func _init(p_name: StringName):
+		assert(p_name != StringName())
+		name = p_name
 
 #16 bit register
 class Register16bits:
 	var value: int
+	var name := StringName()
+	
+	func _init(p_name: StringName):
+		assert(p_name != StringName())
+		name = p_name
 
 #flags register
 class RegisterFlags:
 	var value: int
+	var name := StringName()
+	
+	func _init(p_name: StringName):
+		assert(p_name != StringName())
+		name = p_name
 	
 
 class BitFlag:
 	var value: bool:
 		set = set_bit,
 		get = get_bit
+	var name := StringName()
 	
 	var _register: RegisterFlags
 	var _bit_border: int
 	
-	func _init(p_register: RegisterFlags, p_bit_order: int):
+	func _init(p_register: RegisterFlags, p_name: StringName, p_bit_order: int):
+		assert(p_name != StringName())
+		name = p_name
 		_register = p_register
 		_bit_border = p_bit_order
 	

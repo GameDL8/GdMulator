@@ -21,17 +21,17 @@ const STACK: int       = 0x0100;
 const STACK_RESET: int = 0xfd
 
 
-var register_a := Register8bits.new()
-var register_x := Register8bits.new()
-var register_y := Register8bits.new()
-var flags := NesRegisterFlags.new()
+var register_a := Register8bits.new(&"A")
+var register_x := Register8bits.new(&"X")
+var register_y := Register8bits.new(&"Y")
+var flags := NesRegisterFlags.new(&"P")
 var stack_pointer: int = STACK_RESET
 
 func _init() -> void:
-	registers[&"A"] = register_a
-	registers[&"X"] = register_x
-	registers[&"Y"] = register_y
-	registers[&"P"] = flags
+	registers[register_a.name] = register_a
+	registers[register_x.name] = register_x
+	registers[register_y.name] = register_y
+	registers[flags.name] = flags
 	memory = NesMemory.new()
 	
 	#register instructions
@@ -39,29 +39,29 @@ func _init() -> void:
 		# BRK on NES system forces an interrupt
 		OpCode.new(0x00, &"BRK", 1, 1, nes_break),
 		# ADC - Add with Carry
-		OpCode.new(0x69, &"ADC", 2, 2, add_with_carry_to_register.bind(register_a, AddressingMode.Immediate)),
-		OpCode.new(0x65, &"ADC", 2, 3, add_with_carry_to_register.bind(register_a, AddressingMode.ZeroPage)),
-		OpCode.new(0x75, &"ADC", 2, 4, add_with_carry_to_register.bind(register_a, AddressingMode.ZeroPage_X)),
-		OpCode.new(0x6D, &"ADC", 3, 4, add_with_carry_to_register.bind(register_a, AddressingMode.Absolute)),
-		OpCode.new(0x7D, &"ADC", 3, 4, add_with_carry_to_register.bind(register_a, AddressingMode.Absolute_X)),
-		OpCode.new(0x79, &"ADC", 3, 4, add_with_carry_to_register.bind(register_a, AddressingMode.Absolute_Y)),
-		OpCode.new(0x61, &"ADC", 2, 6, add_with_carry_to_register.bind(register_a, AddressingMode.Indirect_X)),
-		OpCode.new(0x71, &"ADC", 2, 5, add_with_carry_to_register.bind(register_a, AddressingMode.Indirect_Y)),
+		OpCode.new(0x69, &"ADC", 2, 2, add_with_carry_to_register, register_a.name, AddressingMode.Immediate),
+		OpCode.new(0x65, &"ADC", 2, 3, add_with_carry_to_register, register_a.name, AddressingMode.ZeroPage),
+		OpCode.new(0x75, &"ADC", 2, 4, add_with_carry_to_register, register_a.name, AddressingMode.ZeroPage_X),
+		OpCode.new(0x6D, &"ADC", 3, 4, add_with_carry_to_register, register_a.name, AddressingMode.Absolute),
+		OpCode.new(0x7D, &"ADC", 3, 4, add_with_carry_to_register, register_a.name, AddressingMode.Absolute_X),
+		OpCode.new(0x79, &"ADC", 3, 4, add_with_carry_to_register, register_a.name, AddressingMode.Absolute_Y),
+		OpCode.new(0x61, &"ADC", 2, 6, add_with_carry_to_register, register_a.name, AddressingMode.Indirect_X),
+		OpCode.new(0x71, &"ADC", 2, 5, add_with_carry_to_register, register_a.name, AddressingMode.Indirect_Y),
 		# AND
-		OpCode.new(0x29, &"AND", 2, 2, bitwise_and_with_register.bind(register_a, AddressingMode.Immediate)),
-		OpCode.new(0x25, &"AND", 2, 3, bitwise_and_with_register.bind(register_a, AddressingMode.ZeroPage)),
-		OpCode.new(0x35, &"AND", 2, 4, bitwise_and_with_register.bind(register_a, AddressingMode.ZeroPage_X)),
-		OpCode.new(0x2D, &"AND", 3, 4, bitwise_and_with_register.bind(register_a, AddressingMode.Absolute)),
-		OpCode.new(0x3D, &"AND", 3, 4, bitwise_and_with_register.bind(register_a, AddressingMode.Absolute_X)),
-		OpCode.new(0x39, &"AND", 3, 4, bitwise_and_with_register.bind(register_a, AddressingMode.Absolute_Y)),
-		OpCode.new(0x21, &"AND", 2, 6, bitwise_and_with_register.bind(register_a, AddressingMode.Indirect_X)),
-		OpCode.new(0x31, &"AND", 2, 5, bitwise_and_with_register.bind(register_a, AddressingMode.Indirect_Y)),
+		OpCode.new(0x29, &"AND", 2, 2, bitwise_and_with_register, register_a.name, AddressingMode.Immediate),
+		OpCode.new(0x25, &"AND", 2, 3, bitwise_and_with_register, register_a.name, AddressingMode.ZeroPage),
+		OpCode.new(0x35, &"AND", 2, 4, bitwise_and_with_register, register_a.name, AddressingMode.ZeroPage_X),
+		OpCode.new(0x2D, &"AND", 3, 4, bitwise_and_with_register, register_a.name, AddressingMode.Absolute),
+		OpCode.new(0x3D, &"AND", 3, 4, bitwise_and_with_register, register_a.name, AddressingMode.Absolute_X),
+		OpCode.new(0x39, &"AND", 3, 4, bitwise_and_with_register, register_a.name, AddressingMode.Absolute_Y),
+		OpCode.new(0x21, &"AND", 2, 6, bitwise_and_with_register, register_a.name, AddressingMode.Indirect_X),
+		OpCode.new(0x31, &"AND", 2, 5, bitwise_and_with_register, register_a.name, AddressingMode.Indirect_Y),
 		# ASL
-		OpCode.new(0x0A, &"ASL", 1, 2, arithmetic_shift_left_register.bind(register_a)),
-		OpCode.new(0x06, &"ASL", 2, 5, arithmetic_shift_left_memory.bind(AddressingMode.ZeroPage)),
-		OpCode.new(0x16, &"ASL", 2, 6, arithmetic_shift_left_memory.bind(AddressingMode.ZeroPage_X)),
-		OpCode.new(0x0E, &"ASL", 3, 6, arithmetic_shift_left_memory.bind(AddressingMode.Absolute)),
-		OpCode.new(0x1E, &"ASL", 3, 7, arithmetic_shift_left_memory.bind(AddressingMode.Absolute_X)),
+		OpCode.new(0x0A, &"ASL", 1, 2, arithmetic_shift_left_register, register_a.name),
+		OpCode.new(0x06, &"ASL", 2, 5, arithmetic_shift_left_memory, StringName(), AddressingMode.ZeroPage),
+		OpCode.new(0x16, &"ASL", 2, 6, arithmetic_shift_left_memory, StringName(), AddressingMode.ZeroPage_X),
+		OpCode.new(0x0E, &"ASL", 3, 6, arithmetic_shift_left_memory, StringName(), AddressingMode.Absolute),
+		OpCode.new(0x1E, &"ASL", 3, 7, arithmetic_shift_left_memory, StringName(), AddressingMode.Absolute_X),
 		# BCC - BCS
 		OpCode.new(0x90, &"BCC", 2, 2, branch_if_flag_matches.bind(flags.C, false)),
 		OpCode.new(0xB0, &"BCS", 2, 2, branch_if_flag_matches.bind(flags.C, true)),
@@ -69,8 +69,8 @@ func _init() -> void:
 		OpCode.new(0xF0, &"BEQ", 2, 2, branch_if_flag_matches.bind(flags.Z, true)),
 		OpCode.new(0xD0, &"BNE", 2, 2, branch_if_flag_matches.bind(flags.Z, false)),
 		# BIT
-		OpCode.new(0x24, &"BIT", 2, 3, bit_test_register.bind(register_a, AddressingMode.ZeroPage)),
-		OpCode.new(0x2C, &"BIT", 3, 4, bit_test_register.bind(register_a, AddressingMode.Absolute)),
+		OpCode.new(0x24, &"BIT", 2, 3, bit_test_register, register_a.name, AddressingMode.ZeroPage),
+		OpCode.new(0x2C, &"BIT", 3, 4, bit_test_register, register_a.name, AddressingMode.Absolute),
 		# BMI - BPL
 		OpCode.new(0x30, &"BMI", 2, 2, branch_if_flag_matches.bind(flags.N, true)),
 		OpCode.new(0x10, &"BPL", 2, 2, branch_if_flag_matches.bind(flags.N, false)),
@@ -87,110 +87,110 @@ func _init() -> void:
 		OpCode.new(0xF8, &"SED", 1, 2, set_flag.bind(flags.D, true)),
 		OpCode.new(0x78, &"SEI", 1, 2, set_flag.bind(flags.I, true)),
 		# CMP
-		OpCode.new(0xC9, &"CMP", 2, 2, compare_register.bind(register_a, AddressingMode.Immediate)),
-		OpCode.new(0xC5, &"CMP", 2, 3, compare_register.bind(register_a, AddressingMode.ZeroPage)),
-		OpCode.new(0xD5, &"CMP", 2, 4, compare_register.bind(register_a, AddressingMode.ZeroPage_X)),
-		OpCode.new(0xCD, &"CMP", 3, 4, compare_register.bind(register_a, AddressingMode.Absolute)),
-		OpCode.new(0xDD, &"CMP", 3, 4, compare_register.bind(register_a, AddressingMode.Absolute_X)),
-		OpCode.new(0xD9, &"CMP", 3, 4, compare_register.bind(register_a, AddressingMode.Absolute_Y)),
-		OpCode.new(0xC1, &"CMP", 2, 6, compare_register.bind(register_a, AddressingMode.Indirect_X)),
-		OpCode.new(0xD1, &"CMP", 2, 5, compare_register.bind(register_a, AddressingMode.Indirect_Y)),
+		OpCode.new(0xC9, &"CMP", 2, 2, compare_register, register_a.name, AddressingMode.Immediate),
+		OpCode.new(0xC5, &"CMP", 2, 3, compare_register, register_a.name, AddressingMode.ZeroPage),
+		OpCode.new(0xD5, &"CMP", 2, 4, compare_register, register_a.name, AddressingMode.ZeroPage_X),
+		OpCode.new(0xCD, &"CMP", 3, 4, compare_register, register_a.name, AddressingMode.Absolute),
+		OpCode.new(0xDD, &"CMP", 3, 4, compare_register, register_a.name, AddressingMode.Absolute_X),
+		OpCode.new(0xD9, &"CMP", 3, 4, compare_register, register_a.name, AddressingMode.Absolute_Y),
+		OpCode.new(0xC1, &"CMP", 2, 6, compare_register, register_a.name, AddressingMode.Indirect_X),
+		OpCode.new(0xD1, &"CMP", 2, 5, compare_register, register_a.name, AddressingMode.Indirect_Y),
 		# CPX
-		OpCode.new(0xE0, &"CPX", 2, 2, compare_register.bind(register_x, AddressingMode.Immediate)),
-		OpCode.new(0xE4, &"CPX", 2, 3, compare_register.bind(register_x, AddressingMode.ZeroPage)),
-		OpCode.new(0xEC, &"CPX", 3, 4, compare_register.bind(register_x, AddressingMode.Absolute)),
+		OpCode.new(0xE0, &"CPX", 2, 2, compare_register, register_x.name, AddressingMode.Immediate),
+		OpCode.new(0xE4, &"CPX", 2, 3, compare_register, register_x.name, AddressingMode.ZeroPage),
+		OpCode.new(0xEC, &"CPX", 3, 4, compare_register, register_x.name, AddressingMode.Absolute),
 		# CPY
-		OpCode.new(0xC0, &"CPY", 2, 2, compare_register.bind(register_y, AddressingMode.Immediate)),
-		OpCode.new(0xC4, &"CPY", 2, 3, compare_register.bind(register_y, AddressingMode.ZeroPage)),
-		OpCode.new(0xCC, &"CPY", 3, 4, compare_register.bind(register_y, AddressingMode.Absolute)),
+		OpCode.new(0xC0, &"CPY", 2, 2, compare_register, register_y.name, AddressingMode.Immediate),
+		OpCode.new(0xC4, &"CPY", 2, 3, compare_register, register_y.name, AddressingMode.ZeroPage),
+		OpCode.new(0xCC, &"CPY", 3, 4, compare_register, register_y.name, AddressingMode.Absolute),
 		# LDA
-		OpCode.new(0xA9, &"LDA", 2, 2, load_register8.bind(register_a, AddressingMode.Immediate)),
-		OpCode.new(0xA5, &"LDA", 2, 3, load_register8.bind(register_a, AddressingMode.ZeroPage)),
-		OpCode.new(0xAD, &"LDA", 3, 4, load_register8.bind(register_a, AddressingMode.Absolute)),
-		OpCode.new(0xB5, &"LDA", 2, 4, load_register8.bind(register_a, AddressingMode.ZeroPage_X)),
-		OpCode.new(0xBD, &"LDA", 3, 4, load_register8.bind(register_a, AddressingMode.Absolute_X)),
-		OpCode.new(0xB9, &"LDA", 3, 4, load_register8.bind(register_a, AddressingMode.Absolute_Y)),
-		OpCode.new(0xA1, &"LDA", 2, 6, load_register8.bind(register_a, AddressingMode.Indirect_X)),
-		OpCode.new(0xB1, &"LDA", 2, 5, load_register8.bind(register_a, AddressingMode.Indirect_Y)),
+		OpCode.new(0xA9, &"LDA", 2, 2, load_register8, register_a.name, AddressingMode.Immediate),
+		OpCode.new(0xA5, &"LDA", 2, 3, load_register8, register_a.name, AddressingMode.ZeroPage),
+		OpCode.new(0xAD, &"LDA", 3, 4, load_register8, register_a.name, AddressingMode.Absolute),
+		OpCode.new(0xB5, &"LDA", 2, 4, load_register8, register_a.name, AddressingMode.ZeroPage_X),
+		OpCode.new(0xBD, &"LDA", 3, 4, load_register8, register_a.name, AddressingMode.Absolute_X),
+		OpCode.new(0xB9, &"LDA", 3, 4, load_register8, register_a.name, AddressingMode.Absolute_Y),
+		OpCode.new(0xA1, &"LDA", 2, 6, load_register8, register_a.name, AddressingMode.Indirect_X),
+		OpCode.new(0xB1, &"LDA", 2, 5, load_register8, register_a.name, AddressingMode.Indirect_Y),
 		# LDX
-		OpCode.new(0xA2, &"LDX", 2, 2, load_register8.bind(register_x, AddressingMode.Immediate)),
-		OpCode.new(0xA6, &"LDX", 2, 3, load_register8.bind(register_x, AddressingMode.ZeroPage)),
-		OpCode.new(0xB6, &"LDX", 2, 4, load_register8.bind(register_x, AddressingMode.ZeroPage_Y)),
-		OpCode.new(0xAE, &"LDX", 3, 4, load_register8.bind(register_x, AddressingMode.Absolute)),
-		OpCode.new(0xBE, &"LDX", 3, 4, load_register8.bind(register_x, AddressingMode.Absolute_Y)),
+		OpCode.new(0xA2, &"LDX", 2, 2, load_register8, register_x.name, AddressingMode.Immediate),
+		OpCode.new(0xA6, &"LDX", 2, 3, load_register8, register_x.name, AddressingMode.ZeroPage),
+		OpCode.new(0xB6, &"LDX", 2, 4, load_register8, register_x.name, AddressingMode.ZeroPage_Y),
+		OpCode.new(0xAE, &"LDX", 3, 4, load_register8, register_x.name, AddressingMode.Absolute),
+		OpCode.new(0xBE, &"LDX", 3, 4, load_register8, register_x.name, AddressingMode.Absolute_Y),
 		# LDY
-		OpCode.new(0xA0, &"LDY", 2, 2, load_register8.bind(register_y, AddressingMode.Immediate)),
-		OpCode.new(0xA4, &"LDY", 2, 3, load_register8.bind(register_y, AddressingMode.ZeroPage)),
-		OpCode.new(0xB4, &"LDY", 2, 4, load_register8.bind(register_y, AddressingMode.ZeroPage_X)),
-		OpCode.new(0xAC, &"LDY", 3, 4, load_register8.bind(register_y, AddressingMode.Absolute)),
-		OpCode.new(0xBC, &"LDY", 3, 4, load_register8.bind(register_y, AddressingMode.Absolute_X)),
+		OpCode.new(0xA0, &"LDY", 2, 2, load_register8, register_y.name, AddressingMode.Immediate),
+		OpCode.new(0xA4, &"LDY", 2, 3, load_register8, register_y.name, AddressingMode.ZeroPage),
+		OpCode.new(0xB4, &"LDY", 2, 4, load_register8, register_y.name, AddressingMode.ZeroPage_X),
+		OpCode.new(0xAC, &"LDY", 3, 4, load_register8, register_y.name, AddressingMode.Absolute),
+		OpCode.new(0xBC, &"LDY", 3, 4, load_register8, register_y.name, AddressingMode.Absolute_X),
 		# LSR
-		OpCode.new(0x4A, &"LSR", 1, 2, logical_shift_right_register.bind(register_a)),
-		OpCode.new(0x46, &"LSR", 2, 5, logical_shift_right_memory.bind(AddressingMode.ZeroPage)),
-		OpCode.new(0x56, &"LSR", 5, 6, logical_shift_right_memory.bind(AddressingMode.ZeroPage_X)),
-		OpCode.new(0x4E, &"LSR", 3, 6, logical_shift_right_memory.bind(AddressingMode.Absolute)),
-		OpCode.new(0x5E, &"LSR", 3, 7, logical_shift_right_memory.bind(AddressingMode.Absolute_X)),
+		OpCode.new(0x4A, &"LSR", 1, 2, logical_shift_right_register, register_a.name),
+		OpCode.new(0x46, &"LSR", 2, 5, logical_shift_right_memory, StringName(), AddressingMode.ZeroPage),
+		OpCode.new(0x56, &"LSR", 5, 6, logical_shift_right_memory, StringName(), AddressingMode.ZeroPage_X),
+		OpCode.new(0x4E, &"LSR", 3, 6, logical_shift_right_memory, StringName(), AddressingMode.Absolute),
+		OpCode.new(0x5E, &"LSR", 3, 7, logical_shift_right_memory, StringName(), AddressingMode.Absolute_X),
 		# NOP
 		OpCode.new(0xEA, &"NOP", 1, 2, no_operation),
 		# ORA
-		OpCode.new(0x09, &"ORA", 2, 2, inclusive_or_with_register.bind(register_a, AddressingMode.Immediate)),
-		OpCode.new(0x05, &"ORA", 2, 3, inclusive_or_with_register.bind(register_a, AddressingMode.ZeroPage)),
-		OpCode.new(0x15, &"ORA", 2, 4, inclusive_or_with_register.bind(register_a, AddressingMode.ZeroPage_X)),
-		OpCode.new(0x0D, &"ORA", 3, 4, inclusive_or_with_register.bind(register_a, AddressingMode.Absolute)),
-		OpCode.new(0x1D, &"ORA", 3, 4, inclusive_or_with_register.bind(register_a, AddressingMode.Absolute_X)),
-		OpCode.new(0x19, &"ORA", 3, 4, inclusive_or_with_register.bind(register_a, AddressingMode.Absolute_Y)),
-		OpCode.new(0x01, &"ORA", 2, 6, inclusive_or_with_register.bind(register_a, AddressingMode.Indirect_X)),
-		OpCode.new(0x11, &"ORA", 2, 5, inclusive_or_with_register.bind(register_a, AddressingMode.Indirect_Y)),
+		OpCode.new(0x09, &"ORA", 2, 2, inclusive_or_with_register, register_a.name, AddressingMode.Immediate),
+		OpCode.new(0x05, &"ORA", 2, 3, inclusive_or_with_register, register_a.name, AddressingMode.ZeroPage),
+		OpCode.new(0x15, &"ORA", 2, 4, inclusive_or_with_register, register_a.name, AddressingMode.ZeroPage_X),
+		OpCode.new(0x0D, &"ORA", 3, 4, inclusive_or_with_register, register_a.name, AddressingMode.Absolute),
+		OpCode.new(0x1D, &"ORA", 3, 4, inclusive_or_with_register, register_a.name, AddressingMode.Absolute_X),
+		OpCode.new(0x19, &"ORA", 3, 4, inclusive_or_with_register, register_a.name, AddressingMode.Absolute_Y),
+		OpCode.new(0x01, &"ORA", 2, 6, inclusive_or_with_register, register_a.name, AddressingMode.Indirect_X),
+		OpCode.new(0x11, &"ORA", 2, 5, inclusive_or_with_register, register_a.name, AddressingMode.Indirect_Y),
 		# PHA
-		OpCode.new(0x48, &"PHA", 1, 3, push_register_to_stack.bind(register_a)),
+		OpCode.new(0x48, &"PHA", 1, 3, push_register_to_stack, register_a.name),
 		# PHP
 		OpCode.new(0x08, &"PHP", 1, 3, push_register_to_stack.bind(flags)),
 		# PLA
-		OpCode.new(0x68, &"PLA", 1, 4, pull_register_from_stack.bind(register_a)),
+		OpCode.new(0x68, &"PLA", 1, 4, pull_register_from_stack, register_a.name),
 		# PLP
 		OpCode.new(0x28, &"PLP", 1, 4, pull_register_from_stack.bind(flags)),
 		# ROL
-		OpCode.new(0x2A, &"ROL", 1, 2, rotate_left_register.bind(register_a)),
-		OpCode.new(0x26, &"ROL", 2, 5, rotate_left_memory.bind(AddressingMode.ZeroPage)),
-		OpCode.new(0x36, &"ROL", 2, 6, rotate_left_memory.bind(AddressingMode.ZeroPage_X)),
-		OpCode.new(0x2E, &"ROL", 3, 6, rotate_left_memory.bind(AddressingMode.Absolute)),
-		OpCode.new(0x3E, &"ROL", 3, 7, rotate_left_memory.bind(AddressingMode.Absolute_X)),
+		OpCode.new(0x2A, &"ROL", 1, 2, rotate_left_register, register_a.name),
+		OpCode.new(0x26, &"ROL", 2, 5, rotate_left_memory, StringName(), AddressingMode.ZeroPage),
+		OpCode.new(0x36, &"ROL", 2, 6, rotate_left_memory, StringName(), AddressingMode.ZeroPage_X),
+		OpCode.new(0x2E, &"ROL", 3, 6, rotate_left_memory, StringName(), AddressingMode.Absolute),
+		OpCode.new(0x3E, &"ROL", 3, 7, rotate_left_memory, StringName(), AddressingMode.Absolute_X),
 		# ROL
-		OpCode.new(0x6A, &"ROR", 1, 2, rotate_right_register.bind(register_a)),
-		OpCode.new(0x66, &"ROR", 2, 5, rotate_right_memory.bind(AddressingMode.ZeroPage)),
-		OpCode.new(0x76, &"ROR", 2, 6, rotate_right_memory.bind(AddressingMode.ZeroPage_X)),
-		OpCode.new(0x6E, &"ROR", 3, 6, rotate_right_memory.bind(AddressingMode.Absolute)),
-		OpCode.new(0x7E, &"ROR", 3, 7, rotate_right_memory.bind(AddressingMode.Absolute_X)),
+		OpCode.new(0x6A, &"ROR", 1, 2, rotate_right_register, register_a.name),
+		OpCode.new(0x66, &"ROR", 2, 5, rotate_right_memory, StringName(), AddressingMode.ZeroPage),
+		OpCode.new(0x76, &"ROR", 2, 6, rotate_right_memory, StringName(), AddressingMode.ZeroPage_X),
+		OpCode.new(0x6E, &"ROR", 3, 6, rotate_right_memory, StringName(), AddressingMode.Absolute),
+		OpCode.new(0x7E, &"ROR", 3, 7, rotate_right_memory, StringName(), AddressingMode.Absolute_X),
 		# RTI
 		OpCode.new(0x40, &"RTI", 1, 6, return_from_interrupt),
 		# RTS
 		OpCode.new(0x60, &"RTS", 1, 6, return_from_subroutine),
 		# SBC
-		OpCode.new(0xE9, &"SBC", 2, 2, substract_with_carry_to_register.bind(register_a, AddressingMode.Immediate)),
-		OpCode.new(0xE5, &"SBC", 2, 3, substract_with_carry_to_register.bind(register_a, AddressingMode.ZeroPage)),
-		OpCode.new(0xF5, &"SBC", 2, 4, substract_with_carry_to_register.bind(register_a, AddressingMode.ZeroPage_X)),
-		OpCode.new(0xED, &"SBC", 3, 4, substract_with_carry_to_register.bind(register_a, AddressingMode.Absolute)),
-		OpCode.new(0xFD, &"SBC", 3, 4, substract_with_carry_to_register.bind(register_a, AddressingMode.Absolute_X)),
-		OpCode.new(0xF9, &"SBC", 3, 4, substract_with_carry_to_register.bind(register_a, AddressingMode.Absolute_Y)),
-		OpCode.new(0xE1, &"SBC", 2, 6, substract_with_carry_to_register.bind(register_a, AddressingMode.Indirect_X)),
-		OpCode.new(0xF1, &"SBC", 2, 5, substract_with_carry_to_register.bind(register_a, AddressingMode.Indirect_Y)),
+		OpCode.new(0xE9, &"SBC", 2, 2, substract_with_carry_to_register, register_a.name, AddressingMode.Immediate),
+		OpCode.new(0xE5, &"SBC", 2, 3, substract_with_carry_to_register, register_a.name, AddressingMode.ZeroPage),
+		OpCode.new(0xF5, &"SBC", 2, 4, substract_with_carry_to_register, register_a.name, AddressingMode.ZeroPage_X),
+		OpCode.new(0xED, &"SBC", 3, 4, substract_with_carry_to_register, register_a.name, AddressingMode.Absolute),
+		OpCode.new(0xFD, &"SBC", 3, 4, substract_with_carry_to_register, register_a.name, AddressingMode.Absolute_X),
+		OpCode.new(0xF9, &"SBC", 3, 4, substract_with_carry_to_register, register_a.name, AddressingMode.Absolute_Y),
+		OpCode.new(0xE1, &"SBC", 2, 6, substract_with_carry_to_register, register_a.name, AddressingMode.Indirect_X),
+		OpCode.new(0xF1, &"SBC", 2, 5, substract_with_carry_to_register, register_a.name, AddressingMode.Indirect_Y),
 		
 		# STA
-		OpCode.new(0x85, &"STA", 2, 3, store_from_register.bind(register_a, AddressingMode.ZeroPage)),
-		OpCode.new(0x8D, &"STA", 3, 4, store_from_register.bind(register_a, AddressingMode.Absolute)),
-		OpCode.new(0x95, &"STA", 2, 4, store_from_register.bind(register_a, AddressingMode.ZeroPage_X)),
-		OpCode.new(0x9D, &"STA", 3, 5, store_from_register.bind(register_a, AddressingMode.Absolute_X)),
-		OpCode.new(0x99, &"STA", 3, 5, store_from_register.bind(register_a, AddressingMode.Absolute_Y)),
-		OpCode.new(0x81, &"STA", 2, 6, store_from_register.bind(register_a, AddressingMode.Indirect_X)),
-		OpCode.new(0x91, &"STA", 2, 6, store_from_register.bind(register_a, AddressingMode.Indirect_Y)),
+		OpCode.new(0x85, &"STA", 2, 3, store_from_register, register_a.name, AddressingMode.ZeroPage),
+		OpCode.new(0x8D, &"STA", 3, 4, store_from_register, register_a.name, AddressingMode.Absolute),
+		OpCode.new(0x95, &"STA", 2, 4, store_from_register, register_a.name, AddressingMode.ZeroPage_X),
+		OpCode.new(0x9D, &"STA", 3, 5, store_from_register, register_a.name, AddressingMode.Absolute_X),
+		OpCode.new(0x99, &"STA", 3, 5, store_from_register, register_a.name, AddressingMode.Absolute_Y),
+		OpCode.new(0x81, &"STA", 2, 6, store_from_register, register_a.name, AddressingMode.Indirect_X),
+		OpCode.new(0x91, &"STA", 2, 6, store_from_register, register_a.name, AddressingMode.Indirect_Y),
 		# STX
-		OpCode.new(0x86, &"STX", 2, 3, store_from_register.bind(register_x, AddressingMode.ZeroPage)),
-		OpCode.new(0x8E, &"STX", 3, 4, store_from_register.bind(register_x, AddressingMode.Absolute)),
-		OpCode.new(0x96, &"STX", 2, 4, store_from_register.bind(register_x, AddressingMode.ZeroPage_Y)),
+		OpCode.new(0x86, &"STX", 2, 3, store_from_register, register_x.name, AddressingMode.ZeroPage),
+		OpCode.new(0x8E, &"STX", 3, 4, store_from_register, register_x.name, AddressingMode.Absolute),
+		OpCode.new(0x96, &"STX", 2, 4, store_from_register, register_x.name, AddressingMode.ZeroPage_Y),
 		# STY
-		OpCode.new(0x84, &"STY", 2, 3, store_from_register.bind(register_y, AddressingMode.ZeroPage)),
-		OpCode.new(0x8C, &"STY", 3, 4, store_from_register.bind(register_y, AddressingMode.Absolute)),
-		OpCode.new(0x94, &"STY", 2, 4, store_from_register.bind(register_y, AddressingMode.ZeroPage_X)),
+		OpCode.new(0x84, &"STY", 2, 3, store_from_register, register_y.name, AddressingMode.ZeroPage),
+		OpCode.new(0x8C, &"STY", 3, 4, store_from_register, register_y.name, AddressingMode.Absolute),
+		OpCode.new(0x94, &"STY", 2, 4, store_from_register, register_y.name, AddressingMode.ZeroPage_X),
 		# TAX
 		OpCode.new(0xAA, &"TAX", 1, 2, transfer_register_from_to.bind(register_a, register_x)),
 		# TAY
@@ -204,42 +204,51 @@ func _init() -> void:
 		# TYA
 		OpCode.new(0x98, &"TYA", 1, 2, transfer_register_from_to.bind(register_y, register_a)),
 		# INC
-		OpCode.new(0xe6, &"INC", 2, 5, increment_memory.bind(1, AddressingMode.ZeroPage)),
-		OpCode.new(0xf6, &"INC", 2, 6, increment_memory.bind(1, AddressingMode.ZeroPage_X)),
-		OpCode.new(0xee, &"INC", 3, 6, increment_memory.bind(1, AddressingMode.Absolute)),
-		OpCode.new(0xfe, &"INC", 3, 7, increment_memory.bind(1, AddressingMode.Absolute_X)),
+		OpCode.new(0xe6, &"INC", 2, 5, increment_memory.bind(1), StringName(), AddressingMode.ZeroPage),
+		OpCode.new(0xf6, &"INC", 2, 6, increment_memory.bind(1), StringName(), AddressingMode.ZeroPage_X),
+		OpCode.new(0xee, &"INC", 3, 6, increment_memory.bind(1), StringName(), AddressingMode.Absolute),
+		OpCode.new(0xfe, &"INC", 3, 7, increment_memory.bind(1), StringName(), AddressingMode.Absolute_X),
 		# DEC
-		OpCode.new(0xc6, &"DEC", 2, 5, increment_memory.bind(-1, AddressingMode.ZeroPage)),
-		OpCode.new(0xd6, &"DEC", 2, 6, increment_memory.bind(-1, AddressingMode.ZeroPage_X)),
-		OpCode.new(0xce, &"DEC", 3, 6, increment_memory.bind(-1, AddressingMode.Absolute)),
-		OpCode.new(0xde, &"DEC", 3, 7, increment_memory.bind(-1, AddressingMode.Absolute_X)),
+		OpCode.new(0xc6, &"DEC", 2, 5, increment_memory.bind(-1), StringName(), AddressingMode.ZeroPage),
+		OpCode.new(0xd6, &"DEC", 2, 6, increment_memory.bind(-1), StringName(), AddressingMode.ZeroPage_X),
+		OpCode.new(0xce, &"DEC", 3, 6, increment_memory.bind(-1), StringName(), AddressingMode.Absolute),
+		OpCode.new(0xde, &"DEC", 3, 7, increment_memory.bind(-1), StringName(), AddressingMode.Absolute_X),
 		# INX
-		OpCode.new(0xE8, &"INX", 1, 2, increment_register.bind(1, register_x)),
+		OpCode.new(0xE8, &"INX", 1, 2, increment_register.bind(1), register_x.name),
 		# INY
-		OpCode.new(0xC8, &"INY", 1, 2, increment_register.bind(1, register_y)),
+		OpCode.new(0xC8, &"INY", 1, 2, increment_register.bind(1), register_y.name),
 		# JMP
-		OpCode.new(0x4C, &"JMP", 3, 3, jump.bind(AddressingMode.Absolute)),
-		OpCode.new(0x6C, &"JMP", 3, 5, jump.bind(AddressingMode.Indirect)),
+		OpCode.new(0x4C, &"JMP", 3, 3, jump, StringName(), AddressingMode.Absolute),
+		OpCode.new(0x6C, &"JMP", 3, 5, jump, StringName(), AddressingMode.Indirect),
 		# JSR
-		OpCode.new(0x20, &"JSR", 3, 6, jump_to_subrountine.bind(AddressingMode.Absolute)),
+		OpCode.new(0x20, &"JSR", 3, 6, jump_to_subrountine, StringName(), AddressingMode.Absolute),
 		# DEX
-		OpCode.new(0xCA, &"DEX", 1, 2, increment_register.bind(-1, register_x)),
+		OpCode.new(0xCA, &"DEX", 1, 2, increment_register.bind(-1), register_x.name),
 		# DEY
-		OpCode.new(0x88, &"DEY", 1, 2, increment_register.bind(-1, register_y)),
+		OpCode.new(0x88, &"DEY", 1, 2, increment_register.bind(-1), register_y.name),
 		# EOR
-		OpCode.new(0x49, &"EOR", 2, 2, exclusive_or_with_register.bind(register_a, AddressingMode.Immediate)),
-		OpCode.new(0x45, &"EOR", 2, 3, exclusive_or_with_register.bind(register_a, AddressingMode.ZeroPage)),
-		OpCode.new(0x55, &"EOR", 2, 4, exclusive_or_with_register.bind(register_a, AddressingMode.ZeroPage_X)),
-		OpCode.new(0x4D, &"EOR", 3, 4, exclusive_or_with_register.bind(register_a, AddressingMode.Absolute)),
-		OpCode.new(0x5D, &"EOR", 3, 4, exclusive_or_with_register.bind(register_a, AddressingMode.Absolute_X)),
-		OpCode.new(0x59, &"EOR", 3, 4, exclusive_or_with_register.bind(register_a, AddressingMode.Absolute_Y)),
-		OpCode.new(0x41, &"EOR", 2, 6, exclusive_or_with_register.bind(register_a, AddressingMode.Indirect_X)),
-		OpCode.new(0x51, &"EOR", 2, 5, exclusive_or_with_register.bind(register_a, AddressingMode.Indirect_Y)),
-		
+		OpCode.new(0x49, &"EOR", 2, 2, exclusive_or_with_register, register_a.name, AddressingMode.Immediate),
+		OpCode.new(0x45, &"EOR", 2, 3, exclusive_or_with_register, register_a.name, AddressingMode.ZeroPage),
+		OpCode.new(0x55, &"EOR", 2, 4, exclusive_or_with_register, register_a.name, AddressingMode.ZeroPage_X),
+		OpCode.new(0x4D, &"EOR", 3, 4, exclusive_or_with_register, register_a.name, AddressingMode.Absolute),
+		OpCode.new(0x5D, &"EOR", 3, 4, exclusive_or_with_register, register_a.name, AddressingMode.Absolute_X),
+		OpCode.new(0x59, &"EOR", 3, 4, exclusive_or_with_register, register_a.name, AddressingMode.Absolute_Y),
+		OpCode.new(0x41, &"EOR", 2, 6, exclusive_or_with_register, register_a.name, AddressingMode.Indirect_X),
+		OpCode.new(0x51, &"EOR", 2, 5, exclusive_or_with_register, register_a.name, AddressingMode.Indirect_Y),
 	]
 	
 	for instruction in instructions:
 		instructionset[instruction.code] = instruction
+		var bind_args: Array
+		if instruction.addresing_mode != -1:
+			instruction.callback = instruction.callback.bind(instruction.addresing_mode)
+		if instruction.register != StringName():
+			if registers.has(instruction.register):
+				instruction.callback = instruction.callback.bind(registers[instruction.register])
+			elif flags.bit_flags.has(instruction.register):
+				instruction.callback = instruction.callback.bind(flags.bit_flags[instruction.register])
+			else:
+				assert(false, "Unknown register name '%s'" % instruction.register)
 
 func reset():
 	is_running = false
@@ -561,7 +570,7 @@ func transfer_register_to_stack_pointer(p_register: Register8bits):
 
 
 #INC
-func increment_memory(p_by_amount: int, p_addressing_mode: AddressingMode):
+func increment_memory(p_addressing_mode: AddressingMode, p_by_amount: int):
 	var addr = self.get_operand_address(p_addressing_mode)
 	var value: int = memory.mem_read(addr)
 	var result: int = value + p_by_amount
@@ -573,7 +582,7 @@ func increment_memory(p_by_amount: int, p_addressing_mode: AddressingMode):
 	update_z_n_flags(result)
 
 #INX - INY - DEX - DEY
-func increment_register(p_by_amount: int, p_register: Register8bits):
+func increment_register(p_register: Register8bits, p_by_amount: int):
 	var val: int = p_register.value + p_by_amount
 	if val > 0xFF:
 		val -= 0x0100
@@ -682,11 +691,21 @@ func _on_stack_pop():
 
 
 class NesRegisterFlags extends CPU.RegisterFlags:
-	var C = BitFlag.new(self, 0)
-	var Z = BitFlag.new(self, 1)
-	var I = BitFlag.new(self, 2)
-	var D = BitFlag.new(self, 3)
-	var B = BitFlag.new(self, 4)
-	var B2 = BitFlag.new(self, 5)
-	var V = BitFlag.new(self, 6)
-	var N = BitFlag.new(self, 7)
+	var C = BitFlag.new(self, &"C", 0)
+	var Z = BitFlag.new(self, &"Z", 1)
+	var I = BitFlag.new(self, &"I", 2)
+	var D = BitFlag.new(self, &"D", 3)
+	var B = BitFlag.new(self, &"B", 4)
+	var B2 = BitFlag.new(self, &"B2", 5)
+	var V = BitFlag.new(self, &"V", 6)
+	var N = BitFlag.new(self, &"N", 7)
+	var bit_flags: Dictionary = {
+		C.name : C,
+		Z.name : Z,
+		I.name : I,
+		D.name : D,
+		B.name : B,
+		B2.name : B2,
+		V.name : V,
+		N.name : N
+	}
