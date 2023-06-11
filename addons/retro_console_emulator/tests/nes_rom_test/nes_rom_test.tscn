@@ -1,6 +1,5143 @@
-[gd_scene load_steps=2 format=3 uid="uid://ctfr550w3kckh"]
+[gd_scene load_steps=3 format=3 uid="uid://ctfr550w3kckh"]
 
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_rom_test/nes_rom_test.gd" id="1_xj4ti"]
+[ext_resource type="Texture2D" uid="uid://bxtim81tg68yn" path="res://addons/retro_console_emulator/tests/test_snake_6502/assets/pixel.svg" id="2_k224k"]
 
-[node name="nes_rom_test" type="Node"]
+[node name="Window" type="Window"]
+initial_position = 2
+title = "Snake Game 6502"
+size = Vector2i(640, 640)
+unresizable = true
+max_size = Vector2i(640, 640)
+
+[node name="nes_rom_test" type="GridContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 32
 script = ExtResource("1_xj4ti")
+
+[node name="Pixel1" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel2" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel3" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel4" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel5" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel6" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel7" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel8" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel9" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel10" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel11" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.952941, 0.662745, 0.180392, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel12" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel13" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel14" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel15" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel16" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel17" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel18" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel19" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel20" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel21" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel22" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel23" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel24" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel25" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel26" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel27" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel28" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel29" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel30" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel31" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel32" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel33" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel34" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel35" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel36" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel37" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel38" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel39" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel40" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel41" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel42" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel43" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel44" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel45" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel46" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel47" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel48" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel49" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel50" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel51" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel52" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel53" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel54" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel55" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel56" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel57" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel58" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel59" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel60" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel61" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel62" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel63" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel64" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel65" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel66" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel67" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel68" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel69" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel70" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel71" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel72" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel73" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel74" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel75" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel76" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel77" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel78" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel79" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel80" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel81" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel82" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel83" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel84" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel85" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel86" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel87" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel88" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel89" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel90" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel91" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel92" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel93" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel94" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel95" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel96" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel97" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel98" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel99" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel100" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel101" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel102" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel103" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel104" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel105" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel106" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel107" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel108" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel109" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel110" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel111" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel112" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel113" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel114" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel115" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel116" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel117" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel118" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel119" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel120" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel121" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel122" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel123" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel124" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel125" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel126" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel127" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel128" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel129" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel130" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel131" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel132" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel133" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel134" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel135" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel136" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel137" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel138" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel139" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel140" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel141" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel142" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel143" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel144" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel145" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel146" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel147" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel148" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel149" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel150" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel151" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel152" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel153" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel154" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel155" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel156" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel157" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel158" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel159" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel160" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel161" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel162" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel163" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel164" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel165" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel166" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel167" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel168" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel169" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel170" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel171" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel172" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel173" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel174" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel175" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel176" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel177" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel178" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel179" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel180" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel181" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel182" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel183" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel184" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel185" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel186" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel187" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel188" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel189" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel190" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel191" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel192" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel193" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel194" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel195" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel196" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel197" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel198" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel199" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel200" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel201" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel202" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel203" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel204" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel205" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel206" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel207" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel208" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel209" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel210" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel211" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel212" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel213" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel214" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel215" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel216" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel217" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel218" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel219" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel220" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel221" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel222" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel223" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel224" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel225" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel226" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel227" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel228" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel229" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel230" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel231" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel232" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel233" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel234" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel235" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel236" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel237" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel238" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel239" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel240" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel241" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel242" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel243" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel244" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel245" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel246" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel247" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel248" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel249" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel250" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel251" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel252" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel253" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel254" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel255" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel256" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel257" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel258" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel259" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel260" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel261" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel262" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel263" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel264" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel265" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel266" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel267" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel268" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel269" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel270" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel271" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel272" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel273" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel274" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel275" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel276" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel277" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel278" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel279" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel280" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel281" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel282" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel283" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel284" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel285" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel286" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel287" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel288" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel289" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel290" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel291" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel292" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel293" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel294" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel295" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel296" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel297" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel298" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel299" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel300" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel301" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel302" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel303" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel304" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel305" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel306" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel307" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel308" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel309" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel310" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel311" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel312" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel313" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel314" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel315" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel316" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel317" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel318" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel319" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel320" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel321" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel322" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel323" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel324" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel325" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel326" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel327" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel328" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel329" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel330" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel331" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel332" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel333" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel334" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel335" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel336" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel337" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel338" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel339" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel340" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel341" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel342" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel343" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel344" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel345" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel346" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel347" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel348" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel349" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel350" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel351" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel352" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel353" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel354" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel355" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel356" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel357" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel358" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel359" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel360" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel361" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel362" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel363" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel364" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel365" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel366" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel367" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel368" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel369" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel370" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel371" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel372" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel373" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel374" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel375" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel376" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel377" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel378" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel379" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel380" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel381" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel382" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel383" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel384" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel385" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel386" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel387" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel388" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel389" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel390" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel391" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel392" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel393" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel394" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel395" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel396" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel397" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel398" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel399" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel400" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel401" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel402" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel403" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel404" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel405" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel406" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel407" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel408" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel409" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel410" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel411" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel412" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel413" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel414" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel415" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel416" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel417" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel418" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel419" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel420" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel421" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel422" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel423" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel424" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel425" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel426" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel427" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel428" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel429" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel430" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel431" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel432" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel433" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel434" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel435" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel436" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel437" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel438" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel439" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel440" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel441" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel442" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel443" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel444" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel445" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel446" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel447" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel448" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel449" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel450" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel451" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel452" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel453" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel454" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel455" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel456" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel457" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel458" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel459" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel460" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel461" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel462" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel463" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel464" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel465" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel466" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel467" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel468" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel469" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel470" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel471" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel472" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel473" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel474" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel475" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel476" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel477" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel478" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel479" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel480" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel481" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel482" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel483" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel484" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel485" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel486" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel487" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel488" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel489" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel490" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel491" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel492" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel493" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel494" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel495" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel496" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel497" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel498" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel499" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel500" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel501" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel502" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel503" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel504" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel505" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel506" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel507" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel508" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel509" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel510" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel511" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel512" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel513" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel514" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel515" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel516" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel517" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel518" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel519" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel520" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel521" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel522" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel523" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel524" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel525" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel526" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel527" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel528" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel529" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel530" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel531" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel532" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel533" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel534" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel535" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel536" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel537" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel538" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel539" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel540" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel541" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel542" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel543" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel544" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel545" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel546" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel547" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel548" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel549" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel550" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel551" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel552" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel553" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel554" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel555" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel556" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel557" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel558" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel559" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel560" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel561" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel562" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel563" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel564" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel565" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel566" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel567" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel568" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel569" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel570" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel571" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel572" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel573" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel574" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel575" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel576" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel577" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel578" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel579" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel580" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel581" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel582" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel583" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel584" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel585" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel586" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel587" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel588" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel589" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel590" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel591" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel592" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel593" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel594" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel595" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel596" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel597" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel598" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel599" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel600" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel601" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel602" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel603" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel604" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel605" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel606" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel607" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel608" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel609" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel610" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel611" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel612" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel613" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel614" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel615" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel616" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel617" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel618" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel619" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel620" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel621" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel622" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel623" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel624" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel625" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel626" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel627" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel628" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel629" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel630" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel631" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel632" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel633" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel634" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel635" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel636" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel637" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel638" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel639" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel640" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel641" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel642" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel643" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel644" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel645" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel646" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel647" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel648" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel649" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel650" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel651" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel652" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel653" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel654" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel655" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel656" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel657" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel658" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel659" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel660" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel661" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel662" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel663" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel664" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel665" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel666" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel667" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel668" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel669" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel670" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel671" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel672" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel673" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel674" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel675" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel676" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel677" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel678" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel679" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel680" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel681" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel682" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel683" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel684" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel685" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel686" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel687" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel688" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel689" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel690" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel691" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel692" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel693" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel694" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel695" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel696" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel697" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel698" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel699" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel700" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel701" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel702" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel703" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel704" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel705" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel706" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel707" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel708" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel709" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel710" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel711" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel712" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel713" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel714" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel715" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel716" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel717" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel718" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel719" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel720" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel721" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel722" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel723" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel724" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel725" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel726" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel727" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel728" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel729" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel730" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel731" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel732" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel733" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel734" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel735" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel736" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel737" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel738" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel739" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel740" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel741" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel742" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel743" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel744" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel745" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel746" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel747" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel748" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel749" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel750" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel751" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel752" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel753" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel754" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel755" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel756" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel757" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel758" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel759" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel760" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel761" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel762" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel763" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel764" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel765" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel766" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel767" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel768" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel769" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel770" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel771" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel772" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel773" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel774" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel775" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel776" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel777" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel778" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel779" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel780" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel781" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel782" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel783" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel784" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel785" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel786" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel787" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel788" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel789" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel790" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel791" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel792" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel793" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel794" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel795" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel796" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel797" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel798" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel799" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel800" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel801" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel802" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel803" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel804" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel805" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel806" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel807" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel808" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel809" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel810" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel811" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel812" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel813" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel814" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel815" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel816" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel817" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel818" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel819" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel820" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel821" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel822" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel823" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel824" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel825" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel826" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel827" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel828" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel829" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel830" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel831" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel832" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel833" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel834" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel835" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel836" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel837" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel838" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel839" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel840" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel841" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel842" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel843" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel844" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel845" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel846" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel847" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel848" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel849" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel850" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel851" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel852" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel853" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel854" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel855" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel856" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel857" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel858" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel859" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel860" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel861" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel862" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel863" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel864" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel865" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel866" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel867" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel868" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel869" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel870" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel871" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel872" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel873" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel874" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel875" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel876" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel877" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel878" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel879" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel880" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel881" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel882" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel883" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel884" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel885" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel886" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel887" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel888" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel889" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel890" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel891" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel892" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel893" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel894" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel895" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel896" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel897" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel898" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel899" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel900" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel901" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel902" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel903" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel904" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel905" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel906" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel907" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel908" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel909" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel910" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel911" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel912" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel913" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel914" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel915" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel916" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel917" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel918" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel919" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel920" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel921" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel922" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel923" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel924" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel925" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel926" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel927" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel928" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel929" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel930" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel931" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel932" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel933" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel934" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel935" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel936" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel937" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel938" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel939" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel940" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel941" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel942" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel943" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel944" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel945" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel946" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel947" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel948" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel949" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel950" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel951" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel952" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel953" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel954" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel955" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel956" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel957" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel958" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel959" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel960" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel961" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel962" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel963" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel964" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel965" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel966" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel967" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel968" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel969" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel970" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel971" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel972" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel973" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel974" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel975" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel976" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel977" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel978" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel979" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel980" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel981" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel982" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel983" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel984" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel985" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel986" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel987" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel988" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel989" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel990" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel991" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel992" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel993" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel994" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel995" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel996" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel997" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel998" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel999" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1000" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1001" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1002" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1003" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1004" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1005" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1006" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1007" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1008" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1009" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1010" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1011" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1012" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1013" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1014" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1015" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1016" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1017" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1018" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1019" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1020" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1021" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1022" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1023" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")
+
+[node name="Pixel1024" type="TextureRect" parent="nes_rom_test"]
+self_modulate = Color(0.2, 1, 0.760784, 1)
+layout_mode = 2
+texture = ExtResource("2_k224k")

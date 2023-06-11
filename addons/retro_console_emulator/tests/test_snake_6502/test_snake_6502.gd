@@ -54,7 +54,7 @@ class Snake6502Cpu extends NesCPU:
 		&"ui_right": 0x64,
 	}
 	var _nop_count: int = 0
-	const NOP_PER_FRAME: int = 20
+	const NOP_PER_FRAME: int = 80
 	
 	func _init() -> void:
 		super()

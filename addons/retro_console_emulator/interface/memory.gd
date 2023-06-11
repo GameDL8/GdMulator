@@ -10,6 +10,12 @@ func _init(p_size: int):
 func reset():
 	_memory.fill(0)
 
+
+# VIRTUAL
+func soft_reset():
+	pass
+
+
 func mem_read(addr: int) -> int:
 	assert(addr >= 0 and addr < _memory.size())
 	_emmit_observer(addr, _memory[addr], _memory[addr], MemoryObserver.ObserverFlags.READ_8)
