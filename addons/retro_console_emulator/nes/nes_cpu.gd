@@ -255,7 +255,7 @@ func reset():
 	register_a.value = 0
 	register_x.value = 0
 	register_y.value = 0
-	flags.value = 0
+	flags.value = 0b100100
 	stack_pointer = STACK_RESET
 	program_counter.value = memory.mem_read_16(0xFFFC)
 
@@ -319,6 +319,13 @@ func get_operand_address(p_mode: int) -> int:
 			var base: int = memory.mem_read_16(self.program_counter.value)
 			var addr: int = (base + register_y.value) % 0xFFFF
 			return addr
+		AddressingMode.Indirect:
+			var addr_addr: int = memory.mem_read_16(program_counter.value)
+			var addr: int = memory.mem_read_16(addr_addr)
+			var addr1 = (addr + 1) % 0xFF
+			var lo = memory.mem_read(addr)
+			var hi = memory.mem_read(addr1)
+			return (hi << 8) | (lo)
 		AddressingMode.Indirect_X:
 			var base = memory.mem_read(self.program_counter.value)
 			var ptr: int = (base + self.register_x.value) % 0xFF
@@ -425,6 +432,8 @@ func push_register_to_stack(p_register: Variant):
 		flags.B.value = true
 		flags.B2.value = true
 	stack_push_8(p_register.value)
+	if p_register is NesRegisterFlags:
+		flags.B.value = false
 
 
 #PLA - PLP
