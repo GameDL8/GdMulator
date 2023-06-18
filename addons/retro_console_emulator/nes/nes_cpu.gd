@@ -360,7 +360,9 @@ func add_with_carry_to_register(p_register: Register8bits, p_addressing_mode: Ad
 	var value: int = memory.mem_read(addr)
 	var previous: int = p_register.value
 	var result: int = p_register.value + value
-	p_register.value = result & 0b11111111
+	if flags.C.value == true:
+		result += 1
+	p_register.value = result & 0xFF
 	update_c_flag(result)
 	update_v_flag(previous, value, result)
 	update_z_n_flags(p_register.value)
@@ -440,7 +442,10 @@ func push_register_to_stack(p_register: Variant):
 # p_register can be Register8bits or NesRegisterFlags
 func pull_register_from_stack(p_register: Variant):
 	p_register.value = stack_pop_8()
-	if p_register != flags:
+	if p_register == flags:
+		flags.B.value = false
+		flags.B2.value = true
+	else:
 		update_z_n_flags(p_register.value)
 
 
@@ -487,6 +492,8 @@ func rotate_right_memory(p_addressing_mode: AddressingMode):
 #RTI
 func return_from_interrupt():
 	flags.value = stack_pop_8()
+	flags.B.value = false
+	flags.B2.value = true
 	program_counter.value = stack_pop_16()
 	is_running = true
 
@@ -499,12 +506,14 @@ func return_from_subroutine():
 func substract_with_carry_to_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
 	var addr: int = get_operand_address(p_addressing_mode)
 	var value: int = memory.mem_read(addr)
-	var previous: int = p_register.value
-	var negative = ((~value)+1) & 0b11111111
+	var previous = p_register.value
+	var negative = ((~value) & 0xFF)
 	var result: int = p_register.value + negative
-	p_register.value = result & 0b11111111
+	if flags.C.value == true:
+		result += 1
+	p_register.value = result & 0xFF
 	update_c_flag(result)
-	update_v_flag(previous, value, result)
+	update_v_flag(previous, negative, result)
 	update_z_n_flags(p_register.value)
 
 #BCC - BCS
@@ -540,11 +549,9 @@ func compare_register(p_register: Register8bits, p_addressing_mode: AddressingMo
 	var value: int = memory.mem_read(addr)
 	var result: int = p_register.value - value
 	if result < 0:
-		result = abs(result)
-		result |= 1 << 7
+		result += 0xFF + 1
 	set_flag(flags.C, p_register.value >= value)
-	set_flag(flags.Z, result == 0)
-	set_flag(flags.N, p_register.value < value)
+	update_z_n_flags(result)
 
 
 #LDA
@@ -647,7 +654,7 @@ func update_c_flag(p_value: int):
 
 func update_v_flag(p_a: int, p_b: int, p_result: int):
 	var sign_bit: int = 0b10000000
-	if p_a & sign_bit == p_b & sign_bit and p_result & sign_bit != p_a & sign_bit:
+	if (p_a ^ p_result) & (p_b ^ p_result) & sign_bit != 0:
 		flags.V.value = true
 	else:
 		flags.V.value = false

@@ -24,7 +24,7 @@ class UnitTestNesCpu extends NesCPU:
 	var _counter: int = 0
 	func _about_to_execute_instruction():
 		_counter += 1
-		if _counter % 180 == 0:
+		if _counter % 100 == 0:
 			await Engine.get_main_loop().create_timer(1).timeout
 		instruction_traced.emit(_trace())
 
@@ -66,6 +66,9 @@ class UnitTestNesCpu extends NesCPU:
 				jump += 1
 				addr = program_counter.value + jump
 				out += "$%04x" % addr
+			if instruction.mnemonic in [&"LSR", &"ASL", &"ROL", &"ROR"] \
+					and instruction.register != StringName():
+				out += "%s" % instruction.register
 		program_counter.value -= 1
 		match instruction.addresing_mode:
 			AddressingMode.Immediate:
@@ -87,6 +90,8 @@ class UnitTestNesCpu extends NesCPU:
 				out += "$"
 				out += _dump_instruction_arg(instruction, 2)
 				out += _dump_instruction_arg(instruction, 1)
+				if instruction.mnemonic.begins_with("LD") or instruction.mnemonic.begins_with("ST"):
+					out += " = %02x" % value
 			AddressingMode.Absolute_X:
 				out += "$"
 				out += _dump_instruction_arg(instruction, 2)
