@@ -105,9 +105,13 @@ class UnitTestNesCpu extends NesCPU:
 				out += _dump_instruction_arg(instruction, 1)
 				out += ") @ %02x = %02x" % [addr, value]
 			AddressingMode.Indirect_X:
+				var addr_plus_x: = memory.mem_read(program_counter.value + 1)
+				addr_plus_x += register_x.value
+				if addr_plus_x > 0xFF:
+					addr_plus_x -= 0x0100
 				out += "($"
 				out += _dump_instruction_arg(instruction, 1)
-				out += ",X) @ %02x = %02x" % [addr, value]
+				out += ",X) @ %02x = %04x = %02x" % [addr_plus_x, addr, value]
 			AddressingMode.Indirect_Y:
 				out += "($"
 				out += _dump_instruction_arg(instruction, 1)

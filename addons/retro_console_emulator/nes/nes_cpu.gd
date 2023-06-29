@@ -328,8 +328,12 @@ func get_operand_address(p_mode: int) -> int:
 			return (hi << 8) | (lo)
 		AddressingMode.Indirect_X:
 			var base = memory.mem_read(self.program_counter.value)
-			var ptr: int = (base + self.register_x.value) % 0xFF
-			var ptr1 = (ptr + 1) % 0xFF
+			var ptr: int = (base + self.register_x.value)
+			if ptr > 0xFF:
+				ptr -= 0x0100
+			var ptr1 = (ptr + 1)
+			if ptr1 > 0xFF:
+				ptr1 -= 0x0100
 			var lo = memory.mem_read(ptr)
 			var hi = memory.mem_read(ptr1)
 			return (hi << 8) | (lo)
