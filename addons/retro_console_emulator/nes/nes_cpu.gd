@@ -17,7 +17,7 @@ enum AddressingMode {
 }
 
 
-const STACK: int       = 0x0100;
+const STACK: int       = 0x0100
 const STACK_RESET: int = 0xfd
 
 
@@ -301,7 +301,7 @@ func get_operand_address(p_mode: int) -> int:
 			return memory.mem_read(program_counter.value)
 		AddressingMode.Absolute:
 			#LDA  $0x1090
-			#0xAD 0x90 0x10 ; bytes are inverted because of little endianess
+			#0xAD 0x90 0x10  bytes are inverted because of little endianess
 			return memory.mem_read_16(program_counter.value)
 		AddressingMode.ZeroPage_X:
 			var pos: int = memory.mem_read(self.program_counter.value)
@@ -322,7 +322,9 @@ func get_operand_address(p_mode: int) -> int:
 		AddressingMode.Indirect:
 			var addr_addr: int = memory.mem_read_16(program_counter.value)
 			var addr: int = memory.mem_read_16(addr_addr)
-			var addr1 = (addr + 1) % 0xFF
+			var addr1 = (addr + 1)
+			if addr1 > 0xFF:
+				addr1 -= 0x0100
 			var lo = memory.mem_read(addr)
 			var hi = memory.mem_read(addr1)
 			return (hi << 8) | (lo)
@@ -338,11 +340,16 @@ func get_operand_address(p_mode: int) -> int:
 			var hi = memory.mem_read(ptr1)
 			return (hi << 8) | (lo)
 		AddressingMode.Indirect_Y:
-			var base: int = memory.mem_read(self.program_counter.value);
-			var lo: int = memory.mem_read(base);
-			var hi: int = memory.mem_read((base + 1) % 0xFF);
-			var deref_base: int = (hi << 8) | (lo);
-			var deref: int = (deref_base + self.register_y.value) % 0xFFFF
+			var base: int = memory.mem_read(self.program_counter.value)
+			var lo: int = memory.mem_read(base)
+			base += 1
+			if base > 0xFF:
+				base -= 0x0100
+			var hi: int = memory.mem_read(base)
+			var deref_base: int = (hi << 8) | (lo)
+			var deref: int = (deref_base + self.register_y.value)
+			if deref > 0xFFFF:
+				deref -= 0x10000
 			return deref
 		_:
 			assert(false, "Adressing mode not supported!")

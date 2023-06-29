@@ -113,9 +113,16 @@ class UnitTestNesCpu extends NesCPU:
 				out += _dump_instruction_arg(instruction, 1)
 				out += ",X) @ %02x = %04x = %02x" % [addr_plus_x, addr, value]
 			AddressingMode.Indirect_Y:
+				var base: = memory.mem_read(program_counter.value + 1)
+				var lo: int = memory.mem_read(base);
+				base += 1
+				if base > 0xFF:
+					base -= 0x0100
+				var hi: int = memory.mem_read(base);
+				var deref_base: int = (hi << 8) | (lo)
 				out += "($"
 				out += _dump_instruction_arg(instruction, 1)
-				out += "),Y @ %02x = %02x" % [addr, value]
+				out += "),Y = %04x @ %04x = %02x" % [deref_base, addr, value]
 			_:
 				pass
 		while out.length() < 33:
