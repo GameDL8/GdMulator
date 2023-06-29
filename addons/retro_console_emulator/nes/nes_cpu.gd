@@ -451,19 +451,23 @@ func pull_register_from_stack(p_register: Variant):
 
 #ROL
 func rotate_left_register(p_register: Register8bits):
-	var value: int = p_register.value << 1
+	var old_value = p_register.value
+	var value: int = old_value << 1
 	value |= 0x01 if flags.C.value else 0x00
-	flags.C.value = 0b100000000
+	flags.C.value = 0b10000000 & old_value
 	value &= 0xFF
 	p_register.value = value
 	update_z_n_flags(value)
+	if flags.value == 0xA5:
+		breakpoint
 
 
 func rotate_left_memory(p_addressing_mode: AddressingMode):
 	var addr: int = get_operand_address(p_addressing_mode)
-	var value: int = memory.mem_read(addr) << 1
+	var old_value = memory.mem_read(addr)
+	var value: int = old_value << 1
 	value |= 0x01 if flags.C.value else 0x00
-	flags.C.value = 0b100000000
+	flags.C.value = 0b10000000 & old_value
 	value &= 0xFF
 	memory.mem_write(addr, value)
 	update_z_n_flags(value)
