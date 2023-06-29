@@ -95,17 +95,28 @@ class UnitTestNesCpu extends NesCPU:
 				out += "$"
 				out += _dump_instruction_arg(instruction, 2)
 				out += _dump_instruction_arg(instruction, 1)
-				out += ",X @ %02x = %02x" % [addr, value]
+				out += ",X @ %04x = %02x" % [addr, value]
 			AddressingMode.Absolute_Y:
 				out += "$"
 				out += _dump_instruction_arg(instruction, 2)
 				out += _dump_instruction_arg(instruction, 1)
 				out += ",Y @ %04x = %02x" % [addr, value]
 			AddressingMode.Indirect:
+				var addr_addr: int = memory.mem_read_16(program_counter.value + 1)
+				addr = memory.mem_read_16(addr_addr)
+				# 6502 bug mode with with page boundary:
+				# if address $3000 contains $40, $30FF contains $80, and $3100 contains $50,
+				# the result of JMP ($30FF) will be a transfer of control to $4080 rather than $5080 as you intended
+				# i.e. the 6502 took the low byte of the address from $30FF and the high byte from $3000
+				if addr_addr & 0x00FF == 0x00FF:
+					var lo: int = memory.mem_read(addr_addr)
+					var hi: int = memory.mem_read(addr_addr & 0xFF00)
+					addr = hi << 8 | lo 
 				out += "($"
 				out += _dump_instruction_arg(instruction, 2)
 				out += _dump_instruction_arg(instruction, 1)
-				out += ") @ %02x = %02x" % [addr, value]
+#				out += ") @ %02x = %02x" % [addr, value]
+				out += ") = %04x" % [addr]
 			AddressingMode.Indirect_X:
 				var addr_plus_x: = memory.mem_read(program_counter.value + 1)
 				addr_plus_x += register_x.value
@@ -154,6 +165,7 @@ func _ready():
 
 var trace_history: Array[Trace] = []
 var missmatch_count: = 0
+var last_printed: int = -5
 func _on_cpu_instruction_traced(p_trace: String):
 	line += 1
 	var log_line: String = log_file.get_line()
@@ -166,6 +178,9 @@ func _on_cpu_instruction_traced(p_trace: String):
 		trace_history[-1].print()
 		trace.print()
 		missmatch_count += 1
+		last_printed = line
+	elif (line - last_printed) < 3:
+		trace.print()
 	trace_history.push_back(trace)
 	if missmatch_count >= 5:
 		breakpoint
