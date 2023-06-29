@@ -23,9 +23,6 @@ class UnitTestNesCpu extends NesCPU:
 
 	var _counter: int = 0
 	func _about_to_execute_instruction():
-		_counter += 1
-		if _counter % 100 == 0:
-			await Engine.get_main_loop().create_timer(1).timeout
 		instruction_traced.emit(_trace())
 
 
@@ -140,13 +137,58 @@ func _ready():
 	cpu.program_counter.value = 0xC000
 	cpu.instruction_traced.connect(_on_cpu_instruction_traced)
 	cpu.run()
-	
+
+
+var trace_history: Array[Trace] = []
+var missmatch_count: = 0
 func _on_cpu_instruction_traced(p_trace: String):
 	line += 1
-	var compare_with: String = log_file.get_line()
-	var lenght = p_trace.length()
-	var trim = compare_with.substr(0, lenght)
-	if p_trace != trim:
-		printerr("Trace missmatch on line %d:\n\tlog: %s\n\tcpu: %s" % [line, compare_with, p_trace])
-	else:
-		print("Trace match on line %d:\n\tlog: %s\n\tcpu: %s" % [line, compare_with, p_trace])
+	var log_line: String = log_file.get_line()
+	var trace := Trace.new(line, log_line, p_trace)
+	
+	if !trace.matches:
+		trace_history[-4].print()
+		trace_history[-3].print()
+		trace_history[-2].print()
+		trace_history[-1].print()
+		trace.print()
+		missmatch_count += 1
+	trace_history.push_back(trace)
+	if missmatch_count >= 5:
+		breakpoint
+
+class Trace:
+	var line: int
+	var log_line: String
+	var trace_line: String
+	var remainder: String
+	var matches: bool = true
+	var did_print: bool = false
+	func _init(p_line: int, p_log_line: String, p_trace_line: String) -> void:
+		line = p_line
+		log_line = p_log_line
+		trace_line = p_trace_line
+		var lenght = p_trace_line.length()
+		var trim = log_line.substr(0, lenght)
+		remainder = log_line.substr(lenght)
+		matches = trace_line == trim
+	
+	
+	func print():
+		if did_print:
+			return
+		did_print = true
+		if matches:
+			print_rich(("%d: " % line) + trace_line + "[color=yellow]" + remainder + "[/color]\n")
+		else:
+			var out_trace: String = "%d: " % line
+			var out_log: String = "%d: " % line
+			for i in range(trace_line.length()):
+				if trace_line.substr(i, 1) == log_line.substr(i, 1):
+					out_log += log_line.substr(i, 1)
+					out_trace += trace_line.substr(i, 1)
+				else:
+					out_log += "[color=red]" + log_line.substr(i, 1) + "[/color]"
+					out_trace += "[color=green]" + trace_line.substr(i, 1) + "[/color]"
+			print_rich(out_log + "[color=yellow]" + remainder + "[/color]")
+			print_rich(out_trace + "\n")
