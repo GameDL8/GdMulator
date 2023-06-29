@@ -29,7 +29,7 @@ class UnitTestNesCpu extends NesCPU:
 	func _trace() -> String:
 		var out: String
 		# Program Counter
-		out += "%4x  " % program_counter.value
+		out += "%04x  " % program_counter.value
 		var opcode: int = memory.mem_read(program_counter.value)
 		var instruction: OpCode = instructionset.get(opcode, null)
 		assert(instruction)
@@ -87,7 +87,9 @@ class UnitTestNesCpu extends NesCPU:
 				out += "$"
 				out += _dump_instruction_arg(instruction, 2)
 				out += _dump_instruction_arg(instruction, 1)
-				if instruction.mnemonic.begins_with("LD") or instruction.mnemonic.begins_with("ST"):
+				if (instruction.mnemonic.substr(0, 2) in ["LD", "ST", "CP"]
+						or instruction.mnemonic in [&"BIT", &"ORA", &"AND", &"EOR", &"ADC",
+						&"CMP", &"SBC", &"LSR", &"ASL", &"ROR", &"ROL", &"INC", &"DEC"]):
 					out += " = %02x" % value
 			AddressingMode.Absolute_X:
 				out += "$"
@@ -98,7 +100,7 @@ class UnitTestNesCpu extends NesCPU:
 				out += "$"
 				out += _dump_instruction_arg(instruction, 2)
 				out += _dump_instruction_arg(instruction, 1)
-				out += ",Y @ %02x = %02x" % [addr, value]
+				out += ",Y @ %04x = %02x" % [addr, value]
 			AddressingMode.Indirect:
 				out += "($"
 				out += _dump_instruction_arg(instruction, 2)
