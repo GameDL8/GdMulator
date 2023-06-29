@@ -305,19 +305,27 @@ func get_operand_address(p_mode: int) -> int:
 			return memory.mem_read_16(program_counter.value)
 		AddressingMode.ZeroPage_X:
 			var pos: int = memory.mem_read(self.program_counter.value)
-			var addr: int = (pos + register_x.value) % 0xFF
+			var addr: int = (pos + register_x.value)
+			if addr > 0xFF:
+				addr -= 0x0100
 			return addr
 		AddressingMode.ZeroPage_Y:
 			var pos: int = memory.mem_read(self.program_counter.value)
-			var addr: int = (pos + register_y.value) % 0xFF
+			var addr: int = (pos + register_y.value)
+			if addr > 0xFF:
+				addr -= 0x0100
 			return addr
 		AddressingMode.Absolute_X:
 			var base: int = memory.mem_read_16(self.program_counter.value)
-			var addr: int = (base + register_x.value) % 0xFFFF
+			var addr: int = (base + register_x.value)
+			if addr > 0xFFFF:
+				addr -= 0x10000
 			return addr
 		AddressingMode.Absolute_Y:
 			var base: int = memory.mem_read_16(self.program_counter.value)
-			var addr: int = (base + register_y.value) % 0xFFFF
+			var addr: int = (base + register_y.value)
+			if addr > 0xFFFF:
+				addr -= 0x10000
 			return addr
 		AddressingMode.Indirect:
 			var addr_addr: int = memory.mem_read_16(program_counter.value)
