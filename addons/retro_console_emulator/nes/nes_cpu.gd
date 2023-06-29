@@ -127,7 +127,7 @@ func _init() -> void:
 		# LSR
 		OpCode.new(0x4A, &"LSR", 1, 2, logical_shift_right_register, register_a.name),
 		OpCode.new(0x46, &"LSR", 2, 5, logical_shift_right_memory, StringName(), AddressingMode.ZeroPage),
-		OpCode.new(0x56, &"LSR", 5, 6, logical_shift_right_memory, StringName(), AddressingMode.ZeroPage_X),
+		OpCode.new(0x56, &"LSR", 2, 6, logical_shift_right_memory, StringName(), AddressingMode.ZeroPage_X),
 		OpCode.new(0x4E, &"LSR", 3, 6, logical_shift_right_memory, StringName(), AddressingMode.Absolute),
 		OpCode.new(0x5E, &"LSR", 3, 7, logical_shift_right_memory, StringName(), AddressingMode.Absolute_X),
 		# NOP
