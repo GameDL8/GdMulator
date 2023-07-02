@@ -46,6 +46,16 @@ func _init() -> void:
 		OpCode.new(0x97, &"SAX", 2, 4, bitwise_and_two_registers.bind(register_a, register_x, AddressingMode.ZeroPage_Y), StringName(), AddressingMode.ZeroPage_Y),
 		OpCode.new(0x83, &"SAX", 2, 6, bitwise_and_two_registers.bind(register_a, register_x, AddressingMode.Indirect_X), StringName(), AddressingMode.Indirect_X),
 		OpCode.new(0x8F, &"SAX", 3, 4, bitwise_and_two_registers.bind(register_a, register_x, AddressingMode.Absolute), StringName(), AddressingMode.Absolute),
+		# SBC
+		OpCode.new(0xEB, &"SBC", 2, 2, substract_with_carry_to_register, register_a.name, AddressingMode.Immediate),
+		# DCP
+		OpCode.new(0xC7, &"DCP", 2, 5, increase_then_compare_register.bind(AddressingMode.ZeroPage, -1, register_a), StringName(), AddressingMode.ZeroPage),
+		OpCode.new(0xD7, &"DCP", 2, 6, increase_then_compare_register.bind(AddressingMode.ZeroPage_X, -1, register_a), StringName(), AddressingMode.ZeroPage_X),
+		OpCode.new(0xCF, &"DCP", 3, 6, increase_then_compare_register.bind(AddressingMode.Absolute, -1, register_a), StringName(), AddressingMode.Absolute),
+		OpCode.new(0xDF, &"DCP", 3, 7, increase_then_compare_register.bind(AddressingMode.Absolute_X, -1, register_a), StringName(), AddressingMode.Absolute_X),
+		OpCode.new(0xDB, &"DCP", 3, 7, increase_then_compare_register.bind(AddressingMode.Absolute_Y, -1, register_a), StringName(), AddressingMode.Absolute_Y),
+		OpCode.new(0xC3, &"DCP", 2, 8, increase_then_compare_register.bind(AddressingMode.Indirect_X, -1, register_a), StringName(), AddressingMode.Indirect_X),
+		OpCode.new(0xD3, &"DCP", 2, 8, increase_then_compare_register.bind(AddressingMode.Indirect_Y, -1, register_a), StringName(), AddressingMode.Indirect_Y),
 		
 	]
 	
@@ -79,3 +89,7 @@ func bitwise_and_two_registers(p_reg_1: Register8bits, p_reg_2: Register8bits, p
 	var addr: int = get_operand_address(p_addressing_mode)
 	var result: int = p_reg_1.value & p_reg_2.value
 	memory.mem_write(addr, result)
+
+func increase_then_compare_register(p_addressing_mode: AddressingMode, p_by_amount: int, p_register: Register8bits):
+	increment_memory(p_addressing_mode, p_by_amount)
+	compare_register(p_register, p_addressing_mode)
