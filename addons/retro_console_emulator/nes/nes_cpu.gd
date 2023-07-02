@@ -41,6 +41,12 @@ func _init() -> void:
 		OpCode.new(0xBF, &"LAX", 3, 4,load_registers8.bind([register_a, register_x], AddressingMode.Absolute_Y), StringName(), AddressingMode.Absolute_Y),
 		OpCode.new(0xA3, &"LAX", 2, 6,load_registers8.bind([register_a, register_x], AddressingMode.Indirect_X), StringName(), AddressingMode.Indirect_X),
 		OpCode.new(0xB3, &"LAX", 2, 5,load_registers8.bind([register_a, register_x], AddressingMode.Indirect_Y), StringName(), AddressingMode.Indirect_Y),
+		# AAX: And registers
+		OpCode.new(0x87, &"SAX", 2, 3, bitwise_and_two_registers.bind(register_a, register_x, AddressingMode.ZeroPage), StringName(), AddressingMode.ZeroPage),
+		OpCode.new(0x97, &"SAX", 2, 4, bitwise_and_two_registers.bind(register_a, register_x, AddressingMode.ZeroPage_Y), StringName(), AddressingMode.ZeroPage_Y),
+		OpCode.new(0x83, &"SAX", 2, 6, bitwise_and_two_registers.bind(register_a, register_x, AddressingMode.Indirect_X), StringName(), AddressingMode.Indirect_X),
+		OpCode.new(0x8F, &"SAX", 3, 4, bitwise_and_two_registers.bind(register_a, register_x, AddressingMode.Absolute), StringName(), AddressingMode.Absolute),
+		
 	]
 	
 	for instruction in instructions:
@@ -68,3 +74,8 @@ func ilegal_no_operation(_ignore: AddressingMode):
 func load_registers8(p_registers: Array, p_addressing_mode: AddressingMode):
 	for register in p_registers:
 		load_register8(register, p_addressing_mode)
+
+func bitwise_and_two_registers(p_reg_1: Register8bits, p_reg_2: Register8bits, p_addressing_mode: AddressingMode):
+	var addr: int = get_operand_address(p_addressing_mode)
+	var result: int = p_reg_1.value & p_reg_2.value
+	memory.mem_write(addr, result)

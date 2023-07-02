@@ -174,10 +174,8 @@ func _on_cpu_instruction_traced(p_trace: String):
 	var trace := Trace.new(line, log_line, p_trace)
 	
 	if !trace.matches:
-		trace_history[-4].print()
-		trace_history[-3].print()
-		trace_history[-2].print()
-		trace_history[-1].print()
+		for h in range(-10, 0):
+			trace_history[h].print()
 		trace.print()
 		missmatch_count += 1
 		last_printed = line
