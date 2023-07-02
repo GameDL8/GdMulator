@@ -68,77 +68,79 @@ class UnitTestNesCpu extends NesCPU:
 					and instruction.register != StringName():
 				out += "%s" % instruction.register
 		program_counter.value -= 1
-		match instruction.addresing_mode:
-			AddressingMode.Immediate:
-				out += "#$"
-				out += _dump_instruction_arg(instruction, 1)
-			AddressingMode.ZeroPage:
-				out += "$"
-				out += _dump_instruction_arg(instruction, 1)
-				out += " = %02x" % value
-			AddressingMode.ZeroPage_X:
-				out += "$"
-				out += _dump_instruction_arg(instruction, 1)
-				out += ",X @ %02x = %02x" % [addr, value]
-			AddressingMode.ZeroPage_Y:
-				out += "$"
-				out += _dump_instruction_arg(instruction, 1)
-				out += ",Y @ %02x = %02x" % [addr, value]
-			AddressingMode.Absolute:
-				out += "$"
-				out += _dump_instruction_arg(instruction, 2)
-				out += _dump_instruction_arg(instruction, 1)
-				if (instruction.mnemonic.substr(0, 2) in ["LD", "ST", "CP"]
-						or instruction.mnemonic in [&"BIT", &"ORA", &"AND", &"EOR", &"ADC",
-						&"CMP", &"SBC", &"LSR", &"ASL", &"ROR", &"ROL", &"INC", &"DEC"]):
+		if instruction.size > 1:
+			match instruction.addresing_mode:
+				AddressingMode.Immediate:
+					out += "#$"
+					out += _dump_instruction_arg(instruction, 1)
+				AddressingMode.ZeroPage:
+					out += "$"
+					out += _dump_instruction_arg(instruction, 1)
 					out += " = %02x" % value
-			AddressingMode.Absolute_X:
-				out += "$"
-				out += _dump_instruction_arg(instruction, 2)
-				out += _dump_instruction_arg(instruction, 1)
-				out += ",X @ %04x = %02x" % [addr, value]
-			AddressingMode.Absolute_Y:
-				out += "$"
-				out += _dump_instruction_arg(instruction, 2)
-				out += _dump_instruction_arg(instruction, 1)
-				out += ",Y @ %04x = %02x" % [addr, value]
-			AddressingMode.Indirect:
-				var addr_addr: int = memory.mem_read_16(program_counter.value + 1)
-				addr = memory.mem_read_16(addr_addr)
-				# 6502 bug mode with with page boundary:
-				# if address $3000 contains $40, $30FF contains $80, and $3100 contains $50,
-				# the result of JMP ($30FF) will be a transfer of control to $4080 rather than $5080 as you intended
-				# i.e. the 6502 took the low byte of the address from $30FF and the high byte from $3000
-				if addr_addr & 0x00FF == 0x00FF:
-					var lo: int = memory.mem_read(addr_addr)
-					var hi: int = memory.mem_read(addr_addr & 0xFF00)
-					addr = hi << 8 | lo 
-				out += "($"
-				out += _dump_instruction_arg(instruction, 2)
-				out += _dump_instruction_arg(instruction, 1)
-#				out += ") @ %02x = %02x" % [addr, value]
-				out += ") = %04x" % [addr]
-			AddressingMode.Indirect_X:
-				var addr_plus_x: = memory.mem_read(program_counter.value + 1)
-				addr_plus_x += register_x.value
-				if addr_plus_x > 0xFF:
-					addr_plus_x -= 0x0100
-				out += "($"
-				out += _dump_instruction_arg(instruction, 1)
-				out += ",X) @ %02x = %04x = %02x" % [addr_plus_x, addr, value]
-			AddressingMode.Indirect_Y:
-				var base: = memory.mem_read(program_counter.value + 1)
-				var lo: int = memory.mem_read(base);
-				base += 1
-				if base > 0xFF:
-					base -= 0x0100
-				var hi: int = memory.mem_read(base);
-				var deref_base: int = (hi << 8) | (lo)
-				out += "($"
-				out += _dump_instruction_arg(instruction, 1)
-				out += "),Y = %04x @ %04x = %02x" % [deref_base, addr, value]
-			_:
-				pass
+				AddressingMode.ZeroPage_X:
+					out += "$"
+					out += _dump_instruction_arg(instruction, 1)
+					out += ",X @ %02x = %02x" % [addr, value]
+				AddressingMode.ZeroPage_Y:
+					out += "$"
+					out += _dump_instruction_arg(instruction, 1)
+					out += ",Y @ %02x = %02x" % [addr, value]
+				AddressingMode.Absolute:
+					out += "$"
+					out += _dump_instruction_arg(instruction, 2)
+					out += _dump_instruction_arg(instruction, 1)
+					if (instruction.mnemonic.substr(0, 2) in ["LD", "ST", "CP"]
+							or instruction.mnemonic in [&"BIT", &"ORA", &"AND", &"EOR", &"ADC",
+							&"CMP", &"SBC", &"LSR", &"ASL", &"ROR", &"ROL", &"INC", &"DEC"]
+							or instruction.has_meta(&"is_ilegal")):
+						out += " = %02x" % value
+				AddressingMode.Absolute_X:
+					out += "$"
+					out += _dump_instruction_arg(instruction, 2)
+					out += _dump_instruction_arg(instruction, 1)
+					out += ",X @ %04x = %02x" % [addr, value]
+				AddressingMode.Absolute_Y:
+					out += "$"
+					out += _dump_instruction_arg(instruction, 2)
+					out += _dump_instruction_arg(instruction, 1)
+					out += ",Y @ %04x = %02x" % [addr, value]
+				AddressingMode.Indirect:
+					var addr_addr: int = memory.mem_read_16(program_counter.value + 1)
+					addr = memory.mem_read_16(addr_addr)
+					# 6502 bug mode with with page boundary:
+					# if address $3000 contains $40, $30FF contains $80, and $3100 contains $50,
+					# the result of JMP ($30FF) will be a transfer of control to $4080 rather than $5080 as you intended
+					# i.e. the 6502 took the low byte of the address from $30FF and the high byte from $3000
+					if addr_addr & 0x00FF == 0x00FF:
+						var lo: int = memory.mem_read(addr_addr)
+						var hi: int = memory.mem_read(addr_addr & 0xFF00)
+						addr = hi << 8 | lo 
+					out += "($"
+					out += _dump_instruction_arg(instruction, 2)
+					out += _dump_instruction_arg(instruction, 1)
+	#				out += ") @ %02x = %02x" % [addr, value]
+					out += ") = %04x" % [addr]
+				AddressingMode.Indirect_X:
+					var addr_plus_x: = memory.mem_read(program_counter.value + 1)
+					addr_plus_x += register_x.value
+					if addr_plus_x > 0xFF:
+						addr_plus_x -= 0x0100
+					out += "($"
+					out += _dump_instruction_arg(instruction, 1)
+					out += ",X) @ %02x = %04x = %02x" % [addr_plus_x, addr, value]
+				AddressingMode.Indirect_Y:
+					var base: = memory.mem_read(program_counter.value + 1)
+					var lo: int = memory.mem_read(base);
+					base += 1
+					if base > 0xFF:
+						base -= 0x0100
+					var hi: int = memory.mem_read(base);
+					var deref_base: int = (hi << 8) | (lo)
+					out += "($"
+					out += _dump_instruction_arg(instruction, 1)
+					out += "),Y = %04x @ %04x = %02x" % [deref_base, addr, value]
+				_:
+					pass
 		while out.length() < 33:
 			out += " "
 		return out

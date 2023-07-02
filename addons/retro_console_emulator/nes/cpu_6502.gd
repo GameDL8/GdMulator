@@ -241,7 +241,8 @@ func _init() -> void:
 		instructionset[instruction.code] = instruction
 		var bind_args: Array
 		if instruction.addresing_mode != -1:
-			instruction.callback = instruction.callback.bind(instruction.addresing_mode)
+			var cb : Callable = instruction.callback.bind(instruction.addresing_mode)
+			instruction.callback = cb
 		if instruction.register != StringName():
 			if registers.has(instruction.register):
 				instruction.callback = instruction.callback.bind(registers[instruction.register])
