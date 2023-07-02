@@ -6,7 +6,7 @@ func test():
 
 
 func test_0x8a_txa_move_x_to_a():
-	var cpu = NesCPU.new()
+	var cpu = CPU6502.new()
 	cpu.load_and_run([0xa2, 10, 0x8a, 0x00])
 	assert(cpu.register_a.value == 10)
 	assert(cpu.flags.Z.value == false)
@@ -23,7 +23,7 @@ func test_0x8a_txa_move_x_to_a():
 
 
 func test_0x98_tya_move_y_to_a():
-	var cpu = NesCPU.new()
+	var cpu = CPU6502.new()
 	cpu.load_and_run([0xa0, 10, 0x98, 0x00])
 	assert(cpu.register_a.value == 10)
 	assert(cpu.flags.Z.value == false)

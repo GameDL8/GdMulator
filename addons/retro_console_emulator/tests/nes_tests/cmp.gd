@@ -13,7 +13,7 @@ func test():
 
 
 func test_0xc9_cmp_immediate_compare_register_a():
-	var cpu = NesCPU.new()
+	var cpu = CPU6502.new()
 	cpu.load_and_run([0xa9, 0x03, 0xc9, 0x02, 0x00])
 	assert(cpu.flags.Z.value == false)
 	assert(cpu.flags.N.value == false)
@@ -30,7 +30,7 @@ func test_0xc9_cmp_immediate_compare_register_a():
 
 
 func test_0xc5_cmp_zeropage_compare_register_a():
-	var cpu = NesCPU.new()
+	var cpu = CPU6502.new()
 	cpu.memory.mem_write(0x01, 0x03)
 	cpu.load_and_run([0xa9, 0x02, 0xc5, 0x01, 0x00])
 	assert(cpu.flags.Z.value == false)
@@ -48,7 +48,7 @@ func test_0xc5_cmp_zeropage_compare_register_a():
 
 
 func test_0xd5_cmp_zeropage_x_compare_register_a():
-	var cpu = NesCPU.new()
+	var cpu = CPU6502.new()
 	cpu.memory.mem_write(0x05, 0x03)
 	cpu.load_and_run([0xa9, 0x04, 0xaa, 0xa9, 0x02, 0xd5, 0x01, 0x00])
 	assert(cpu.flags.Z.value == false)
@@ -66,7 +66,7 @@ func test_0xd5_cmp_zeropage_x_compare_register_a():
 
 
 func test_0xcd_cmp_absolute_compare_register_a():
-	var cpu = NesCPU.new()
+	var cpu = CPU6502.new()
 	cpu.memory.mem_write(0x4005, 0x03)
 	cpu.load_and_run([0xa9, 0x02, 0xcd, 0x05, 0x40, 0x00])
 	assert(cpu.flags.Z.value == false)
@@ -84,7 +84,7 @@ func test_0xcd_cmp_absolute_compare_register_a():
 
 
 func test_0xdd_cmp_absolute_x_compare_register_a():
-	var cpu = NesCPU.new()
+	var cpu = CPU6502.new()
 	cpu.memory.mem_write(0x4005, 0x03)
 	cpu.load_and_run([0xa9, 0x04, 0xaa, 0xa9, 0x02, 0xdd, 0x01, 0x40, 0x00])
 	assert(cpu.flags.Z.value == false)
@@ -102,7 +102,7 @@ func test_0xdd_cmp_absolute_x_compare_register_a():
 
 
 func test_0xd9_cmp_absolute_y_compare_register_a():
-	var cpu = NesCPU.new()
+	var cpu = CPU6502.new()
 	cpu.memory.mem_write(0x4005, 0x03)
 	cpu.load_and_run([0xa9, 0x04, 0xa8, 0xa9, 0x02, 0xd9, 0x01, 0x40, 0x00])
 	assert(cpu.flags.Z.value == false)
@@ -120,7 +120,7 @@ func test_0xd9_cmp_absolute_y_compare_register_a():
 
 
 func test_0xc1_cmp_indirect_x_compare_register_a():
-	var cpu = NesCPU.new()
+	var cpu = CPU6502.new()
 	cpu.memory.mem_write(0x05, 0x03)
 	cpu.memory.mem_write(0x06, 0x40)
 	cpu.memory.mem_write(0x4003, 0x03)
@@ -140,7 +140,7 @@ func test_0xc1_cmp_indirect_x_compare_register_a():
 
 
 func test_0xd1_cmp_indirect_y_compare_register_a():
-	var cpu = NesCPU.new()
+	var cpu = CPU6502.new()
 	cpu.memory.mem_write(0x01, 0x03)
 	cpu.memory.mem_write(0x02, 0x40)
 	cpu.memory.mem_write(0x4007, 0x03)

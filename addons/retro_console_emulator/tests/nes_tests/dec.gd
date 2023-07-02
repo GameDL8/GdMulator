@@ -9,7 +9,7 @@ func test():
 
 
 func test_0xc6_dec_zeropage_decrease_memory_value():
-	var cpu = NesCPU.new()
+	var cpu = CPU6502.new()
 	cpu.memory.mem_write(0x03, 0xA0)
 	cpu.memory.mem_write(0x04, 0x00)
 	cpu.memory.mem_write(0x05, 0x02)
@@ -34,7 +34,7 @@ func test_0xc6_dec_zeropage_decrease_memory_value():
 
 
 func test_0xd6_dec_zeropage_x_decrease_memory_value():
-	var cpu = NesCPU.new()
+	var cpu = CPU6502.new()
 	cpu.memory.mem_write(0x03+3, 0xA0)
 	cpu.memory.mem_write(0x04+3, 0x00)
 	cpu.memory.mem_write(0x05+3, 0x02)
@@ -59,7 +59,7 @@ func test_0xd6_dec_zeropage_x_decrease_memory_value():
 
 
 func test_0xce_dec_absolute_decrease_memory_value():
-	var cpu = NesCPU.new()
+	var cpu = CPU6502.new()
 	cpu.memory.mem_write(0x4003, 0xA0)
 	cpu.memory.mem_write(0x4004, 0x00)
 	cpu.memory.mem_write(0x4005, 0x02)
@@ -84,7 +84,7 @@ func test_0xce_dec_absolute_decrease_memory_value():
 
 
 func test_0xde_dec_absolute_x_decrease_memory_value():
-	var cpu = NesCPU.new()
+	var cpu = CPU6502.new()
 	cpu.memory.mem_write(0x4003+3, 0xA0)
 	cpu.memory.mem_write(0x4004+3, 0x00)
 	cpu.memory.mem_write(0x4005+3, 0x02)

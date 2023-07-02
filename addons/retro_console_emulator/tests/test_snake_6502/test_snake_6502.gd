@@ -44,7 +44,7 @@ const GAME_CODE: PackedByteArray = [
 ]
 
 
-class Snake6502Cpu extends NesCPU:
+class Snake6502Cpu extends CPU6502:
 	var last_button_pressed: int
 	
 	const INPUT_MAP: Dictionary = { #[StringName, int]

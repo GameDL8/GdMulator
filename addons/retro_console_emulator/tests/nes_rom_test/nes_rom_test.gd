@@ -1,7 +1,7 @@
 extends Control
 
 
-class NesSnakeCpu extends NesCPU:
+class NesSnakeCpu extends CPU6502:
 	var last_button_pressed: int
 	
 	const INPUT_MAP: Dictionary = { #[StringName, int]

@@ -158,7 +158,6 @@ var line: int = 0
 func _ready():
 	assert(log_file != null)
 	cpu.reset()
-	cpu.program_counter.value = 0xC000
 	cpu.instruction_traced.connect(_on_cpu_instruction_traced)
 	cpu.run()
 

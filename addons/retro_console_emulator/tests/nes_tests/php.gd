@@ -6,7 +6,7 @@ func test():
 
 
 func test_0x08_php_push_procesor():
-	var cpu = NesCPU.new()
+	var cpu = CPU6502.new()
 	cpu.load_and_run([
 		0xa9, 0b00000000, 
 		0x38,             # P == 0b00110011 B and B1 flags are always pushed as 1
