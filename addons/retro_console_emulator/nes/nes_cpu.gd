@@ -6,7 +6,20 @@ func _init() -> void:
 	
 	#register instructions
 	var instructions: Array[OpCode] = [
-		OpCode.new(0x04, &"NOP", 2, 3, store_from_register, register_y.name, AddressingMode.ZeroPage),
+		OpCode.new(0x04, &"NOP", 2, 3, double_no_operation, StringName(), AddressingMode.ZeroPage),
+		OpCode.new(0x44, &"NOP", 2, 3, double_no_operation, StringName(), AddressingMode.ZeroPage),
+		OpCode.new(0x64, &"NOP", 2, 3, double_no_operation, StringName(), AddressingMode.ZeroPage),
+		OpCode.new(0x14, &"NOP", 2, 4, double_no_operation, StringName(), AddressingMode.ZeroPage_X),
+		OpCode.new(0x34, &"NOP", 2, 4, double_no_operation, StringName(), AddressingMode.ZeroPage_X),
+		OpCode.new(0x54, &"NOP", 2, 4, double_no_operation, StringName(), AddressingMode.ZeroPage_X),
+		OpCode.new(0x74, &"NOP", 2, 4, double_no_operation, StringName(), AddressingMode.ZeroPage_X),
+		OpCode.new(0xD4, &"NOP", 2, 4, double_no_operation, StringName(), AddressingMode.ZeroPage_X),
+		OpCode.new(0xF4, &"NOP", 2, 4, double_no_operation, StringName(), AddressingMode.ZeroPage_X),
+		OpCode.new(0x80, &"NOP", 2, 2, double_no_operation, StringName(), AddressingMode.Immediate),
+		OpCode.new(0x82, &"NOP", 2, 2, double_no_operation, StringName(), AddressingMode.Immediate),
+		OpCode.new(0x89, &"NOP", 2, 2, double_no_operation, StringName(), AddressingMode.Immediate),
+		OpCode.new(0xC2, &"NOP", 2, 2, double_no_operation, StringName(), AddressingMode.Immediate),
+		OpCode.new(0xE2, &"NOP", 2, 2, double_no_operation, StringName(), AddressingMode.Immediate),
 	]
 	
 	for instruction in instructions:
@@ -26,3 +39,6 @@ func _init() -> void:
 func reset():
 	super()
 	program_counter.value = 0xC000
+
+func double_no_operation(_ignored_addresing_mode: AddressingMode):
+	pass

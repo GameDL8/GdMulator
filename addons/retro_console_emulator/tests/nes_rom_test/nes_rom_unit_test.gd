@@ -46,7 +46,8 @@ class UnitTestNesCpu extends NesCPU:
 		return "  "
 	
 	func _dump_disassemble(instruction: OpCode) -> String:
-		var out: String = " %s " % instruction.mnemonic
+		var out: String = "*" if instruction.has_meta(&"is_ilegal") else " "
+		out += "%s " % instruction.mnemonic
 		program_counter.value += 1
 		var addr: int = 0
 		var value: int = 0
