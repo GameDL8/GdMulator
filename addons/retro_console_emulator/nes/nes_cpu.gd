@@ -64,6 +64,14 @@ func _init() -> void:
 		OpCode.new(0xFB, &"ISB", 3, 7, increase_memory_decrease_register, register_a.name, AddressingMode.Absolute_Y),
 		OpCode.new(0xE3, &"ISB", 2, 8, increase_memory_decrease_register, register_a.name, AddressingMode.Indirect_X),
 		OpCode.new(0xF3, &"ISB", 2, 8, increase_memory_decrease_register, register_a.name, AddressingMode.Indirect_Y),
+		# SLO
+		OpCode.new(0x07, &"SLO", 2, 5, shift_left_memory_then_logic_or_register, register_a.name, AddressingMode.ZeroPage),
+		OpCode.new(0x17, &"SLO", 2, 6, shift_left_memory_then_logic_or_register, register_a.name, AddressingMode.ZeroPage_X),
+		OpCode.new(0x0F, &"SLO", 3, 6, shift_left_memory_then_logic_or_register, register_a.name, AddressingMode.Absolute),
+		OpCode.new(0x1F, &"SLO", 3, 7, shift_left_memory_then_logic_or_register, register_a.name, AddressingMode.Absolute_X),
+		OpCode.new(0x1B, &"SLO", 3, 7, shift_left_memory_then_logic_or_register, register_a.name, AddressingMode.Absolute_Y),
+		OpCode.new(0x03, &"SLO", 2, 8, shift_left_memory_then_logic_or_register, register_a.name, AddressingMode.Indirect_X),
+		OpCode.new(0x13, &"SLO", 2, 8, shift_left_memory_then_logic_or_register, register_a.name, AddressingMode.Indirect_Y),
 	]
 	
 	for instruction in instructions:
@@ -104,3 +112,7 @@ func increase_then_compare_register(p_addressing_mode: AddressingMode, p_by_amou
 func increase_memory_decrease_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
 	increment_memory(p_addressing_mode, 1)
 	substract_with_carry_to_register(p_register, p_addressing_mode)
+
+func shift_left_memory_then_logic_or_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
+	arithmetic_shift_left_memory(p_addressing_mode)
+	inclusive_or_with_register(p_register, p_addressing_mode)
