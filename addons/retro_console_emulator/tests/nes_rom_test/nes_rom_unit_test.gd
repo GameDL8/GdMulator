@@ -182,8 +182,7 @@ func _on_cpu_instruction_traced(p_trace: String):
 	elif (line - last_printed) < 3:
 		trace.print()
 	trace_history.push_back(trace)
-	if missmatch_count >= 5:
-		breakpoint
+
 
 class Trace:
 	var line: int

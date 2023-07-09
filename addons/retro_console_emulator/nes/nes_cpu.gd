@@ -96,12 +96,44 @@ func _init() -> void:
 		OpCode.new(0x7B, &"RRA", 3, 7, rotate_right_memory_then_add_to_register, register_a.name, AddressingMode.Absolute_Y),
 		OpCode.new(0x63, &"RRA", 2, 8, rotate_right_memory_then_add_to_register, register_a.name, AddressingMode.Indirect_X),
 		OpCode.new(0x73, &"RRA", 2, 8, rotate_right_memory_then_add_to_register, register_a.name, AddressingMode.Indirect_Y),
+		# ANC
+		OpCode.new(0x0B, &"ANC", 2, 2, bitwise_and_with_register_with_carry, register_a.name, AddressingMode.Immediate),
+		OpCode.new(0x2B, &"ANC", 2, 2, bitwise_and_with_register_with_carry, register_a.name, AddressingMode.Immediate),
+		# ARR
+		OpCode.new(0x6B, &"ARR", 2, 2, bitwise_and_then_rotate_register_with_cv_flags, register_a.name, AddressingMode.Immediate),
+		# ASR
+		OpCode.new(0x4B, &"ASR", 2, 2, bitwise_and_then_shift_register, register_a.name, AddressingMode.Immediate),
+		# ATX
+		OpCode.new(0xAB, &"LXA", 2, 2, bitwise_and_with_register_then_transfer_to_register.bind(register_a, register_x), StringName(), AddressingMode.Immediate),
+		# KIL
+		OpCode.new(0x02, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
+		OpCode.new(0x12, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
+		OpCode.new(0x22, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
+		OpCode.new(0x32, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
+		OpCode.new(0x42, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
+		OpCode.new(0x52, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
+		OpCode.new(0x62, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
+		OpCode.new(0x72, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
+		OpCode.new(0x92, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
+		OpCode.new(0xB2, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
+		OpCode.new(0xD2, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
+		OpCode.new(0xF2, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
+		# LAS
+		OpCode.new(0xBB, &"LAS", 3, 4, bitwise_and_memory_with_stack_then_load_registers.bind([register_a, register_x]), StringName(), AddressingMode.Absolute_Y),
+		# AXS
+		OpCode.new(0xCB, &"AXS", 2, 2, bitwise_and_registers_then_substract.bind(register_a, register_x), StringName(), AddressingMode.Immediate),
+		# SHX
+		OpCode.new(0x9E, &"AXS", 3, 5, bitwise_and_high_addr_byte_with_register, register_x.name, AddressingMode.Absolute_Y),
+		# SYA
+		OpCode.new(0x9E, &"SYA", 3, 5, bitwise_and_high_addr_byte_with_register, register_y.name, AddressingMode.Absolute_X),
+		# TAS
+		OpCode.new(0x9B, &"TAS", 3, 5, bitwise_and_two_register_to_stack_then_and_with_high_byte_to_memory.bind(register_x, register_a), StringName(), AddressingMode.Absolute_X),
 	]
 	
 	for instruction in instructions:
 		instruction.set_meta(&"is_ilegal", true)
 		instructionset[instruction.code] = instruction
-		var bind_args: Array
+		var bind_args: Array = []
 		if instruction.callback.get_bound_arguments_count() == 0:
 			if instruction.addresing_mode != -1:
 				instruction.callback = instruction.callback.bind(instruction.addresing_mode)
@@ -152,3 +184,69 @@ func rotate_left_memory_then_logic_and_register(p_register: Register8bits, p_add
 func rotate_right_memory_then_add_to_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
 	rotate_right_memory(p_addressing_mode)
 	add_with_carry_to_register(p_register, p_addressing_mode)
+
+func bitwise_and_with_register_with_carry(p_register: Register8bits, p_addressing_mode: AddressingMode):
+	bitwise_and_with_register(p_register, p_addressing_mode)
+	if flags.N.value:
+		flags.C.value = true
+
+func bitwise_and_then_rotate_register_with_cv_flags(p_register: Register8bits, p_addressing_mode: AddressingMode):
+	bitwise_and_with_register(p_register, p_addressing_mode)
+	rotate_right_register(p_register)
+	var five: bool = 0b00010000
+	var six : bool = 0b00100000
+	if five == six and six == true:
+		flags.C.value = true
+		flags.V.value = false
+	if five == six and six == false:
+		flags.C.value = false
+		flags.V.value = false
+	if five and !six:
+		flags.C.value = false
+		flags.V.value = true
+	if !five and six:
+		flags.C.value = true
+		flags.V.value = true
+
+func bitwise_and_then_shift_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
+	bitwise_and_with_register(p_register, p_addressing_mode)
+	logical_shift_right_register(p_register)
+
+func bitwise_and_with_register_then_transfer_to_register(p_and_register: Register8bits, p_transfer_register: Register8bits, p_addressing_mode: AddressingMode):
+	bitwise_and_with_register(p_and_register, p_addressing_mode)
+	transfer_register_from_to(p_and_register, p_transfer_register)
+
+func bitwise_and_memory_with_stack_then_load_registers(p_registers: Array[Register8bits], p_addressing_mode: AddressingMode):
+	var addr: int = get_operand_address(p_addressing_mode)
+	var value: int = memory.mem_read(addr)
+	var result: int = value & stack_pointer
+	stack_pointer = result
+	for reg in p_registers:
+		reg.value = result
+	update_z_n_flags(result)
+
+func bitwise_and_registers_then_substract(p_and_register: Register8bits, p_load_register: Register8bits, p_addressing_mode: AddressingMode):
+	var addr: int = get_operand_address(p_addressing_mode)
+	var to_substract: int = memory.mem_read(addr)
+	var and_result: int = p_and_register.value & p_load_register.value
+	if to_substract <= and_result:
+		flags.C.value = true
+	update_z_n_flags(and_result)
+	p_load_register.value = and_result
+
+func bitwise_and_high_addr_byte_with_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
+	var addr: int = get_operand_address(p_addressing_mode)
+	var high_byte: int = (addr >> 8) + 1
+	if high_byte > 0xFF:
+		high_byte -= 0x100
+	var and_result: int = p_register.value & high_byte
+	memory.mem_write(addr, and_result)
+
+func bitwise_and_two_register_to_stack_then_and_with_high_byte_to_memory(p_reg_1: Register8bits, p_reg_2: Register8bits, p_addressing_mode: AddressingMode):
+	stack_pointer = p_reg_1.value & p_reg_2.value
+	var addr: int = get_operand_address(p_addressing_mode)
+	var high_byte: int = (addr >> 8) + 1
+	if high_byte > 0xFF:
+		high_byte -= 0x100
+	var and_result: int = high_byte & stack_pointer
+	memory.mem_write(addr, and_result)
