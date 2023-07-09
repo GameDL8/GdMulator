@@ -56,7 +56,14 @@ func _init() -> void:
 		OpCode.new(0xDB, &"DCP", 3, 7, increase_then_compare_register.bind(AddressingMode.Absolute_Y, -1, register_a), StringName(), AddressingMode.Absolute_Y),
 		OpCode.new(0xC3, &"DCP", 2, 8, increase_then_compare_register.bind(AddressingMode.Indirect_X, -1, register_a), StringName(), AddressingMode.Indirect_X),
 		OpCode.new(0xD3, &"DCP", 2, 8, increase_then_compare_register.bind(AddressingMode.Indirect_Y, -1, register_a), StringName(), AddressingMode.Indirect_Y),
-		
+		# ISB
+		OpCode.new(0xE7, &"ISB", 2, 5, increase_memory_decrease_register, register_a.name, AddressingMode.ZeroPage),
+		OpCode.new(0xF7, &"ISB", 2, 6, increase_memory_decrease_register, register_a.name, AddressingMode.ZeroPage_X),
+		OpCode.new(0xEF, &"ISB", 3, 6, increase_memory_decrease_register, register_a.name, AddressingMode.Absolute),
+		OpCode.new(0xFF, &"ISB", 3, 7, increase_memory_decrease_register, register_a.name, AddressingMode.Absolute_X),
+		OpCode.new(0xFB, &"ISB", 3, 7, increase_memory_decrease_register, register_a.name, AddressingMode.Absolute_Y),
+		OpCode.new(0xE3, &"ISB", 2, 8, increase_memory_decrease_register, register_a.name, AddressingMode.Indirect_X),
+		OpCode.new(0xF3, &"ISB", 2, 8, increase_memory_decrease_register, register_a.name, AddressingMode.Indirect_Y),
 	]
 	
 	for instruction in instructions:
@@ -93,3 +100,7 @@ func bitwise_and_two_registers(p_reg_1: Register8bits, p_reg_2: Register8bits, p
 func increase_then_compare_register(p_addressing_mode: AddressingMode, p_by_amount: int, p_register: Register8bits):
 	increment_memory(p_addressing_mode, p_by_amount)
 	compare_register(p_register, p_addressing_mode)
+
+func increase_memory_decrease_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
+	increment_memory(p_addressing_mode, 1)
+	substract_with_carry_to_register(p_register, p_addressing_mode)
