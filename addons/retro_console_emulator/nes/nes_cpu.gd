@@ -88,6 +88,14 @@ func _init() -> void:
 		OpCode.new(0x5B, &"SRE", 3, 7, shift_right_memory_then_exclusive_or_register, register_a.name, AddressingMode.Absolute_Y),
 		OpCode.new(0x43, &"SRE", 2, 8, shift_right_memory_then_exclusive_or_register, register_a.name, AddressingMode.Indirect_X),
 		OpCode.new(0x53, &"SRE", 2, 8, shift_right_memory_then_exclusive_or_register, register_a.name, AddressingMode.Indirect_Y),
+		# RRA
+		OpCode.new(0x67, &"RRA", 2, 5, rotate_right_memory_then_add_to_register, register_a.name, AddressingMode.ZeroPage),
+		OpCode.new(0x77, &"RRA", 2, 6, rotate_right_memory_then_add_to_register, register_a.name, AddressingMode.ZeroPage_X),
+		OpCode.new(0x6F, &"RRA", 3, 6, rotate_right_memory_then_add_to_register, register_a.name, AddressingMode.Absolute),
+		OpCode.new(0x7F, &"RRA", 3, 7, rotate_right_memory_then_add_to_register, register_a.name, AddressingMode.Absolute_X),
+		OpCode.new(0x7B, &"RRA", 3, 7, rotate_right_memory_then_add_to_register, register_a.name, AddressingMode.Absolute_Y),
+		OpCode.new(0x63, &"RRA", 2, 8, rotate_right_memory_then_add_to_register, register_a.name, AddressingMode.Indirect_X),
+		OpCode.new(0x73, &"RRA", 2, 8, rotate_right_memory_then_add_to_register, register_a.name, AddressingMode.Indirect_Y),
 	]
 	
 	for instruction in instructions:
@@ -140,3 +148,7 @@ func shift_right_memory_then_exclusive_or_register(p_register: Register8bits, p_
 func rotate_left_memory_then_logic_and_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
 	rotate_left_memory(p_addressing_mode)
 	bitwise_and_with_register(p_register, p_addressing_mode)
+
+func rotate_right_memory_then_add_to_register(p_register: Register8bits, p_addressing_mode: AddressingMode):
+	rotate_right_memory(p_addressing_mode)
+	add_with_carry_to_register(p_register, p_addressing_mode)
