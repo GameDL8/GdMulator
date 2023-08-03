@@ -2,8 +2,8 @@ class_name NesPPU extends RefCounted
 
 signal nmi_interrupt_triggered()
 
-var _cycles: int = 0
-var _scanline: int = 0
+var cycles: int = 0
+var scanline: int = 0
 var chr_rom: PackedByteArray
 var palette_table: PackedByteArray # Size: 32     bytes
 var vram: PackedByteArray          # Size: 2048 bytes
@@ -51,18 +51,18 @@ func _init(nes_rom: NesRom) -> void:
 	oam_data.fill(0)
 
 func tick(p_cycles: int) -> bool:
-	_cycles += p_cycles
-	if _cycles >= 341:
-		_cycles -= 341
-		_scanline += 1
+	cycles += p_cycles
+	if cycles >= 341:
+		cycles -= 341
+		scanline += 1
 		
-		if _scanline == 241:
+		if scanline == 241:
 			if register_ctrl.generate_nmi.value == true:
 				register_stat.in_vblank.value = true
 				nmi_interrupt_triggered.emit()
 		
-		if _scanline == 262:
-			_scanline = 0
+		if scanline == 262:
+			scanline = 0
 			register_stat.in_vblank.value = false
 			return true
 	return false

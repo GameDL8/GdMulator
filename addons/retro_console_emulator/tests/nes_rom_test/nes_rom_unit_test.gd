@@ -25,7 +25,6 @@ class UnitTestNesCpu extends NesCPU:
 	func _about_to_execute_instruction():
 		instruction_traced.emit(_trace())
 
-
 	func _trace() -> String:
 		var out: String
 		# Program Counter
@@ -38,6 +37,8 @@ class UnitTestNesCpu extends NesCPU:
 		out += _dump_instruction_arg(instruction, 2) + " "
 		out += _dump_disassemble(instruction)
 		out += _dump_registers()
+		out += _dump_ppu_cycles()
+		out += _dump_cpu_cycles()
 		return out.to_upper()
 
 	func _dump_instruction_arg(instruction: OpCode, arg_idx: int) -> String:
@@ -154,6 +155,15 @@ class UnitTestNesCpu extends NesCPU:
 			out += "%s:%02x " % [register_id, register.value]
 		out += "SP:%02x " % stack_pointer
 		return out
+	
+	func _dump_ppu_cycles() -> String:
+		var mem: NesMemory = memory as NesMemory
+		var out: String = "PPU:%3d,%3d " % [mem.ppu.scanline, mem.ppu.cycles]
+		return out
+	
+	func _dump_cpu_cycles() -> String:
+		var out: String = "CYC:%d" % memory.cpu_cycles
+		return out
 
 var cpu := UnitTestNesCpu.new()
 var log_file := FileAccess.open(_UNIT_TEST_LOG_FILE, FileAccess.READ)
@@ -162,6 +172,8 @@ func _ready():
 	assert(log_file != null)
 	cpu.reset()
 	cpu.instruction_traced.connect(_on_cpu_instruction_traced)
+	cpu.memory.cpu_cycles = 7
+	cpu.memory.ppu.cycles = 21
 	cpu.run()
 
 
@@ -175,7 +187,8 @@ func _on_cpu_instruction_traced(p_trace: String):
 	
 	if !trace.matches:
 		for h in range(-10, 0):
-			trace_history[h].print()
+			if abs(h) < trace_history.size():
+				trace_history[h].print()
 		trace.print()
 		missmatch_count += 1
 		last_printed = line
@@ -206,10 +219,10 @@ class Trace:
 			return
 		did_print = true
 		if matches:
-			print_rich(("%d: " % line) + trace_line + "[color=yellow]" + remainder + "[/color]\n")
+			print_rich(("%4d: " % line) + trace_line + "[color=yellow]" + remainder + "[/color]\n")
 		else:
-			var out_trace: String = "%d: " % line
-			var out_log: String = "%d: " % line
+			var out_trace: String = "%4d: " % line
+			var out_log: String = "%4d: " % line
 			for i in range(trace_line.length()):
 				if trace_line.substr(i, 1) == log_line.substr(i, 1):
 					out_log += log_line.substr(i, 1)
