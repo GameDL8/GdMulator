@@ -1,5 +1,7 @@
 class_name NesMemory extends Memory
 
+signal nmi_interrupt_triggered()
+signal irq_interrupt_triggered()
 
 const MEMORY_SIZE: int = 2048
 const RAM: int = 0x0000
@@ -12,7 +14,7 @@ const VIRTUAL_SIZE: int = 0xFFFF
 
 var rom: NesRom = null:
 	set = _set_rom
-var ppu: NesPPU = null:
+var ppu: NesPPU = NesPPU.new(rom):
 	set = _set_ppu
 
 
@@ -27,6 +29,11 @@ func reset():
 
 func soft_reset():
 	super.reset()
+
+
+func tick(p_cycles: int):
+	super(p_cycles)
+	ppu.tick(p_cycles * 3)
 
 
 func mem_read(addr: int) -> int:
@@ -181,7 +188,10 @@ func _set_rom(new_rom: NesRom) -> void:
 
 
 func _set_ppu(new_ppu: NesPPU) -> void:
+	if ppu != null and ppu.nmi_interrupt_triggered.is_connected(_trigger_ppu_nmi_interrupt):
+		ppu.nmi_interrupt_triggered.disconnect(_trigger_ppu_nmi_interrupt)
 	ppu = new_ppu
+	ppu.nmi_interrupt_triggered.connect(_trigger_ppu_nmi_interrupt)
 	_update_ppu_memory()
 
 
@@ -189,4 +199,8 @@ func _update_ppu_memory() -> void:
 	if ppu != null and rom != null:
 		ppu.chr_rom = rom.chr_rom
 		ppu.screen_mirroring = rom.screen_mirroring
+
+
+func _trigger_ppu_nmi_interrupt():
+	nmi_interrupt_triggered.emit()
 

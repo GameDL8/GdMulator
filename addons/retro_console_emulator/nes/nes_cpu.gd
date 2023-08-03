@@ -3,9 +3,14 @@ class_name NesCPU extends CPU6502
 
 func _init() -> void:
 	super()
+	memory = NesMemory.new()
+	memory.nmi_interrupt_triggered.connect(_on_interrupt_triggered.bind(0xFFFA, false))
+	memory.irq_interrupt_triggered.connect(_on_interrupt_triggered.bind(0xFFFE, false))
 	
 	#register instructions
 	var instructions: Array[OpCode] = [
+		# BRK on NES system forces an interrupt
+		OpCode.new(0x00, &"BRK", 1, 1, nes_break),
 		# NOP - DOP - TOP: Simple, double, and triple no operation
 		OpCode.new(0x04, &"NOP", 2, 3,ilegal_no_operation, StringName(), AddressingMode.ZeroPage),
 		OpCode.new(0x44, &"NOP", 2, 3,ilegal_no_operation, StringName(), AddressingMode.ZeroPage),
@@ -148,6 +153,26 @@ func _init() -> void:
 func reset():
 	super()
 	program_counter.value = 0xC000
+
+func _on_interrupt_triggered(p_interrupt_jump_addres: int, p_break_flag: bool):
+	assert(p_interrupt_jump_addres in [0xFFFA, 0xFFFE])
+	stack_push_16(program_counter.value)
+	var aux_flag := NesRegisterFlags.new(&"P")
+	aux_flag.value = flags.value
+	aux_flag.B.value = p_break_flag
+	aux_flag.B2.value = true
+
+	stack_push_8(aux_flag.value)
+	flags.I.value = true
+
+	memory.tick(2)
+	program_counter.value = memory.mem_read_16(p_interrupt_jump_addres)
+
+# BRK
+func nes_break():
+	_on_interrupt_triggered(0xFFFE, true)
+	# FIXME: delete is_running = false?
+	is_running = false
 
 func ilegal_no_operation(_ignore: AddressingMode):
 	pass

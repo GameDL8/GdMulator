@@ -1,5 +1,9 @@
 class_name NesPPU extends RefCounted
 
+signal nmi_interrupt_triggered()
+
+var _cycles: int = 0
+var _scanline: int = 0
 var chr_rom: PackedByteArray
 var palette_table: PackedByteArray # Size: 32     bytes
 var vram: PackedByteArray          # Size: 2048 bytes
@@ -37,7 +41,8 @@ var ppu_data: int:
 var _internal_data_buf: int
 
 func _init(nes_rom: NesRom) -> void:
-	chr_rom = nes_rom.chr_rom
+	if nes_rom != null:
+		chr_rom = nes_rom.chr_rom
 	palette_table.resize(32)
 	palette_table.fill(0)
 	vram.resize(2048)
@@ -45,35 +50,44 @@ func _init(nes_rom: NesRom) -> void:
 	oam_data.resize(256)
 	oam_data.fill(0)
 
+func tick(p_cycles: int) -> bool:
+	_cycles += p_cycles
+	if _cycles >= 341:
+		_cycles -= 341
+		_scanline += 1
+		
+		if _scanline == 241:
+			if register_ctrl.generate_nmi.value == true:
+				register_stat.in_vblank.value = true
+				nmi_interrupt_triggered.emit()
+		
+		if _scanline == 262:
+			_scanline = 0
+			register_stat.in_vblank.value = false
+			return true
+	return false
 
 func write_to_ppu_addr(value: int) -> void:
 	register_addr.update(value)
 
-
 func write_to_ctrl(value: int) -> void:
 	register_ctrl.update(value)
-
 
 func write_to_mask(value: int) -> void:
 	register_mask.update(value)
 
-
 func write_to_oam_addr(value: int) -> void:
 	register_oam_addr = value
 
-
 func read_oam_addr() -> int:
 	return register_oam_addr
-
 
 func write_to_oam_data(value: int) -> void:
 	oam_data[register_oam_addr] = value
 	increment_oam_addr()
 
-
 func read_oam_data() -> int:
 	return oam_data[register_oam_addr]
-
 
 func write_to_scroll(value:int) -> void:
 	assert(value & 0xFFFFFF00 == 0, "Expected an 8bits number")
@@ -82,7 +96,6 @@ func write_to_scroll(value:int) -> void:
 	else:
 		scroll_offset.y = value
 	next_scroll_is_x = !next_scroll_is_x
-
 
 func write_to_data(value: int) -> void:
 	var addr = register_addr.get_address()
@@ -98,7 +111,6 @@ func write_to_data(value: int) -> void:
 		palette_table[addr - 0x3f00] = value
 	else:
 		assert(false, "unexpected access to mirrored space %04x" % addr)
-
 
 func read_data() -> int:
 	var addr = register_addr.get_address()
@@ -126,16 +138,13 @@ func memcopy_ram_to_oam(p_ram_slice: PackedByteArray) -> void:
 		oam_data[register_oam_addr] = byte
 		increment_oam_addr()
 
-
 func increment_oam_addr() -> void:
 	register_oam_addr += 1
 	if register_oam_addr > 0xFF:
 		register_oam_addr = 0
 
-
 func increment_vram_addr() -> void:
 	register_addr.increment(register_ctrl.get_vram_addr_increment())
-
 
 func mirror_vram_addr(in_addr: int):
 	assert(in_addr & 0xFFFF0000 == 0, "Expected a 16bits number")
@@ -154,11 +163,9 @@ func mirror_vram_addr(in_addr: int):
 		_:
 			return vram_index
 
-
 class AddrRegister:
 	var value: PackedByteArray = [0, 0]
 	var hi_ptr: bool = true
-
 
 	func set_address(data: int) -> void:
 		assert(data & 0xFFFF0000 == 0, "Expected a 16bits number")
@@ -231,12 +238,10 @@ class ControlRegister extends CPU.RegisterFlags:
 		generate_nmi.name : generate_nmi
 	}
 	
-	
 	func get_vram_addr_increment() -> int:
 		if vram_add_increment.value:
 			return 32
 		return 1
-	
 	
 	func update(data: int):
 		assert(data & 0xFFFFFF00 == 0, "Expected an 8bits number")
@@ -292,3 +297,7 @@ class StatusRegister extends CPU.RegisterFlags:
 	var sprite_overflow = CPU.BitFlag.new(self, &"O", 5)
 	var sprite_0_hit    = CPU.BitFlag.new(self, &"S", 6)
 	var in_vblank       = CPU.BitFlag.new(self, &"V", 7)
+
+	func update(data: int):
+		assert(data & 0xFFFFFF00 == 0, "Expected an 8bits number")
+		value = data

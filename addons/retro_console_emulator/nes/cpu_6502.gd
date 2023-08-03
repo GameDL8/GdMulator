@@ -32,12 +32,12 @@ func _init() -> void:
 	registers[register_x.name] = register_x
 	registers[register_y.name] = register_y
 	registers[flags.name] = flags
-	memory = NesMemory.new()
+	memory = Memory.new(0xFFFF)
 	
 	#register instructions
 	var instructions: Array[OpCode] = [
-		# BRK on NES system forces an interrupt
-		OpCode.new(0x00, &"BRK", 1, 1, nes_break),
+		# BRK on 6502 system forces an interrupt
+		OpCode.new(0x00, &"BRK", 1, 1, cpu6502_break),
 		# ADC - Add with Carry
 		OpCode.new(0x69, &"ADC", 2, 2, add_with_carry_to_register, register_a.name, AddressingMode.Immediate),
 		OpCode.new(0x65, &"ADC", 2, 3, add_with_carry_to_register, register_a.name, AddressingMode.ZeroPage),
@@ -275,10 +275,16 @@ func run():
 		program_counter.value += 1
 		var current_pc = program_counter.value
 		
-		var instruction: OpCode = instructionset.get(opcode, null)
+		var instruction: OpCode = instructionset.get(opcode, null) as OpCode
 		assert(instruction, "Unknown instruction with code %d" % opcode)
 		assert(instruction.callback.is_valid(), "Invalid callable for opcode %d" % opcode)
-		await instruction.callback.call()
+		var extra_cycles: Variant = await instruction.callback.call()
+		
+		var cycles = instruction.cycles
+		if typeof(extra_cycles) == TYPE_INT:
+			cycles += extra_cycles
+		memory.tick(cycles)
+		
 		if current_pc == program_counter.value:
 			# There was not a jump
 			program_counter.value += (instruction.size - 1)
@@ -366,7 +372,7 @@ func get_operand_address(p_mode: int) -> int:
 
 
 # BRK
-func nes_break():
+func cpu6502_break():
 	flags.B.value = true
 	flags.B2.value = true
 	stack_push_16(program_counter.value)
@@ -731,6 +737,17 @@ func _on_stack_pop():
 
 
 class NesRegisterFlags extends CPU.RegisterFlags:
+	# # Status Register (P) http://wiki.nesdev.com/w/index.php/Status_flags
+	#
+	#  7 6 5 4 3 2 1 0
+	#  N V _ B D I Z C
+	#  | |   | | | | +--- Carry Flag
+	#  | |   | | | +----- Zero Flag
+	#  | |   | | +------- Interrupt Disable
+	#  | |   | +--------- Decimal Mode (not used on NES)
+	#  | |   +----------- Break Command
+	#  | +--------------- Overflow Flag
+	#  +----------------- Negative Flag
 	var C = BitFlag.new(self, &"C", 0)
 	var Z = BitFlag.new(self, &"Z", 1)
 	var I = BitFlag.new(self, &"I", 2)

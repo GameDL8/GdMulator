@@ -2,6 +2,8 @@ class_name Memory extends RefCounted
 
 var _memory: PackedByteArray
 var _observers: Array[MemoryObserver]
+var _cpu_cycles: int = 0
+
 
 func _init(p_size: int):
 	_memory.resize(p_size)
@@ -14,6 +16,11 @@ func reset():
 # VIRTUAL
 func soft_reset():
 	pass
+
+
+# VIRTUAL
+func tick(p_cycles: int):
+	_cpu_cycles += p_cycles
 
 
 func mem_read(addr: int) -> int:
