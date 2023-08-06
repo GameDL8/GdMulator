@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://uo8pi8863wqk"]
+
+[ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_chr_rom_render_test/nes_chr_rom_render_test.gd" id="1_xhe13"]
+
+[node name="nes_chr_rom_render_test" type="Node"]
+script = ExtResource("1_xhe13")
+
+[node name="Screen" type="TextureRect" parent="."]
+texture_filter = 1
+texture_repeat = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 5

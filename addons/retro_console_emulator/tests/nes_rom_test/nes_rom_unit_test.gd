@@ -18,7 +18,6 @@ class UnitTestNesCpu extends NesCPU:
 		assert(unit_test_rom, "Instantiation failed")
 		var error: NesRom.LoadingError = unit_test_rom.get_loading_error()
 		assert(error == NesRom.LoadingError.OK, "Failed to load file with error %s" % unit_test_rom.get_loading_error_str())
-		memory = NesMemory.new()
 		memory.rom = unit_test_rom
 
 	var _counter: int = 0
