@@ -295,8 +295,12 @@ func _about_to_execute_instruction():
 	pass
 
 
+var _did_operand_address_cross_page: bool = false
+func did_operand_address_cross_page() -> bool:
+	return _did_operand_address_cross_page
 func get_operand_address(p_mode: int) -> int:
 	assert(p_mode in AddressingMode.values(), "Unknown address mode")
+	_did_operand_address_cross_page = false
 	match p_mode as AddressingMode:
 		AddressingMode.Immediate:
 			#LDA  #$0x10
@@ -327,12 +331,14 @@ func get_operand_address(p_mode: int) -> int:
 			var addr: int = (base + register_x.value)
 			if addr > 0xFFFF:
 				addr -= 0x10000
+			_did_operand_address_cross_page = ((base & 0xFF00) != (addr & 0xFF00))
 			return addr
 		AddressingMode.Absolute_Y:
 			var base: int = memory.mem_read_16(self.program_counter.value)
 			var addr: int = (base + register_y.value)
 			if addr > 0xFFFF:
 				addr -= 0x10000
+			_did_operand_address_cross_page = ((base & 0xFF00) != (addr & 0xFF00))
 			return addr
 		AddressingMode.Indirect:
 			var addr_addr: int = memory.mem_read_16(program_counter.value)
@@ -365,6 +371,7 @@ func get_operand_address(p_mode: int) -> int:
 			var deref: int = (deref_base + self.register_y.value)
 			if deref > 0xFFFF:
 				deref -= 0x10000
+			_did_operand_address_cross_page = ((deref_base & 0xFF00) != (deref & 0xFF00))
 			return deref
 		_:
 			assert(false, "Adressing mode not supported!")
@@ -548,13 +555,19 @@ func substract_with_carry_to_register(p_register: Register8bits, p_addressing_mo
 
 #BCC - BCS
 func branch_if_flag_matches(p_flag: BitFlag, p_is_set: bool):
+	var extra_cycles: int = 0
 	if p_flag.value == p_is_set:
+		extra_cycles += 1
 		var addr: int = program_counter.value
 		var jump: int = memory.mem_read(addr)
 		if jump & 0b10000000:
 			jump = -(((~jump) & 0b01111111)+1)
 		jump += 1
+		var new_addr: int = program_counter.value + jump
+		if (new_addr & 0xFF00) != ((addr + 1) & 0xFF00):
+			extra_cycles += 1
 		program_counter.value += jump
+	return extra_cycles
 
 
 #BIT
@@ -590,6 +603,7 @@ func load_register8(p_register: Register8bits, p_addressing_mode: AddressingMode
 	var value: int = memory.mem_read(addr)
 	p_register.value = value
 	update_z_n_flags(value)
+	return (1 if did_operand_address_cross_page() else 0)
 
 
 #STA

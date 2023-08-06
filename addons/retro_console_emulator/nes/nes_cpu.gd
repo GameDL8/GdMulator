@@ -174,12 +174,14 @@ func nes_break():
 	# FIXME: delete is_running = false?
 	is_running = false
 
-func ilegal_no_operation(_ignore: AddressingMode):
-	pass
+func ilegal_no_operation(p_addressing_mode: AddressingMode):
+	var _addr = get_operand_address(p_addressing_mode)
+	return 1 if did_operand_address_cross_page() else 0
 
 func load_registers8(p_registers: Array, p_addressing_mode: AddressingMode):
 	for register in p_registers:
 		load_register8(register, p_addressing_mode)
+	return 1 if did_operand_address_cross_page() else 0
 
 func bitwise_and_two_registers(p_reg_1: Register8bits, p_reg_2: Register8bits, p_addressing_mode: AddressingMode):
 	var addr: int = get_operand_address(p_addressing_mode)
