@@ -2,24 +2,28 @@ class_name NesMemory extends Memory
 
 signal nmi_interrupt_triggered()
 signal irq_interrupt_triggered()
+signal advance_frame()
 
 const MEMORY_SIZE: int = 2048
 const RAM: int = 0x0000
 const RAM_MIRRORS_END = 0x1FFF
 const PPU_REGISTERS: int = 0x2000
 const PPU_REGISTERS_MIRRORS_END: int = 0x3FFF
+const APU_REGISTERS: int = 0x4000
+const APU_REGISTERS_ENDS: int = 0x4020
 const ROM_MEMORY_STARTS: int = 0x8000
 const ROM_MEMORY_ENDS: int = 0xFFFF
 const VIRTUAL_SIZE: int = 0xFFFF
 
 var rom: NesRom = null:
 	set = _set_rom
-var ppu: NesPPU = NesPPU.new(rom):
+var ppu: NesPPU = null:
 	set = _set_ppu
 
 
 func _init():
 	super(MEMORY_SIZE)
+	ppu = NesPPU.new(rom)
 
 
 func reset():
@@ -33,8 +37,52 @@ func soft_reset():
 
 func tick(p_cycles: int):
 	super(p_cycles)
-	ppu.tick(p_cycles * 3)
+	if ppu.tick(p_cycles * 3):
+		advance_frame.emit()
 
+
+func peek_memory(addr:int) -> int:
+	if addr >= RAM and addr <= RAM_MIRRORS_END:
+		var mirror_down_addr = addr & 0b00000111_11111111
+		return _memory[mirror_down_addr]
+	elif addr >= PPU_REGISTERS and addr <= PPU_REGISTERS_MIRRORS_END:
+		assert(ppu != null, "Cannot access ppu memory when it is null")
+		match addr:
+			0x2000:
+				return ppu.register_ctrl.value
+			0x2001:
+				return 0
+			0x2003:
+				return ppu.register_oam_addr
+			0x2005:
+				return ppu.scroll_offset.x if ppu.next_scroll_is_x else ppu.scroll_offset.y
+			0x2006:
+				return ppu.register_stat.value
+			0x2002:
+				return 0
+			0x2004:
+				var val = ppu.register_oam_data
+				return val
+			0x2007:
+				var val = ppu.ppu_data
+				return val
+			_:
+				assert(addr >= 0x2008, "Unexpected memory address: %04x" % addr)
+				var mirror_down_addr = addr & 0b00100000_00000111
+				var val = mem_read(mirror_down_addr)
+				return val
+	elif addr == 0x4014:
+		# peeking in a write only memory
+		return 0
+	elif addr >= ROM_MEMORY_STARTS and addr <= ROM_MEMORY_ENDS:
+		var prog_rom_byte = _read_prog_rom(addr)
+		return prog_rom_byte
+	elif addr >= APU_REGISTERS and addr <= APU_REGISTERS_ENDS:
+		# TODO: implement apu registers
+		return 0
+	else:
+		push_warning("Ignoring mem access at ", addr)
+		return 0
 
 func mem_read(addr: int) -> int:
 	if addr >= RAM and addr <= RAM_MIRRORS_END:
@@ -48,7 +96,7 @@ func mem_read(addr: int) -> int:
 				assert(false, "Attempt to read from write-only PPU address %04x" % addr)
 				return 0
 			0x2002:
-				var val = ppu.register_stat.value
+				var val = ppu.read_status()
 				_emmit_observer(addr, val, val, MemoryObserver.ObserverFlags.READ_8)
 				return val
 			0x2004:
@@ -72,6 +120,9 @@ func mem_read(addr: int) -> int:
 		var prog_rom_byte = _read_prog_rom(addr)
 		_emmit_observer(addr, prog_rom_byte, prog_rom_byte, MemoryObserver.ObserverFlags.READ_8)
 		return prog_rom_byte
+	elif addr >= APU_REGISTERS and addr <= APU_REGISTERS_ENDS:
+		# TODO: implement apu registers
+		return 0
 	else:
 		push_warning("Ignoring mem access at ", addr)
 		return 0
@@ -138,6 +189,9 @@ func mem_write(addr: int, p_value: int):
 		ppu.memcopy_ram_to_oam(sliced)
 	elif addr >= ROM_MEMORY_STARTS and addr <= ROM_MEMORY_ENDS:
 		assert(false, "Attempt to write to Cartridge ROM space")
+	elif addr >= APU_REGISTERS and addr <= APU_REGISTERS_ENDS:
+		# TODO: implement apu registers
+		pass
 	else:
 		push_warning("Ignoring mem access at ", addr)
 		return

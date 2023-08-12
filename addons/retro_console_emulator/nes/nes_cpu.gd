@@ -1,11 +1,15 @@
 class_name NesCPU extends CPU6502
 
+var _sleeping: bool = false
+const PAL_SLEEP_TIME: float = 1.0/50.0
+const NTSC_SLEEP_TIME: float = 1.0/60.0
 
 func _init() -> void:
 	super()
 	memory = NesMemory.new()
 	memory.nmi_interrupt_triggered.connect(_on_interrupt_triggered.bind(0xFFFA, false))
 	memory.irq_interrupt_triggered.connect(_on_interrupt_triggered.bind(0xFFFE, false))
+	memory.advance_frame.connect(_on_memory_advance_frame)
 	
 	#register instructions
 	var instructions: Array[OpCode] = [
@@ -111,18 +115,18 @@ func _init() -> void:
 		# ATX
 		OpCode.new(0xAB, &"LXA", 2, 2, bitwise_and_with_register_then_transfer_to_register.bind(register_a, register_x), StringName(), AddressingMode.Immediate),
 		# KIL
-		OpCode.new(0x02, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
-		OpCode.new(0x12, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
-		OpCode.new(0x22, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
-		OpCode.new(0x32, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
-		OpCode.new(0x42, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
-		OpCode.new(0x52, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
-		OpCode.new(0x62, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
-		OpCode.new(0x72, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
-		OpCode.new(0x92, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
-		OpCode.new(0xB2, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
-		OpCode.new(0xD2, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
-		OpCode.new(0xF2, &"KIL", 1, 0, quit, StringName(), AddressingMode.NoneAddressing),
+		OpCode.new(0x02, &"KIL", 1, 0, no_operation, StringName(), -1),
+		OpCode.new(0x12, &"KIL", 1, 0, no_operation, StringName(), -1),
+		OpCode.new(0x22, &"KIL", 1, 0, no_operation, StringName(), -1),
+		OpCode.new(0x32, &"KIL", 1, 0, no_operation, StringName(), -1),
+		OpCode.new(0x42, &"KIL", 1, 0, no_operation, StringName(), -1),
+		OpCode.new(0x52, &"KIL", 1, 0, no_operation, StringName(), -1),
+		OpCode.new(0x62, &"KIL", 1, 0, no_operation, StringName(), -1),
+		OpCode.new(0x72, &"KIL", 1, 0, no_operation, StringName(), -1),
+		OpCode.new(0x92, &"KIL", 1, 0, no_operation, StringName(), -1),
+		OpCode.new(0xB2, &"KIL", 1, 0, no_operation, StringName(), -1),
+		OpCode.new(0xD2, &"KIL", 1, 0, no_operation, StringName(), -1),
+		OpCode.new(0xF2, &"KIL", 1, 0, no_operation, StringName(), -1),
 		# LAS
 		OpCode.new(0xBB, &"LAS", 3, 4, bitwise_and_memory_with_stack_then_load_registers.bind([register_a, register_x]), StringName(), AddressingMode.Absolute_Y),
 		# AXS
@@ -150,9 +154,6 @@ func _init() -> void:
 				else:
 					assert(false, "Unknown register name '%s'" % instruction.register)
 
-func reset():
-	super()
-	program_counter.value = 0xC000
 
 func _on_interrupt_triggered(p_interrupt_jump_addres: int, p_break_flag: bool):
 	assert(p_interrupt_jump_addres in [0xFFFA, 0xFFFE])
@@ -168,11 +169,23 @@ func _on_interrupt_triggered(p_interrupt_jump_addres: int, p_break_flag: bool):
 	memory.tick(2)
 	program_counter.value = memory.mem_read_16(p_interrupt_jump_addres)
 
+
+func _on_memory_advance_frame():
+	_sleeping = true
+
+var instruction_count = 0
+func _about_to_execute_instruction():
+	await super()
+	instruction_count += 1
+	if _sleeping:
+#		await Engine.get_main_loop().create_timer(0.02).timeout
+		await Engine.get_main_loop().process_frame
+		_sleeping = false
+
 # BRK
 func nes_break():
 	_on_interrupt_triggered(0xFFFE, true)
-	# FIXME: delete is_running = false?
-	is_running = false
+
 
 func ilegal_no_operation(p_addressing_mode: AddressingMode):
 	var _addr = get_operand_address(p_addressing_mode)

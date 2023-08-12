@@ -292,7 +292,7 @@ func run():
 
 # VIRTUAL OVERRIDE
 func _about_to_execute_instruction():
-	pass
+	await super()
 
 
 var _did_operand_address_cross_page: bool = false

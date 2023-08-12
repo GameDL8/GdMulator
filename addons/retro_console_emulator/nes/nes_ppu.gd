@@ -1,6 +1,7 @@
 class_name NesPPU extends RefCounted
 
 signal nmi_interrupt_triggered()
+signal register_flags_changed(old_value: int, register: CPU.RegisterFlags)
 
 const COLOR_TABLE : PackedColorArray = [
 	Color8(0x80, 0x80, 0x80), Color8(0x00, 0x3D, 0xA6), Color8(0x00, 0x12, 0xB0), Color8(0x44, 0x00, 0x96), Color8(0xA1, 0x00, 0x5E),
@@ -59,12 +60,18 @@ var _internal_data_buf: int
 func _init(nes_rom: NesRom) -> void:
 	if nes_rom != null:
 		chr_rom = nes_rom.chr_rom
-	palette_table.resize(32)
+	palette_table.resize(0x100)
 	palette_table.fill(0)
 	vram.resize(2048)
 	vram.fill(0)
 	oam_data.resize(256)
 	oam_data.fill(0)
+	register_ctrl.flags_changed.connect(_on_register_flags_changed.bind(register_ctrl))
+	register_mask.flags_changed.connect(_on_register_flags_changed.bind(register_mask))
+	register_stat.flags_changed.connect(_on_register_flags_changed.bind(register_stat))
+
+func _on_register_flags_changed(old_value: int, _new_value: int, p_register: CPU.RegisterFlags):
+	register_flags_changed.emit(old_value, p_register)
 
 func tick(p_cycles: int) -> bool:
 	cycles += p_cycles
@@ -73,12 +80,14 @@ func tick(p_cycles: int) -> bool:
 		scanline += 1
 		
 		if scanline == 241:
-			if register_ctrl.generate_nmi.value == true:
-				register_stat.in_vblank.value = true
+			register_stat.in_vblank.value = true
+			register_stat.sprite_0_hit.value = false
+			if register_ctrl.gen_vblank_nmi.value == true:
 				nmi_interrupt_triggered.emit()
 		
-		if scanline == 262:
+		if scanline >= 262:
 			scanline = 0
+			register_stat.sprite_0_hit.value = false
 			register_stat.in_vblank.value = false
 			return true
 	return false
@@ -87,7 +96,13 @@ func write_to_ppu_addr(value: int) -> void:
 	register_addr.update(value)
 
 func write_to_ctrl(value: int) -> void:
+	var in_vblank = register_stat.in_vblank.value
+	var was_nmi_enabled: bool = register_ctrl.gen_vblank_nmi.value
 	register_ctrl.update(value)
+	var is_nmi_enabled: bool = register_ctrl.gen_vblank_nmi.value
+	
+	if in_vblank and !was_nmi_enabled and is_nmi_enabled:
+		nmi_interrupt_triggered.emit()
 
 func write_to_mask(value: int) -> void:
 	register_mask.update(value)
@@ -102,6 +117,13 @@ func write_to_oam_data(value: int) -> void:
 	oam_data[register_oam_addr] = value
 	increment_oam_addr()
 
+func read_status() -> int:
+	var snapshot: int = register_stat.value
+	register_stat.in_vblank.value = false
+	register_addr.reset_latch()
+	next_scroll_is_x = true
+	return snapshot
+
 func read_oam_data() -> int:
 	return oam_data[register_oam_addr]
 
@@ -114,17 +136,23 @@ func write_to_scroll(value:int) -> void:
 	next_scroll_is_x = !next_scroll_is_x
 
 func write_to_data(value: int) -> void:
-	var addr = register_addr.get_address()
+	var addr: int = register_addr.get_address()
 	increment_vram_addr()
 	
 	if addr >= 0 and addr <= 0x1fff:
-		assert(false, "Cannot write to read only address %04x" % addr)
+		print_verbose("Cannot write to read only address %04x" % addr)
 	elif addr >= 0x2000 and addr <= 0x2fff:
 		vram[mirror_vram_addr(addr)] = value
 	elif addr >= 0x3000 and addr <= 0x3eff:
-		assert(false, "addr space 0x3000..0x3eff is not expected to be used, requested = %04x" % addr)
+		print_verbose("addr space 0x3000..0x3eff is not expected to be used, requested = %04x" % addr)
+		pass
+	elif addr in [0x3f10, 0x3f14, 0x3f18, 0x3f1c]:
+		var addr_mirror = addr - 0x10;
+		var palette_idx: int = addr_mirror - 0x3f00
+		palette_table[palette_idx] = value
 	elif addr >= 0x3f00 and addr <= 0x3fff:
-		palette_table[addr - 0x3f00] = value
+		var palette_idx: int = addr - 0x3f00
+		palette_table[palette_idx] = value
 	else:
 		assert(false, "unexpected access to mirrored space %04x" % addr)
 
@@ -141,7 +169,12 @@ func read_data() -> int:
 		_internal_data_buf = vram[mirror_vram_addr(addr)]
 		return result
 	elif addr >= 0x3000 and addr <= 0x3eff:
-		assert(false, "addr space 0x3000..0x3eff is not expected to be used, requested = %d" % addr)
+		print_verbose("addr space 0x3000..0x3eff is not expected to be used, requested = %d" % addr)
+		pass
+	# Addresses $3F10/$3F14/$3F18/$3F1C are mirrors of $3F00/$3F04/$3F08/$3F0C
+	elif addr in [0x3f10, 0x3f14, 0x3f18, 0x3f1c]:
+		var addr_mirror = addr - 0x10;
+		return palette_table[(addr_mirror - 0x3f00)]
 	elif addr >= 0x3f00 and addr <= 0x3fff:
 		return palette_table[addr - 0x3f00]
 	else:
@@ -149,7 +182,7 @@ func read_data() -> int:
 	return 0
 
 func memcopy_ram_to_oam(p_ram_slice: PackedByteArray) -> void:
-	assert(p_ram_slice.size() == 0x100)
+	assert(p_ram_slice.size() == 0xFF)
 	for byte in p_ram_slice:
 		oam_data[register_oam_addr] = byte
 		increment_oam_addr()
@@ -238,20 +271,20 @@ class ControlRegister extends CPU.RegisterFlags:
 	var nametable_1            = CPU.BitFlag.new(self, &"N1", 0)
 	var nametable_2            = CPU.BitFlag.new(self, &"N2", 1)
 	var vram_add_increment     = CPU.BitFlag.new(self, &"I", 2)
-	var sprite_pattern_addr    = CPU.BitFlag.new(self, &"S", 3)
-	var backround_pattern_addr = CPU.BitFlag.new(self, &"B", 4)
+	var sprite_bank            = CPU.BitFlag.new(self, &"S", 3)
+	var background_bank        = CPU.BitFlag.new(self, &"B", 4)
 	var sprite_size            = CPU.BitFlag.new(self, &"H", 5)
 	var master_slave_select    = CPU.BitFlag.new(self, &"P", 6)
-	var generate_nmi           = CPU.BitFlag.new(self, &"V", 7)
+	var gen_vblank_nmi           = CPU.BitFlag.new(self, &"V", 7)
 	var bit_flags: Dictionary = {
 		nametable_1.name : nametable_1,
 		nametable_2.name : nametable_2,
 		vram_add_increment.name : vram_add_increment,
-		sprite_pattern_addr.name : sprite_pattern_addr,
-		backround_pattern_addr.name : backround_pattern_addr,
+		sprite_bank.name : sprite_bank,
+		background_bank.name : background_bank,
 		sprite_size.name : sprite_size,
 		master_slave_select.name : master_slave_select,
-		generate_nmi.name : generate_nmi
+		gen_vblank_nmi.name : gen_vblank_nmi
 	}
 	
 	func get_vram_addr_increment() -> int:
