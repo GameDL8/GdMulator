@@ -1,6 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://uo8pi8863wqk"]
+[gd_scene load_steps=3 format=3 uid="uid://uo8pi8863wqk"]
 
 [ext_resource type="Script" path="res://addons/retro_console_emulator/tests/nes_chr_rom_render_test/nes_chr_rom_render_test.gd" id="1_xhe13"]
+
+[sub_resource type="GDScript" id="GDScript_6ggmn"]
+script/source = "extends Label
+
+@onready var timer: Timer = $Timer
+
+func _ready() -> void:
+	timer.timeout.connect(_on_timer_timeout)
+
+
+func _on_timer_timeout():
+	text = str(Engine.get_frames_per_second())
+"
 
 [node name="nes_chr_rom_render_test" type="Node"]
 script = ExtResource("1_xhe13")
@@ -14,3 +27,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+script = SubResource("GDScript_6ggmn")
+
+[node name="Timer" type="Timer" parent="Label"]
+autostart = true

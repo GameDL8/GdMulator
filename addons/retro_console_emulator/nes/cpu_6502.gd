@@ -280,14 +280,14 @@ func run():
 		assert(instruction.callback.is_valid(), "Invalid callable for opcode %d" % opcode)
 		var extra_cycles: Variant = await instruction.callback.call()
 		
+		if current_pc == program_counter.value:
+			# There was not a jump
+			program_counter.value += (instruction.size - 1)
+		
 		var cycles = instruction.cycles
 		if typeof(extra_cycles) == TYPE_INT:
 			cycles += extra_cycles
 		memory.tick(cycles)
-		
-		if current_pc == program_counter.value:
-			# There was not a jump
-			program_counter.value += (instruction.size - 1)
 
 
 # VIRTUAL OVERRIDE
@@ -491,8 +491,6 @@ func rotate_left_register(p_register: Register8bits):
 	value &= 0xFF
 	p_register.value = value
 	update_z_n_flags(value)
-	if flags.value == 0xA5:
-		breakpoint
 
 
 func rotate_left_memory(p_addressing_mode: AddressingMode):
@@ -519,11 +517,12 @@ func rotate_right_register(p_register: Register8bits):
 func rotate_right_memory(p_addressing_mode: AddressingMode):
 	var addr: int = get_operand_address(p_addressing_mode)
 	var value: int = memory.mem_read(addr)
-	value |= 0b100000000 if flags.C.value else 0x00
+	var old_carry: bool = flags.C.value
 	flags.C.value = true if value & 0x01 else false
 	value = value >> 1
+	value |= 0b100000000 if old_carry else 0x00
 	memory.mem_write(addr, value)
-	update_z_n_flags(value)
+	flags.N.value = (value & 0b10000000)
 
 
 #RTI
@@ -593,7 +592,7 @@ func compare_register(p_register: Register8bits, p_addressing_mode: AddressingMo
 	var result: int = p_register.value - value
 	if result < 0:
 		result += 0xFF + 1
-	set_flag(flags.C, p_register.value >= value)
+	set_flag(flags.C, value <= p_register.value)
 	update_z_n_flags(result)
 
 

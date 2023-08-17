@@ -178,8 +178,8 @@ func _about_to_execute_instruction():
 	await super()
 	instruction_count += 1
 	if _sleeping:
-#		await Engine.get_main_loop().create_timer(0.02).timeout
-		await Engine.get_main_loop().process_frame
+		await Engine.get_main_loop().create_timer(0.02).timeout
+#		await Engine.get_main_loop().process_frame
 		_sleeping = false
 
 # BRK

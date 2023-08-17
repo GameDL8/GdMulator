@@ -43,7 +43,7 @@ func tick(p_cycles: int):
 
 func peek_memory(addr:int) -> int:
 	if addr >= RAM and addr <= RAM_MIRRORS_END:
-		var mirror_down_addr = addr & 0b00000111_11111111
+		var mirror_down_addr: int = addr & 0b00000111_11111111
 		return _memory[mirror_down_addr]
 	elif addr >= PPU_REGISTERS and addr <= PPU_REGISTERS_MIRRORS_END:
 		assert(ppu != null, "Cannot access ppu memory when it is null")
@@ -51,26 +51,23 @@ func peek_memory(addr:int) -> int:
 			0x2000:
 				return ppu.register_ctrl.value
 			0x2001:
-				return 0
+				return ppu.register_mask.value
+			0x2002:
+				return ppu.register_stat.value
 			0x2003:
 				return ppu.register_oam_addr
+			0x2004:
+				return ppu.register_oam_data
 			0x2005:
 				return ppu.scroll_offset.x if ppu.next_scroll_is_x else ppu.scroll_offset.y
 			0x2006:
-				return ppu.register_stat.value
-			0x2002:
-				return 0
-			0x2004:
-				var val = ppu.register_oam_data
-				return val
+				return ppu.register_addr.get_address()
 			0x2007:
-				var val = ppu.ppu_data
-				return val
+				return ppu.peek_data()
 			_:
 				assert(addr >= 0x2008, "Unexpected memory address: %04x" % addr)
-				var mirror_down_addr = addr & 0b00100000_00000111
-				var val = mem_read(mirror_down_addr)
-				return val
+				var mirror_down_addr: int = addr & 0b00100000_00000111
+				return peek_memory(mirror_down_addr)
 	elif addr == 0x4014:
 		# peeking in a write only memory
 		return 0
@@ -78,7 +75,10 @@ func peek_memory(addr:int) -> int:
 		var prog_rom_byte = _read_prog_rom(addr)
 		return prog_rom_byte
 	elif addr >= APU_REGISTERS and addr <= APU_REGISTERS_ENDS:
-		# TODO: implement apu registers
+		print_verbose("TODO: implement apu registers")
+		return 0
+	elif addr in [0x4016, 0x4017]:
+		print_verbose("TODO: implement controllers")
 		return 0
 	else:
 		push_warning("Ignoring mem access at ", addr)
@@ -104,7 +104,7 @@ func mem_read(addr: int) -> int:
 				_emmit_observer(addr, val, val, MemoryObserver.ObserverFlags.READ_8)
 				return val
 			0x2007:
-				var val = ppu.ppu_data
+				var val = ppu.read_data()
 				_emmit_observer(addr, val, val, MemoryObserver.ObserverFlags.READ_8)
 				return val
 			_:
@@ -124,7 +124,7 @@ func mem_read(addr: int) -> int:
 		# TODO: implement apu registers
 		return 0
 	else:
-		push_warning("Ignoring mem access at ", addr)
+		print_verbose("Ignoring mem access at ", addr)
 		return 0
 
 
@@ -183,17 +183,20 @@ func mem_write(addr: int, p_value: int):
 	elif addr == 0x4014:
 		# RAM -> OAM Copy!
 		_emmit_observer(addr, 0, p_value, MemoryObserver.ObserverFlags.WRITE_8)
-		var begin: int = p_value << 8
-		var end: int = p_value << 8 | 0xFF
-		var sliced = slice(begin, end)
-		ppu.memcopy_ram_to_oam(sliced)
+		var mem: PackedByteArray = []
+		mem.resize(256)
+		var begin: int = (p_value << 8) + 1
+		for i in range(256):
+			mem[i] = peek_memory(begin + i)
+		ppu.memcopy_ram_to_oam(mem)
 	elif addr >= ROM_MEMORY_STARTS and addr <= ROM_MEMORY_ENDS:
 		assert(false, "Attempt to write to Cartridge ROM space")
 	elif addr >= APU_REGISTERS and addr <= APU_REGISTERS_ENDS:
-		# TODO: implement apu registers
+		print_verbose("TODO: implement apu registers (at %02x)" % addr)
+		# 
 		pass
 	else:
-		push_warning("Ignoring mem access at ", addr)
+		print_verbose("Ignoring mem access at %02x" % addr)
 		return
 
 

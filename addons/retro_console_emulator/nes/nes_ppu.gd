@@ -53,14 +53,14 @@ var register_addr := AddrRegister.new()
 # 0x2007
 var ppu_data: int:
 	set = write_to_data,
-	get = read_data
+	get = peek_data
 
 var _internal_data_buf: int
 
 func _init(nes_rom: NesRom) -> void:
 	if nes_rom != null:
 		chr_rom = nes_rom.chr_rom
-	palette_table.resize(0x100)
+	palette_table.resize(32)
 	palette_table.fill(0)
 	vram.resize(2048)
 	vram.fill(0)
@@ -181,16 +181,36 @@ func read_data() -> int:
 		assert(false, "unexpected access to mirrored space %d" % addr)
 	return 0
 
+
+func peek_data() -> int:
+	var addr = register_addr.get_address()
+	
+	if addr >= 0 and addr <= 0x1fff:
+		return _internal_data_buf
+	elif addr >= 0x2000 and addr <= 0x2fff:
+		return _internal_data_buf
+	elif addr >= 0x3000 and addr <= 0x3eff:
+		print_verbose("addr space 0x3000..0x3eff is not expected to be used, requested = %d" % addr)
+		pass
+	# Addresses $3F10/$3F14/$3F18/$3F1C are mirrors of $3F00/$3F04/$3F08/$3F0C
+	elif addr in [0x3f10, 0x3f14, 0x3f18, 0x3f1c]:
+		var addr_mirror = addr - 0x10;
+		return palette_table[(addr_mirror - 0x3f00)]
+	elif addr >= 0x3f00 and addr <= 0x3fff:
+		return palette_table[addr - 0x3f00]
+	else:
+		assert(false, "unexpected access to mirrored space %d" % addr)
+	return 0
+
 func memcopy_ram_to_oam(p_ram_slice: PackedByteArray) -> void:
-	assert(p_ram_slice.size() == 0xFF)
+	assert(p_ram_slice.size() == 256)
 	for byte in p_ram_slice:
 		oam_data[register_oam_addr] = byte
 		increment_oam_addr()
 
 func increment_oam_addr() -> void:
-	register_oam_addr += 1
-	if register_oam_addr > 0xFF:
-		register_oam_addr = 0
+	register_oam_addr = register_oam_addr + 1 if register_oam_addr < 0xFF else 0
+
 
 func increment_vram_addr() -> void:
 	register_addr.increment(register_ctrl.get_vram_addr_increment())
