@@ -18,10 +18,12 @@ func load_and_run(p_program: PackedByteArray):
 	self.reset()
 	self.run()
 
+## VIRTUAL: This method emulates a soft reset interrupt.
 func reset():
 	is_running = false
 	assert(true, "This method should be implemented in inherited class")
 
+## VIRTUAL: This method loads the program in the bus memory.
 func load(p_program: PackedByteArray):
 	assert(true, "This method should be implemented in inherited class")
 

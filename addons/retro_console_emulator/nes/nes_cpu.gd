@@ -1,15 +1,21 @@
 class_name NesCPU extends CPU6502
 
 var _sleeping: bool = false
+var _run_in_thread: bool = true
+var _running_thread: Thread = null
+var _running_mutex: Mutex = null
+var _frame_start: float = 0
 const PAL_SLEEP_TIME: float = 1.0/50.0
 const NTSC_SLEEP_TIME: float = 1.0/60.0
 
-func _init() -> void:
+
+func _init(p_run_in_thread: bool = true) -> void:
 	super()
 	memory = NesMemory.new()
 	memory.nmi_interrupt_triggered.connect(_on_interrupt_triggered.bind(0xFFFA, false))
 	memory.irq_interrupt_triggered.connect(_on_interrupt_triggered.bind(0xFFFE, false))
 	memory.advance_frame.connect(_on_memory_advance_frame)
+	_run_in_thread = p_run_in_thread
 	
 	#register instructions
 	var instructions: Array[OpCode] = [
@@ -155,6 +161,24 @@ func _init() -> void:
 					assert(false, "Unknown register name '%s'" % instruction.register)
 
 
+func run():
+	_frame_start = Time.get_unix_time_from_system()
+	if _run_in_thread:
+		_running_thread = Thread.new()
+		_running_mutex = Mutex.new()
+		_running_thread.start(_run_in_background)
+	else:
+		super.run()
+
+
+func is_running_in_thread():
+	return (_run_in_thread and _run_in_thread != null and _running_thread.is_alive())
+
+
+func _run_in_background():
+	super.run()
+
+
 func _on_interrupt_triggered(p_interrupt_jump_addres: int, p_break_flag: bool):
 	assert(p_interrupt_jump_addres in [0xFFFA, 0xFFFE])
 	stack_push_16(program_counter.value)
@@ -178,9 +202,14 @@ func _about_to_execute_instruction():
 	await super()
 	instruction_count += 1
 	if _sleeping:
-		await Engine.get_main_loop().create_timer(0.02).timeout
-#		await Engine.get_main_loop().process_frame
+		if is_running_in_thread():
+			while Time.get_unix_time_from_system() < _frame_start + NTSC_SLEEP_TIME:
+				pass
+		else:
+			await Engine.get_main_loop().create_timer(0.02).timeout
+#			await Engine.get_main_loop().process_frame
 		_sleeping = false
+		_frame_start = Time.get_unix_time_from_system()
 
 # BRK
 func nes_break():
