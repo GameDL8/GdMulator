@@ -27,6 +27,7 @@ var vram: PackedByteArray          # Size: 2048 bytes
 var oam_data: PackedByteArray      # Size: 256  bytes
 var scroll_offset := Vector2i(0, 0)
 var next_scroll_is_x: bool = true
+var screen_changed: bool = true
 
 var screen_mirroring: NesRom.Mirroring = NesRom.Mirroring.HORIZONTAL
 
@@ -89,6 +90,7 @@ func tick(p_cycles: int) -> bool:
 			scanline = 0
 			register_stat.sprite_0_hit.value = false
 			register_stat.in_vblank.value = false
+			set_deferred(&"screen_changed", false)
 			return true
 	return false
 
@@ -142,16 +144,21 @@ func write_to_data(value: int) -> void:
 	if addr >= 0 and addr <= 0x1fff:
 		print_verbose("Cannot write to read only address %04x" % addr)
 	elif addr >= 0x2000 and addr <= 0x2fff:
-		vram[mirror_vram_addr(addr)] = value
+		var addr_mirror = mirror_vram_addr(addr)
+		if vram[addr_mirror] != value:
+			screen_changed = true
+		vram[addr_mirror] = value
 	elif addr >= 0x3000 and addr <= 0x3eff:
 		print_verbose("addr space 0x3000..0x3eff is not expected to be used, requested = %04x" % addr)
 		pass
 	elif addr in [0x3f10, 0x3f14, 0x3f18, 0x3f1c]:
 		var addr_mirror = addr - 0x10;
 		var palette_idx: int = addr_mirror - 0x3f00
+#		print_rich("[color=#%s](MIRRORED) Stored color index %d at %04x (palette_idx=%d)[/color]" % [COLOR_TABLE[value].to_html(false), value, addr, palette_idx])
 		palette_table[palette_idx] = value
 	elif addr >= 0x3f00 and addr <= 0x3fff:
 		var palette_idx: int = addr - 0x3f00
+#		print_rich("[color=#%s]Stored color index %d at %04x (palette_idx=%d)[/color]" % [COLOR_TABLE[value].to_html(false), value, addr, palette_idx])
 		palette_table[palette_idx] = value
 	else:
 		assert(false, "unexpected access to mirrored space %04x" % addr)
