@@ -22,7 +22,8 @@ func _on_nes_advance_frame():
 func render():
 	if !ppu.screen_changed:
 		return
-	_update_screen()
+	_update_background()
+	_update_sprites()
 	_render_mutex.lock()
 	edited_image = swapchain[(displayed_image + 2) % 3]
 	displayed_image = (displayed_image + 1) % 3
@@ -32,7 +33,7 @@ func render():
 func _set_image(image_idx: int):
 	set_image(swapchain[image_idx])
 
-func _update_screen():
+func _update_background():
 	var bank: int = ppu.register_ctrl.background_bank.value
 	bank *= 0x1000
 	
@@ -62,6 +63,55 @@ func _update_screen():
 				edited_image.set_pixel(tile_x*8 + x, tile_y*8 + y, color)
 	_render_mutex.unlock()
 
+func _update_sprites():
+	var data: PackedByteArray = ppu.oam_data
+	var indexes: PackedInt32Array = range(0, data.size(), 4)
+	indexes.reverse()
+	for i in indexes:
+		var tile_id: int = data[i+1]
+		var tile_x: int = data[i+3]
+		var tile_y: int = data[i]
+		
+		if tile_id != 0:
+			pass
+		var tile_flags: int = data[i+2]
+		var flip_v: bool = (tile_flags >> 7 & 1 == 1)
+		var flip_h: bool = (tile_flags >> 6 & 1 == 1)
+		var pallete_idx: int = tile_flags & 0b11
+		var palette: PackedByteArray = _sprite_palette(pallete_idx)
+		
+		var bank: int = ppu.register_ctrl.sprite_bank.value
+		bank *= 0x1000
+		
+		var tile: PackedByteArray = ppu.chr_rom.slice(
+			bank + tile_id * 16, bank + (tile_id+1) * 16)
+		
+		var color: Color = Color.BLACK
+		for y in range(8):
+			var upper: int = tile[y]
+			var lower: int = tile[y+8]
+			for x in range(7, -1, -1):
+				var value = ((1 & lower) << 1) | (1 & upper)
+				upper = upper >> 1
+				lower = lower >> 1
+				match value:
+					0:
+						# transparent pixel, dont render
+						continue
+					1, 2, 3:
+						color = NesPPU.COLOR_TABLE[palette[value]]
+					_:
+						assert(false, "can't happen")
+				match [flip_h, flip_v]:
+					[false, false]:
+						edited_image.set_pixel(tile_x + x, tile_y + y, color)
+					[true, false]:
+						edited_image.set_pixel(tile_x + 7 - x, tile_y + y, color)
+					[false, true]:
+						edited_image.set_pixel(tile_x + x, tile_y + 7 - y, color)
+					[true, true]:
+						edited_image.set_pixel(tile_x + 7 - x, tile_y + 7 - y, color)
+
 func _bg_pallette(tile_column: int, tile_row: int) -> PackedByteArray:
 	var attr_table_idx: int = tile_row / 4 * 8 +  tile_column / 4
 	var attr_byte: int = ppu.vram[0x3c0 + attr_table_idx]  # note: still using hardcoded first nametable
@@ -81,3 +131,13 @@ func _bg_pallette(tile_column: int, tile_row: int) -> PackedByteArray:
 
 	var pallete_start: int = pallet_idx * 4
 	return [ppu.palette_table[0], ppu.palette_table[pallete_start+1], ppu.palette_table[pallete_start+2], ppu.palette_table[pallete_start+3]]
+
+
+func _sprite_palette(pallete_idx: int) -> PackedByteArray:
+	var start: int = 0x11 + (pallete_idx * 4)
+	return [
+		0,
+		ppu.palette_table[start],
+		ppu.palette_table[start+1],
+		ppu.palette_table[start+2]
+	]

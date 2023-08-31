@@ -185,7 +185,7 @@ func mem_write(addr: int, p_value: int):
 		_emmit_observer(addr, 0, p_value, MemoryObserver.ObserverFlags.WRITE_8)
 		var mem: PackedByteArray = []
 		mem.resize(256)
-		var begin: int = (p_value << 8) + 1
+		var begin: int = (p_value << 8)
 		for i in range(256):
 			mem[i] = peek_memory(begin + i)
 		ppu.memcopy_ram_to_oam(mem)

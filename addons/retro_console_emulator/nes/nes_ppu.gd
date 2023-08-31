@@ -38,9 +38,7 @@ var register_mask := MaskRegister.new(&"Msk")
 # 0x2002
 var register_stat := StatusRegister.new(&"St")
 # 0x2003
-var register_oam_addr: int:
-	set = write_to_oam_addr
-	# get = _write_only_from_bus
+var register_oam_addr: int = 0
 # 0x2004
 var register_oam_data: int:
 	set = write_to_oam_data,
@@ -116,7 +114,9 @@ func read_oam_addr() -> int:
 	return register_oam_addr
 
 func write_to_oam_data(value: int) -> void:
-	oam_data[register_oam_addr] = value
+	if oam_data[register_oam_addr] != value:
+		oam_data[register_oam_addr] = value
+		screen_changed = true
 	increment_oam_addr()
 
 func read_status() -> int:
@@ -212,7 +212,9 @@ func peek_data() -> int:
 func memcopy_ram_to_oam(p_ram_slice: PackedByteArray) -> void:
 	assert(p_ram_slice.size() == 256)
 	for byte in p_ram_slice:
-		oam_data[register_oam_addr] = byte
+		if oam_data[register_oam_addr] != byte:
+			oam_data[register_oam_addr] = byte
+			screen_changed = true
 		increment_oam_addr()
 
 func increment_oam_addr() -> void:
