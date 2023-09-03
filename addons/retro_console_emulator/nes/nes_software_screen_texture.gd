@@ -102,15 +102,23 @@ func _update_sprites():
 						color = NesPPU.COLOR_TABLE[palette[value]]
 					_:
 						assert(false, "can't happen")
+				var pixel_x = tile_x
+				var pixel_y = tile_y
 				match [flip_h, flip_v]:
 					[false, false]:
-						edited_image.set_pixel(tile_x + x, tile_y + y, color)
+						pixel_x += x
+						pixel_y += y
 					[true, false]:
-						edited_image.set_pixel(tile_x + 7 - x, tile_y + y, color)
+						pixel_x += 7 - x
+						pixel_y += y
 					[false, true]:
-						edited_image.set_pixel(tile_x + x, tile_y + 7 - y, color)
+						pixel_x += x
+						pixel_y += 7 - y
 					[true, true]:
-						edited_image.set_pixel(tile_x + 7 - x, tile_y + 7 - y, color)
+						pixel_x += 7 - x
+						pixel_y += 7 - y
+				if pixel_x < 256 and pixel_y < 240:
+					edited_image.set_pixel(pixel_x, pixel_y, color)
 
 func _bg_pallette(tile_column: int, tile_row: int) -> PackedByteArray:
 	var attr_table_idx: int = tile_row / 4 * 8 +  tile_column / 4

@@ -9,8 +9,6 @@ const RAM: int = 0x0000
 const RAM_MIRRORS_END = 0x1FFF
 const PPU_REGISTERS: int = 0x2000
 const PPU_REGISTERS_MIRRORS_END: int = 0x3FFF
-const APU_REGISTERS: int = 0x4000
-const APU_REGISTERS_ENDS: int = 0x4020
 const ROM_MEMORY_STARTS: int = 0x8000
 const ROM_MEMORY_ENDS: int = 0xFFFF
 const VIRTUAL_SIZE: int = 0xFFFF
@@ -19,12 +17,14 @@ var rom: NesRom = null:
 	set = _set_rom
 var ppu: NesPPU = null:
 	set = _set_ppu
-
+var player1_joypad: NesJoypad = null
+var player2_joypad: NesJoypad = null
 
 func _init():
 	super(MEMORY_SIZE)
 	ppu = NesPPU.new(rom)
-
+	player1_joypad = NesJoypad.new(&"_1")
+	player2_joypad = NesJoypad.new(&"_2")
 
 func reset():
 	super()
@@ -39,6 +39,8 @@ func tick(p_cycles: int):
 	super(p_cycles)
 	if ppu.tick(p_cycles * 3):
 		advance_frame.emit()
+		player1_joypad.update_status()
+		player2_joypad.update_status()
 
 
 func peek_memory(addr:int) -> int:
@@ -74,12 +76,9 @@ func peek_memory(addr:int) -> int:
 	elif addr >= ROM_MEMORY_STARTS and addr <= ROM_MEMORY_ENDS:
 		var prog_rom_byte = _read_prog_rom(addr)
 		return prog_rom_byte
-	elif addr >= APU_REGISTERS and addr <= APU_REGISTERS_ENDS:
-		print_verbose("TODO: implement apu registers")
-		return 0
 	elif addr in [0x4016, 0x4017]:
-		print_verbose("TODO: implement controllers")
-		return 0
+		var joypay: NesJoypad = player1_joypad if addr == 0x4016 else player2_joypad
+		return joypay.peek()
 	else:
 		push_warning("Ignoring mem access at ", addr)
 		return 0
@@ -120,9 +119,11 @@ func mem_read(addr: int) -> int:
 		var prog_rom_byte = _read_prog_rom(addr)
 		_emmit_observer(addr, prog_rom_byte, prog_rom_byte, MemoryObserver.ObserverFlags.READ_8)
 		return prog_rom_byte
-	elif addr >= APU_REGISTERS and addr <= APU_REGISTERS_ENDS:
-		# TODO: implement apu registers
-		return 0
+	elif addr in [0x4016, 0x4017]:
+		var joypad: NesJoypad = player1_joypad if addr == 0x4016 else player2_joypad
+		var status = joypad.read()
+		_emmit_observer(addr, status, status, MemoryObserver.ObserverFlags.READ_8)
+		return status
 	else:
 		print_verbose("Ignoring mem access at ", addr)
 		return 0
@@ -190,11 +191,10 @@ func mem_write(addr: int, p_value: int):
 			mem[i] = peek_memory(begin + i)
 		ppu.memcopy_ram_to_oam(mem)
 	elif addr >= ROM_MEMORY_STARTS and addr <= ROM_MEMORY_ENDS:
-		assert(false, "Attempt to write to Cartridge ROM space")
-	elif addr >= APU_REGISTERS and addr <= APU_REGISTERS_ENDS:
-		print_verbose("TODO: implement apu registers (at %02x)" % addr)
-		# 
-		pass
+		print(false, "Attempt to write to Cartridge ROM space")
+	elif addr in [0x4016, 0x4017]:
+		var joypay: NesJoypad = player1_joypad if addr == 0x4016 else player2_joypad
+		return joypay.write(p_value)
 	else:
 		print_verbose("Ignoring mem access at %02x" % addr)
 		return

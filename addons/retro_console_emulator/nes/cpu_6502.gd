@@ -507,7 +507,7 @@ func rotate_left_memory(p_addressing_mode: AddressingMode):
 #ROR
 func rotate_right_register(p_register: Register8bits):
 	var value: int = p_register.value
-	value |= 0b100000000 if flags.C.value else 0x00
+	value |= 0b10000000 if flags.C.value else 0x00
 	flags.C.value = true if value & 0x01 else false
 	value = value >> 1
 	p_register.value = value
@@ -520,7 +520,7 @@ func rotate_right_memory(p_addressing_mode: AddressingMode):
 	var old_carry: bool = flags.C.value
 	flags.C.value = true if value & 0x01 else false
 	value = value >> 1
-	value |= 0b100000000 if old_carry else 0x00
+	value |= 0b10000000 if old_carry else 0x00
 	memory.mem_write(addr, value)
 	flags.N.value = (value & 0b10000000)
 
