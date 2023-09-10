@@ -7,7 +7,7 @@ func test():
 
 
 func test_0x4c_jmp_absolute_jump():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.load_and_run([
 		0x4c, 0x0a, 0x80, # JMP #$0x800A
 		0xa9, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -18,7 +18,7 @@ func test_0x4c_jmp_absolute_jump():
 	print("test_0x4c_jmp_absolute_jump PASSED!")
 
 func test_0x6c_jmp_indirect_jump():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write_16(0x4003, 0x800A)
 	cpu.load_and_run([
 		0x6c, 0x03, 0x40, # JMP $0x4003

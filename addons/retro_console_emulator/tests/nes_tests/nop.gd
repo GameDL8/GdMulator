@@ -6,7 +6,7 @@ func test():
 
 
 func test_0xea_nop_no_operation():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.load_and_run([0xa9, 0b00000001, 0xea, 0xea, 0x4a, 0x00])
 	assert(cpu.register_a.value == 0x00)
 	assert(cpu.flags.Z.value == true)

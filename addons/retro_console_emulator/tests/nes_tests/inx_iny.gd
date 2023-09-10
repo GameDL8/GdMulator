@@ -7,7 +7,7 @@ func test():
 	
 	
 func test_0xe8_inx_increase_register_x():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.load_and_run([0xa9, 0x0A, 0xaa, 0xe8, 0x00])
 	assert(cpu.register_x.value == 0x0B)
 	assert(cpu.flags.Z.value == false)
@@ -24,7 +24,7 @@ func test_0xe8_inx_increase_register_x():
 
 
 func test_0xc8_iny_increase_register_y():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.load_and_run([0xa9, 0x0A, 0xa8, 0xc8, 0x00])
 	assert(cpu.register_y.value == 0x0B)
 	assert(cpu.flags.Z.value == false)

@@ -12,7 +12,7 @@ func test():
 	test_0xb1_lda_indirect_y_load_data()
 
 func test_0xa9_lda_immediate_load_data():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.load_and_run([0xa9, 0x05, 0x00])
 	assert(cpu.register_a.value == 0x05)
 	assert(cpu.flags.Z.value == false)
@@ -28,7 +28,7 @@ func test_0xa9_lda_immediate_load_data():
 	print("test_0xa9_lda_immediate_load_data PASSED!")
 
 func test_0xa5_lda_zeropage_load_data():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x10, 0x15)
 	cpu.memory.mem_write(0x11, 0b10000001)
 	cpu.memory.mem_write(0x12, 0x00)
@@ -48,7 +48,7 @@ func test_0xa5_lda_zeropage_load_data():
 
 
 func test_0xad_lda_absolute_load_data():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x0110, 0x15)
 	cpu.memory.mem_write(0x0111, 0b10000001)
 	cpu.memory.mem_write(0x0112, 0x00)
@@ -68,7 +68,7 @@ func test_0xad_lda_absolute_load_data():
 
 
 func test_0xb5_lda_zeropage_x_load_data():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x10, 0x15)
 	cpu.memory.mem_write(0x11, 0b10000001)
 	cpu.memory.mem_write(0x12, 0x00)
@@ -88,7 +88,7 @@ func test_0xb5_lda_zeropage_x_load_data():
 
 
 func test_0xbd_lda_absolute_x_load_data():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x0110, 0x15)
 	cpu.memory.mem_write(0x0111, 0b10000001)
 	cpu.memory.mem_write(0x0112, 0x00)
@@ -108,7 +108,7 @@ func test_0xbd_lda_absolute_x_load_data():
 
 
 func test_0xb9_lda_absolute_y_load_data():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x0110, 0x15)
 	cpu.memory.mem_write(0x0111, 0b10000001)
 	cpu.memory.mem_write(0x0112, 0x00)
@@ -128,7 +128,7 @@ func test_0xb9_lda_absolute_y_load_data():
 
 
 func test_0xa1_lda_indirect_x_load_data():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	
 	cpu.memory.mem_write(0x10, 0x10)
 	cpu.memory.mem_write(0x11, 0x01)
@@ -157,7 +157,7 @@ func test_0xa1_lda_indirect_x_load_data():
 
 
 func test_0xb1_lda_indirect_y_load_data():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x00, 0x00)
 	cpu.memory.mem_write(0x01, 0x01)
 	cpu.memory.mem_write(0x02, 0x01)

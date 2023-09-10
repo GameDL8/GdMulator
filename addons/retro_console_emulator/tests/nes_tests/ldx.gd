@@ -10,7 +10,7 @@ func test():
 
 
 func test_0xa2_ldx_immediate_load_register_x():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.load_and_run([0xa2, 0x05, 0x00])
 	assert(cpu.register_x.value == 0x05)
 	assert(cpu.flags.Z.value == false)
@@ -27,7 +27,7 @@ func test_0xa2_ldx_immediate_load_register_x():
 
 
 func test_0xa6_ldx_zeropage_load_register_x():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x10, 0x15)
 	cpu.memory.mem_write(0x11, 0b10000001)
 	cpu.memory.mem_write(0x12, 0x00)
@@ -47,7 +47,7 @@ func test_0xa6_ldx_zeropage_load_register_x():
 
 
 func test_0xb6_ldx_zeropage_y_load_register_x():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x10, 0x15)
 	cpu.memory.mem_write(0x11, 0b10000001)
 	cpu.memory.mem_write(0x12, 0x00)
@@ -67,7 +67,7 @@ func test_0xb6_ldx_zeropage_y_load_register_x():
 
 
 func test_0xae_ldx_absolute_load_register_x():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x0110, 0x15)
 	cpu.memory.mem_write(0x0111, 0b10000001)
 	cpu.memory.mem_write(0x0112, 0x00)
@@ -87,7 +87,7 @@ func test_0xae_ldx_absolute_load_register_x():
 
 
 func test_0xbe_ldx_absolute_y_load_register_x():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x0110, 0x15)
 	cpu.memory.mem_write(0x0111, 0b10000001)
 	cpu.memory.mem_write(0x0112, 0x00)

@@ -7,7 +7,7 @@ func test():
 
 
 func test_0xba_tsx_immediate_transfer_stack_pointer_to_x():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.load_and_run([0xa9, 0x05, 0x48, 0xba, 0x00])
 	var _pushed_procesor_flags: int = cpu.stack_pop_8()
 	var _pushed_program_counter: int = cpu.stack_pop_16()
@@ -33,7 +33,7 @@ func test_0xba_tsx_immediate_transfer_stack_pointer_to_x():
 
 
 func test_0x9a_txs_immediate_transfer_x_to_stack_pointer():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.load_and_run([0xa2, 0x05, 0x9a, 0x00])
 	var _pushed_procesor_flags: int = cpu.stack_pop_8()
 	var _pushed_program_counter: int = cpu.stack_pop_16()

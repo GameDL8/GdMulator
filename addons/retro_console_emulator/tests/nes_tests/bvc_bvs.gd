@@ -6,7 +6,7 @@ func test():
 	test_0x70_bvs_relative_branch_if_overflow_set()
 
 func test_0x50_bvc_relative_branch_if_overflow_clear():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x02, 0b11111111)
 	cpu.load_and_run([
 		0xa9, 0x10,       # LDA $0x10
@@ -28,7 +28,7 @@ func test_0x50_bvc_relative_branch_if_overflow_clear():
 	print("test_0x50_bvc_relative_branch_if_overflow_clear PASSED!")
 
 func test_0x70_bvs_relative_branch_if_overflow_set():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x02, 0b11111111)
 	cpu.load_and_run([
 		0xa9, 0x10,       # LDA $0x10

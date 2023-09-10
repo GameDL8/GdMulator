@@ -13,7 +13,7 @@ func test():
 
 
 func test_0x69_adc_immediate_add_with_carry():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.load_and_run([0xa9, 0b01000000, 0x69, 0b01000000, 0x00])
 	assert(cpu.flags.C.value == false)
 	assert(cpu.flags.V.value == true)
@@ -53,7 +53,7 @@ func test_0x69_adc_immediate_add_with_carry():
 
 
 func test_0x65_adc_zeropage_add_with_carry():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x10, 0b01000000)
 	cpu.memory.mem_write(0x11, 0b10000000)
 	cpu.memory.mem_write(0x12, 0b00000001)
@@ -100,7 +100,7 @@ func test_0x65_adc_zeropage_add_with_carry():
 
 
 func test_0x6d_adc_absolute_add_with_carry():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x1010, 0b01000000)
 	cpu.memory.mem_write(0x1011, 0b10000000)
 	cpu.memory.mem_write(0x1012, 0b00000001)
@@ -147,7 +147,7 @@ func test_0x6d_adc_absolute_add_with_carry():
 
 
 func test_0x75_adc_zeropage_x_add_with_carry():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x11, 0b01000000)
 	cpu.memory.mem_write(0x12, 0b10000000)
 	cpu.memory.mem_write(0x13, 0b00000001)
@@ -194,7 +194,7 @@ func test_0x75_adc_zeropage_x_add_with_carry():
 
 
 func test_0x7d_adc_absolute_x_add_with_carry():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x1011, 0b01000000)
 	cpu.memory.mem_write(0x1012, 0b10000000)
 	cpu.memory.mem_write(0x1013, 0b00000001)
@@ -241,7 +241,7 @@ func test_0x7d_adc_absolute_x_add_with_carry():
 
 
 func test_0x79_adc_absolute_y_add_with_carry():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x1011, 0b01000000)
 	cpu.memory.mem_write(0x1012, 0b10000000)
 	cpu.memory.mem_write(0x1013, 0b00000001)
@@ -288,7 +288,7 @@ func test_0x79_adc_absolute_y_add_with_carry():
 
 
 func test_0x61_adc_indirect_x_add_with_carry():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x10+1, 0x03)
 	cpu.memory.mem_write(0x11+1, 0x40)
 	cpu.memory.mem_write(0x12+1, 0x04)
@@ -349,7 +349,7 @@ func test_0x61_adc_indirect_x_add_with_carry():
 
 
 func test_0x71_adc_indirect_y_add_with_carry():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x10, 0x03)
 	cpu.memory.mem_write(0x11, 0x40)
 	cpu.memory.mem_write(0x12, 0x04)

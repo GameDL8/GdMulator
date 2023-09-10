@@ -13,7 +13,7 @@ func test():
 
 
 func test_0x29_and_immediate_bitwise_and():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.load_and_run([0xa9, 0b11100100, 0x29, 0b01001000, 0x00])
 	assert(cpu.register_a.value == 0b01000000)
 	assert(cpu.flags.Z.value == false)
@@ -30,7 +30,7 @@ func test_0x29_and_immediate_bitwise_and():
 
 
 func test_0x25_and_zeropage_bitwise_and():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x10, 0b11100100)
 	cpu.load_and_run([0xa9, 0b01001000, 0x25, 0x10, 0x00])
 	assert(cpu.register_a.value == 0b01000000)
@@ -48,7 +48,7 @@ func test_0x25_and_zeropage_bitwise_and():
 
 
 func test_0x35_and_zeropage_x_bitwise_and():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x10, 0b11100100)
 	cpu.load_and_run([0xE8, 0xa9, 0b01001000, 0x35, 0x0F, 0x00])
 	assert(cpu.register_a.value == 0b01000000)
@@ -66,7 +66,7 @@ func test_0x35_and_zeropage_x_bitwise_and():
 
 
 func test_0x2d_and_absolute_bitwise_and():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x1040, 0b11100100)
 	cpu.load_and_run([0xa9, 0b01001000, 0x2d, 0x40, 0x10, 0x00])
 	assert(cpu.register_a.value == 0b01000000)
@@ -84,7 +84,7 @@ func test_0x2d_and_absolute_bitwise_and():
 
 
 func test_0x3d_and_absolute_x_bitwise_and():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x1041, 0b11100100)
 	cpu.load_and_run([0xE8, 0xa9, 0b01001000, 0x3d, 0x40, 0x10, 0x00])
 	assert(cpu.register_a.value == 0b01000000)
@@ -102,7 +102,7 @@ func test_0x3d_and_absolute_x_bitwise_and():
 
 
 func test_0x39_and_absolute_y_bitwise_and():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x1041, 0b11100100)
 	cpu.load_and_run([0xC8, 0xa9, 0b01001000, 0x39, 0x40, 0x10, 0x00])
 	assert(cpu.register_a.value == 0b01000000)
@@ -120,7 +120,7 @@ func test_0x39_and_absolute_y_bitwise_and():
 
 
 func test_0x21_and_indirect_x_bitwise_and():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x10+1, 0x03)
 	cpu.memory.mem_write(0x11+1, 0x40)
 	cpu.memory.mem_write(0x4003, 0b11100100)
@@ -140,7 +140,7 @@ func test_0x21_and_indirect_x_bitwise_and():
 
 
 func test_0x31_and_indirect_y_bitwise_and():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x10, 0x03)
 	cpu.memory.mem_write(0x11, 0x40)
 	cpu.memory.mem_write(0x4003+1, 0b11100100)

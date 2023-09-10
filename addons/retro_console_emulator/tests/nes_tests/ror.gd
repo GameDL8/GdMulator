@@ -10,7 +10,7 @@ func test():
 
 
 func test_0x6a_ror_acumulator_rotate_right():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.load_and_run([0xa9, 0b11000100, 0x38, 0x6a, 0x00])
 	assert(cpu.register_a.value == 0b11100010)
 	assert(cpu.flags.Z.value == false)
@@ -30,7 +30,7 @@ func test_0x6a_ror_acumulator_rotate_right():
 
 
 func test_0x66_ror_zeropage_rotate_right():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x03, 0b11000100)
 	cpu.memory.mem_write(0x04, 0b10000101)
 	cpu.memory.mem_write(0x05, 0b00000001)
@@ -53,7 +53,7 @@ func test_0x66_ror_zeropage_rotate_right():
 
 
 func test_0x76_ror_zeropage_x_rotate_right():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x03+0x12, 0b11000100)
 	cpu.memory.mem_write(0x04+0x12, 0b10000101)
 	cpu.memory.mem_write(0x05+0x12, 0b00000001)
@@ -76,7 +76,7 @@ func test_0x76_ror_zeropage_x_rotate_right():
 
 
 func test_0x6e_ror_absolute_rotate_right():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x4003, 0b11000100)
 	cpu.memory.mem_write(0x4004, 0b10000101)
 	cpu.memory.mem_write(0x4005, 0b00000001)
@@ -99,7 +99,7 @@ func test_0x6e_ror_absolute_rotate_right():
 
 
 func test_0x7e_ror_absolute_x_rotate_right():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x4003+0x12, 0b11000100)
 	cpu.memory.mem_write(0x4004+0x12, 0b10000101)
 	cpu.memory.mem_write(0x4005+0x12, 0b00000001)

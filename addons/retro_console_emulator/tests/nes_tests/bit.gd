@@ -7,7 +7,7 @@ func test():
 
 
 func test_0x24_bit_zeropage_bit_test():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x05, 0b10000110)
 	cpu.load_and_run([0xa9, 0b11000111, 0x24, 0x05, 0x00])
 	assert(cpu.flags.Z.value == false)
@@ -21,7 +21,7 @@ func test_0x24_bit_zeropage_bit_test():
 
 
 func test_0x2c_bit_absolute_bit_test():
-	var cpu = CPU6502.new()
+	var cpu = NesCPU.new()
 	cpu.memory.mem_write(0x4005, 0b10000110)
 	cpu.load_and_run([0xa9, 0b11000111, 0x2c, 0x05, 0x40, 0x00])
 	assert(cpu.flags.Z.value == false)

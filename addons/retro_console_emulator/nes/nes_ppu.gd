@@ -1,7 +1,7 @@
 class_name NesPPU extends RefCounted
 
 signal nmi_interrupt_triggered()
-signal register_flags_changed(old_value: int, register: CPU.RegisterFlags)
+signal register_flags_changed(old_value: int, register: RegisterFlags)
 
 const COLOR_TABLE : PackedColorArray = [
 	Color8(0x80, 0x80, 0x80), Color8(0x00, 0x3D, 0xA6), Color8(0x00, 0x12, 0xB0), Color8(0x44, 0x00, 0x96), Color8(0xA1, 0x00, 0x5E),
@@ -69,7 +69,7 @@ func _init(nes_rom: NesRom) -> void:
 	register_mask.flags_changed.connect(_on_register_flags_changed.bind(register_mask))
 	register_stat.flags_changed.connect(_on_register_flags_changed.bind(register_stat))
 
-func _on_register_flags_changed(old_value: int, _new_value: int, p_register: CPU.RegisterFlags):
+func _on_register_flags_changed(old_value: int, _new_value: int, p_register: RegisterFlags):
 	register_flags_changed.emit(old_value, p_register)
 
 func tick(p_cycles: int):
@@ -289,7 +289,7 @@ class AddrRegister:
 		return (value[0] << 8) | (value[1])
 
 
-class ControlRegister extends CPU.RegisterFlags:
+class ControlRegister extends RegisterFlags:
 	# 7  bit  0
 	# ---- ----
 	# VPHB SINN
@@ -306,14 +306,14 @@ class ControlRegister extends CPU.RegisterFlags:
 	# |            (0: read backdrop from EXT pins 1: output color on EXT pins)
 	# +--------- Generate an NMI at the start of the
 	#              vertical blanking interval (0: off 1: on)
-	var nametable_1            = CPU.BitFlag.new(self, &"N1", 0)
-	var nametable_2            = CPU.BitFlag.new(self, &"N2", 1)
-	var vram_add_increment     = CPU.BitFlag.new(self, &"I", 2)
-	var sprite_bank            = CPU.BitFlag.new(self, &"S", 3)
-	var background_bank        = CPU.BitFlag.new(self, &"B", 4)
-	var sprite_size            = CPU.BitFlag.new(self, &"H", 5)
-	var master_slave_select    = CPU.BitFlag.new(self, &"P", 6)
-	var gen_vblank_nmi           = CPU.BitFlag.new(self, &"V", 7)
+	var nametable_1            = BitFlag.new(self, &"N1", 0)
+	var nametable_2            = BitFlag.new(self, &"N2", 1)
+	var vram_add_increment     = BitFlag.new(self, &"I", 2)
+	var sprite_bank            = BitFlag.new(self, &"S", 3)
+	var background_bank        = BitFlag.new(self, &"B", 4)
+	var sprite_size            = BitFlag.new(self, &"H", 5)
+	var master_slave_select    = BitFlag.new(self, &"P", 6)
+	var gen_vblank_nmi           = BitFlag.new(self, &"V", 7)
 	var bit_flags: Dictionary = {
 		nametable_1.name : nametable_1,
 		nametable_2.name : nametable_2,
@@ -349,7 +349,7 @@ class ControlRegister extends CPU.RegisterFlags:
 				return 0x2000
 
 
-class MaskRegister extends CPU.RegisterFlags:
+class MaskRegister extends RegisterFlags:
 	# 7  bit  0
 	# ---- ----
 	# BGRs bMmG
@@ -362,20 +362,20 @@ class MaskRegister extends CPU.RegisterFlags:
 	# ||+------- Emphasize red (green on PAL/Dendy)
 	# |+-------- Emphasize green (red on PAL/Dendy)
 	# +--------- Emphasize blue
-	var grayscale           = CPU.BitFlag.new(self, &"G", 0)
-	var left_margin_bg      = CPU.BitFlag.new(self, &"m", 1)
-	var left_margin_sprites = CPU.BitFlag.new(self, &"M", 2)
-	var show_background     = CPU.BitFlag.new(self, &"b", 3)
-	var show_sprites        = CPU.BitFlag.new(self, &"s", 4)
-	var emphatize_red       = CPU.BitFlag.new(self, &"R", 5)
-	var emphatize_green     = CPU.BitFlag.new(self, &"G", 6)
-	var emphatize_blue      = CPU.BitFlag.new(self, &"B", 7)
+	var grayscale           = BitFlag.new(self, &"G", 0)
+	var left_margin_bg      = BitFlag.new(self, &"m", 1)
+	var left_margin_sprites = BitFlag.new(self, &"M", 2)
+	var show_background     = BitFlag.new(self, &"b", 3)
+	var show_sprites        = BitFlag.new(self, &"s", 4)
+	var emphatize_red       = BitFlag.new(self, &"R", 5)
+	var emphatize_green     = BitFlag.new(self, &"G", 6)
+	var emphatize_blue      = BitFlag.new(self, &"B", 7)
 
 	func update(data: int):
 		assert(data & 0xFFFFFF00 == 0, "Expected an 8bits number")
 		value = data
 
-class StatusRegister extends CPU.RegisterFlags:
+class StatusRegister extends RegisterFlags:
 	#7  bit  0
 	#---- ----
 	#VSO. ....
@@ -395,9 +395,9 @@ class StatusRegister extends CPU.RegisterFlags:
 	#           Set at dot 1 of line 241 (the line *after* the post-render
 	#           line); cleared after reading $2002 and at dot 1 of the
 	#           pre-render line.
-	var sprite_overflow = CPU.BitFlag.new(self, &"O", 5)
-	var sprite_0_hit    = CPU.BitFlag.new(self, &"S", 6)
-	var in_vblank       = CPU.BitFlag.new(self, &"V", 7)
+	var sprite_overflow = BitFlag.new(self, &"O", 5)
+	var sprite_0_hit    = BitFlag.new(self, &"S", 6)
+	var in_vblank       = BitFlag.new(self, &"V", 7)
 
 	func update(data: int):
 		assert(data & 0xFFFFFF00 == 0, "Expected an 8bits number")
