@@ -37,10 +37,7 @@ func soft_reset():
 
 func tick(p_cycles: int):
 	super(p_cycles)
-	if ppu.tick(p_cycles * 3):
-		advance_frame.emit()
-		player1_joypad.update_status()
-		player2_joypad.update_status()
+	ppu.tick(p_cycles * 3)
 
 
 func peek_memory(addr:int) -> int:
@@ -163,7 +160,7 @@ func mem_write(addr: int, p_value: int):
 				ppu.register_oam_data = p_value
 			0x2005:
 				var old_scroll: Vector2i = ppu.scroll_offset
-				var old_value = old_scroll.y if ppu.next_scroll_is_x else old_scroll.x
+				var old_value = old_scroll.x if ppu.next_scroll_is_x else old_scroll.y
 				_emmit_observer(addr, old_value, p_value, MemoryObserver.ObserverFlags.WRITE_8)
 				ppu.register_scroll = p_value
 			0x2006:
@@ -259,5 +256,9 @@ func _update_ppu_memory() -> void:
 
 
 func _trigger_ppu_nmi_interrupt():
+	advance_frame.emit()
+	player1_joypad.update_status()
+	player2_joypad.update_status()
 	nmi_interrupt_triggered.emit()
+	
 

@@ -463,12 +463,12 @@ func inclusive_or_with_register(p_register: Register8bits, p_addressing_mode: Ad
 #PHA - PHP
 # p_register can be Register8bits or NesRegisterFlags
 func push_register_to_stack(p_register: Variant):
+	var unchanged_value: int = p_register.value
 	if p_register is NesRegisterFlags:
 		flags.B.value = true
 		flags.B2.value = true
 	stack_push_8(p_register.value)
-	if p_register is NesRegisterFlags:
-		flags.B.value = false
+	p_register.value = unchanged_value
 
 
 #PLA - PLP

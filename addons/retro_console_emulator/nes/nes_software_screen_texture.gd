@@ -12,11 +12,11 @@ var _render_mutex := Mutex.new()
 
 func setup(p_memory: NesMemory) -> void:
 	ppu = p_memory.ppu
-	p_memory.advance_frame.connect(_on_nes_advance_frame)
+	p_memory.nmi_interrupt_triggered.connect(_on_nes_ppu_nmi_interrupt_triggered)
 	edited_image = swapchain[displayed_image]
 	render()
 
-func _on_nes_advance_frame():
+func _on_nes_ppu_nmi_interrupt_triggered():
 	render()
 
 func render():
@@ -34,17 +34,52 @@ func _set_image(image_idx: int):
 	set_image(swapchain[image_idx])
 
 func _update_background():
+	var scroll: Vector2i = ppu.scroll_offset
+
+	var main_nametable: PackedByteArray = []
+	var second_nametable: PackedByteArray = []
+	match [ppu.screen_mirroring, ppu.register_ctrl.get_nametable_addr()]:
+		[NesRom.Mirroring.VERTICAL, 0x2000], [NesRom.Mirroring.VERTICAL, 0x2800], \
+		[NesRom.Mirroring.HORIZONTAL, 0x2000], [NesRom.Mirroring.HORIZONTAL, 0x2400]:
+			main_nametable = ppu.vram.slice(0, 0x400)
+			second_nametable = ppu.vram.slice(0x400, 0x800)
+		[NesRom.Mirroring.VERTICAL, 0x2400], [NesRom.Mirroring.VERTICAL, 0x2C00], \
+		[NesRom.Mirroring.HORIZONTAL, 0x2800], [NesRom.Mirroring.HORIZONTAL, 0x2C00]:
+			main_nametable = ppu.vram.slice(0x400, 0x800)
+			second_nametable = ppu.vram.slice(0, 0x400)
+		[_,_]:
+			assert(false, "Not supported mirroring type {}".format(ppu.screen_mirroring))
+
+	render_name_table(main_nametable,
+		Rect2i(scroll.x, scroll.y, (256 - scroll.x), (240 - scroll.y)),
+		-scroll.x, -scroll.y
+	)
+
+	if scroll.x > 0:
+		render_name_table(second_nametable,
+			Rect2i(0, 0, scroll.x, 240),
+			(256 - scroll.x), 0
+		)
+	else:
+		render_name_table(second_nametable,
+			Rect2i(0, 0, 256, scroll.y),
+			0, (240 - scroll.y)
+		)
+
+
+func render_name_table(name_table: PackedByteArray, sub_rect: Rect2i, shift_x: int, shift_y: int):
 	var bank: int = ppu.register_ctrl.background_bank.value
 	bank *= 0x1000
 	
+	var attribute_table = name_table.slice(0x3c0, 0x400)
 	_render_mutex.lock()
 	for i in range(0x03C0):
-		var tile_id: int = ppu.vram[i]
+		var tile_id: int = name_table[i]
 		var tile_x: int = i % 32
 		var tile_y: int = i / 32
 		var tile: PackedByteArray = ppu.chr_rom.slice(
 			bank + tile_id * 16, bank + (tile_id+1) * 16)
-		var palette: PackedByteArray = _bg_pallette(tile_x, tile_y)
+		var palette: PackedByteArray = _bg_pallette(tile_x, tile_y, attribute_table)
 		var color: Color = Color.BLACK
 		for y in range(8):
 			var upper: int = tile[y]
@@ -53,6 +88,10 @@ func _update_background():
 				var value = ((1 & lower) << 1) | (1 & upper)
 				upper = upper >> 1
 				lower = lower >> 1
+				var pixel_x: int = tile_x*8 + x
+				var pixel_y: int = tile_y*8 + y
+				if not sub_rect.has_point(Vector2i(pixel_x, pixel_y)):
+					continue
 				match value:
 					0:
 						color = NesPPU.COLOR_TABLE[ppu.palette_table[0]]
@@ -60,7 +99,8 @@ func _update_background():
 						color = NesPPU.COLOR_TABLE[palette[value]]
 					_:
 						assert(false, "can't happen")
-				edited_image.set_pixel(tile_x*8 + x, tile_y*8 + y, color)
+				if pixel_x < 256 and pixel_y < 240:
+					edited_image.set_pixel(pixel_x + shift_x, pixel_y + shift_y, color)
 	_render_mutex.unlock()
 
 func _update_sprites():
@@ -120,9 +160,9 @@ func _update_sprites():
 				if pixel_x < 256 and pixel_y < 240:
 					edited_image.set_pixel(pixel_x, pixel_y, color)
 
-func _bg_pallette(tile_column: int, tile_row: int) -> PackedByteArray:
+func _bg_pallette(tile_column: int, tile_row: int, attribute_table: PackedByteArray) -> PackedByteArray:
 	var attr_table_idx: int = tile_row / 4 * 8 +  tile_column / 4
-	var attr_byte: int = ppu.vram[0x3c0 + attr_table_idx]  # note: still using hardcoded first nametable
+	var attr_byte: int = attribute_table[attr_table_idx]
 	
 	var pallet_idx:int = 0
 	match [(tile_column %4) / 2, (tile_row % 4) / 2]:

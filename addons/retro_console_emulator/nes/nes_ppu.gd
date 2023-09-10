@@ -72,9 +72,11 @@ func _init(nes_rom: NesRom) -> void:
 func _on_register_flags_changed(old_value: int, _new_value: int, p_register: CPU.RegisterFlags):
 	register_flags_changed.emit(old_value, p_register)
 
-func tick(p_cycles: int) -> bool:
+func tick(p_cycles: int):
 	cycles += p_cycles
 	if cycles >= 341:
+		if _is_sprite_0_hit():
+			register_stat.sprite_0_hit.value = true
 		cycles -= 341
 		scanline += 1
 		
@@ -89,8 +91,11 @@ func tick(p_cycles: int) -> bool:
 			register_stat.sprite_0_hit.value = false
 			register_stat.in_vblank.value = false
 			set_deferred(&"screen_changed", false)
-			return true
-	return false
+
+func _is_sprite_0_hit() -> bool:
+	var y = oam_data[0]
+	var x = oam_data[3]
+	return (y == scanline) && x <= cycles && register_mask.show_sprites.value
 
 func write_to_ppu_addr(value: int) -> void:
 	register_addr.update(value)
@@ -132,9 +137,13 @@ func read_oam_data() -> int:
 func write_to_scroll(value:int) -> void:
 	assert(value & 0xFFFFFF00 == 0, "Expected an 8bits number")
 	if next_scroll_is_x:
-		scroll_offset.x = value
+		if scroll_offset.x != value:
+			screen_changed = true
+			scroll_offset.x = value
 	else:
-		scroll_offset.y = value
+		if scroll_offset.y != value:
+			screen_changed = true
+			scroll_offset.y = value
 	next_scroll_is_x = !next_scroll_is_x
 
 func write_to_data(value: int) -> void:
@@ -324,6 +333,20 @@ class ControlRegister extends CPU.RegisterFlags:
 	func update(data: int):
 		assert(data & 0xFFFFFF00 == 0, "Expected an 8bits number")
 		value = data
+	
+	func get_nametable_addr() -> int:
+		match value & 0b11:
+			0b00:
+				return 0x2000
+			0b01:
+				return 0x2400
+			0b10:
+				return 0x2800
+			0b11:
+				return 0x2c00
+			_:
+				assert(false, "not possible")
+				return 0x2000
 
 
 class MaskRegister extends CPU.RegisterFlags:
