@@ -15,6 +15,12 @@ run/main_scene="res://addons/retro_console_emulator/tests/nes_chr_rom_render_tes
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
+[debug]
+
+gdscript/warnings/exclude_addons=false
+gdscript/warnings/assert_always_true=0
+gdscript/warnings/integer_division=0
+
 [display]
 
 window/subwindows/embed_subwindows=false

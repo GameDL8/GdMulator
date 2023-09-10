@@ -235,9 +235,9 @@ func increment_vram_addr() -> void:
 
 func mirror_vram_addr(in_addr: int):
 	assert(in_addr & 0xFFFF0000 == 0, "Expected a 16bits number")
-	var mirrored_vram = in_addr & 0b10111111111111 # mirror down 0x3000-0x3eff to 0x2000 - 0x2eff
-	var vram_index = mirrored_vram - 0x2000 # to vram vector
-	var name_table = vram_index / 0x400 # to the name table index
+	var mirrored_vram: int = in_addr & 0b10111111111111 # mirror down 0x3000-0x3eff to 0x2000 - 0x2eff
+	var vram_index: int = mirrored_vram - 0x2000 # to vram vector
+	var name_table: int = vram_index / 0x400 # to the name table index
 	match [screen_mirroring, name_table]:
 		[NesRom.Mirroring.VERTICAL, 2], [NesRom.Mirroring.VERTICAL, 3]:
 			return vram_index - 0x800

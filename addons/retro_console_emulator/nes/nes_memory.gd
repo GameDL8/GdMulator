@@ -1,4 +1,4 @@
-class_name NesMemory extends Memory
+class_name NesMemory extends RefCounted
 
 signal nmi_interrupt_triggered()
 signal irq_interrupt_triggered()
@@ -20,30 +20,34 @@ var ppu: NesPPU = null:
 var player1_joypad: NesJoypad = null
 var player2_joypad: NesJoypad = null
 
+var _ram: PackedByteArray
+var _cycles: int = 0
+
 func _init():
-	super(MEMORY_SIZE)
+	_ram.resize(MEMORY_SIZE)
+	reset()
 	ppu = NesPPU.new(rom)
 	player1_joypad = NesJoypad.new(&"_1")
 	player2_joypad = NesJoypad.new(&"_2")
 
 func reset():
-	super()
+	_ram.fill(0)
 	rom = null
 
 
 func soft_reset():
-	super.reset()
+	_ram.fill(0)
 
 
 func tick(p_cycles: int):
-	super(p_cycles)
+	_cycles += p_cycles
 	ppu.tick(p_cycles * 3)
 
 
 func peek_memory(addr:int) -> int:
 	if addr >= RAM and addr <= RAM_MIRRORS_END:
 		var mirror_down_addr: int = addr & 0b00000111_11111111
-		return _memory[mirror_down_addr]
+		return _ram[mirror_down_addr]
 	elif addr >= PPU_REGISTERS and addr <= PPU_REGISTERS_MIRRORS_END:
 		assert(ppu != null, "Cannot access ppu memory when it is null")
 		match addr:
@@ -83,8 +87,7 @@ func peek_memory(addr:int) -> int:
 func mem_read(addr: int) -> int:
 	if addr >= RAM and addr <= RAM_MIRRORS_END:
 		var mirror_down_addr = addr & 0b00000111_11111111
-		_emmit_observer(addr, _memory[mirror_down_addr], _memory[mirror_down_addr], MemoryObserver.ObserverFlags.READ_8)
-		return _memory[mirror_down_addr]
+		return _ram[mirror_down_addr]
 	elif addr >= PPU_REGISTERS and addr <= PPU_REGISTERS_MIRRORS_END:
 		assert(ppu != null, "Cannot access ppu memory when it is null")
 		match addr:
@@ -93,33 +96,27 @@ func mem_read(addr: int) -> int:
 				return 0
 			0x2002:
 				var val = ppu.read_status()
-				_emmit_observer(addr, val, val, MemoryObserver.ObserverFlags.READ_8)
 				return val
 			0x2004:
 				var val = ppu.register_oam_data
-				_emmit_observer(addr, val, val, MemoryObserver.ObserverFlags.READ_8)
 				return val
 			0x2007:
 				var val = ppu.read_data()
-				_emmit_observer(addr, val, val, MemoryObserver.ObserverFlags.READ_8)
 				return val
 			_:
 				assert(addr >= 0x2008, "Unexpected memory address: %04x" % addr)
 				var mirror_down_addr = addr & 0b00100000_00000111
 				var val = mem_read(mirror_down_addr)
-				_emmit_observer(addr, val, val, MemoryObserver.ObserverFlags.READ_8)
 				return val
 	elif addr == 0x4014:
 		assert(false, "Attempt to read from write-only PPU address %04x" % addr)
 		return 0
 	elif addr >= ROM_MEMORY_STARTS and addr <= ROM_MEMORY_ENDS:
 		var prog_rom_byte = _read_prog_rom(addr)
-		_emmit_observer(addr, prog_rom_byte, prog_rom_byte, MemoryObserver.ObserverFlags.READ_8)
 		return prog_rom_byte
 	elif addr in [0x4016, 0x4017]:
 		var joypad: NesJoypad = player1_joypad if addr == 0x4016 else player2_joypad
 		var status = joypad.read()
-		_emmit_observer(addr, status, status, MemoryObserver.ObserverFlags.READ_8)
 		return status
 	else:
 		print_verbose("Ignoring mem access at ", addr)
@@ -138,38 +135,25 @@ func _read_prog_rom(addr: int) -> int:
 func mem_write(addr: int, p_value: int):
 	if addr >= RAM and addr <= RAM_MIRRORS_END:
 		var mirror_down_addr = addr & 0b00000111_11111111;
-		_emmit_observer(addr, _memory[mirror_down_addr], p_value, MemoryObserver.ObserverFlags.WRITE_8)
-		_memory[mirror_down_addr] = p_value
+		_ram[mirror_down_addr] = p_value
 	elif addr >= PPU_REGISTERS and addr <= PPU_REGISTERS_MIRRORS_END:
 		match addr:
 			0x2002:
 				assert(false, "Attempt to write from read-only PPU address %04x" % addr)
 				return
 			0x2000:
-				_emmit_observer(addr, ppu.register_ctrl.value, p_value, MemoryObserver.ObserverFlags.WRITE_8)
 				ppu.write_to_ctrl(p_value)
 			0x2001:
-				_emmit_observer(addr, ppu.register_mask.value, p_value, MemoryObserver.ObserverFlags.WRITE_8)
 				ppu.write_to_mask(p_value)
 			0x2003:
-				_emmit_observer(addr, ppu.register_oam_addr, p_value, MemoryObserver.ObserverFlags.WRITE_8)
 				ppu.write_to_oam_addr(p_value)
 			0x2004:
-				var old_value = ppu.register_oam_data
-				_emmit_observer(addr, old_value, p_value, MemoryObserver.ObserverFlags.WRITE_8)
 				ppu.register_oam_data = p_value
 			0x2005:
-				var old_scroll: Vector2i = ppu.scroll_offset
-				var old_value = old_scroll.x if ppu.next_scroll_is_x else old_scroll.y
-				_emmit_observer(addr, old_value, p_value, MemoryObserver.ObserverFlags.WRITE_8)
 				ppu.register_scroll = p_value
 			0x2006:
-				var old_value = ppu.register_addr.value[1 if ppu.register_addr.hi_ptr else 0]
-				_emmit_observer(addr, old_value, p_value, MemoryObserver.ObserverFlags.WRITE_8)
 				ppu.write_to_ppu_addr(p_value)
 			0x2007:
-				var old_value = ppu._internal_data_buf
-				_emmit_observer(addr, old_value, p_value, MemoryObserver.ObserverFlags.WRITE_8)
 				ppu.ppu_data = p_value
 			_:
 				if addr in range(0x2008, PPU_REGISTERS_MIRRORS_END+1):
@@ -180,7 +164,6 @@ func mem_write(addr: int, p_value: int):
 		return
 	elif addr == 0x4014:
 		# RAM -> OAM Copy!
-		_emmit_observer(addr, 0, p_value, MemoryObserver.ObserverFlags.WRITE_8)
 		var mem: PackedByteArray = []
 		mem.resize(256)
 		var begin: int = (p_value << 8)
@@ -195,6 +178,19 @@ func mem_write(addr: int, p_value: int):
 	else:
 		print_verbose("Ignoring mem access at %02x" % addr)
 		return
+
+
+func mem_read_16(addr: int) -> int:
+	var lo: int = self.mem_read(addr)
+	var hi: int = self.mem_read(addr + 1)
+	var result: int = (hi << 8) | (lo)
+	return result
+
+func mem_write_16(addr: int, p_value: int):
+	var hi: int = (p_value >> 8)
+	var lo: int = (p_value & 0xff)
+	self.mem_write(addr, lo)
+	self.mem_write(addr + 1, hi)
 
 
 func size() -> int:
@@ -232,8 +228,8 @@ func slice(begin: int, end: int = -1):
 		end = end - ROM_MEMORY_STARTS
 		return rom.prg_rom.slice(begin-0x2000, end - 0x2000)
 	if end == -1:
-		end = _memory.size()
-	return _memory.slice(begin, end)
+		end = _ram.size()
+	return _ram.slice(begin, end)
 
 
 func _set_rom(new_rom: NesRom) -> void:

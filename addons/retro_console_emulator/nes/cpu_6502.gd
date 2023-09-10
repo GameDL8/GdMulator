@@ -239,7 +239,6 @@ func _init() -> void:
 	
 	for instruction in instructions:
 		instructionset[instruction.code] = instruction
-		var bind_args: Array
 		if instruction.addresing_mode != -1:
 			var cb : Callable = instruction.callback.bind(instruction.addresing_mode)
 			instruction.callback = cb
@@ -260,7 +259,7 @@ func reset():
 	stack_pointer = STACK_RESET
 	program_counter.value = memory.mem_read_16(0xFFFC)
 
-func load(p_program: PackedByteArray):
+func load_program(p_program: PackedByteArray):
 	for i in p_program.size():
 		memory.mem_write(0x8000 + i, p_program[i])
 	memory.mem_write_16(0xFFFC, 0x8000)
@@ -558,14 +557,14 @@ func branch_if_flag_matches(p_flag: BitFlag, p_is_set: bool):
 	if p_flag.value == p_is_set:
 		extra_cycles += 1
 		var addr: int = program_counter.value
-		var jump: int = memory.mem_read(addr)
-		if jump & 0b10000000:
-			jump = -(((~jump) & 0b01111111)+1)
-		jump += 1
-		var new_addr: int = program_counter.value + jump
+		var offset: int = memory.mem_read(addr)
+		if offset & 0b10000000:
+			offset = -(((~offset) & 0b01111111)+1)
+		offset += 1
+		var new_addr: int = program_counter.value + offset
 		if (new_addr & 0xFF00) != ((addr + 1) & 0xFF00):
 			extra_cycles += 1
-		program_counter.value += jump
+		program_counter.value += offset
 	return extra_cycles
 
 

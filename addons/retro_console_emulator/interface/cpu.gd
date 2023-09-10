@@ -1,7 +1,7 @@
 class_name CPU extends RefCounted
 
 var program_counter := Register16bits.new(&"PC")
-var memory: Memory = null
+var memory: Variant = null
 
 var registers: Dictionary = {
 	program_counter.name : program_counter
@@ -14,7 +14,7 @@ var instructionset: Dictionary = {
 var is_running: bool = false
 
 func load_and_run(p_program: PackedByteArray):
-	self.load(p_program)
+	self.load_program(p_program)
 	self.reset()
 	self.run()
 
@@ -24,7 +24,7 @@ func reset():
 	assert(true, "This method should be implemented in inherited class")
 
 ## VIRTUAL: This method loads the program in the bus memory.
-func load(p_program: PackedByteArray):
+func load_program(_p_program: PackedByteArray):
 	assert(true, "This method should be implemented in inherited class")
 
 ## VIRTUAL: This method runs the program loaded into the CPU's memory.
@@ -33,7 +33,7 @@ func run():
 	assert(memory != null, "Memory not initialized")
 	assert(true, "This method should be implemented in inherited class")
 
-func get_operand_address(p_mode: int) -> int:
+func get_operand_address(_p_mode: int) -> int:
 	assert(true, "This method should be implemented in inherited class")
 	return 0x00
 

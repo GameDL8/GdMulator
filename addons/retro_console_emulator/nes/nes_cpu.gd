@@ -148,7 +148,6 @@ func _init(p_run_in_thread: bool = true) -> void:
 	for instruction in instructions:
 		instruction.set_meta(&"is_ilegal", true)
 		instructionset[instruction.code] = instruction
-		var bind_args: Array = []
 		if instruction.callback.get_bound_arguments_count() == 0:
 			if instruction.addresing_mode != -1:
 				instruction.callback = instruction.callback.bind(instruction.addresing_mode)

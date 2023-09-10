@@ -79,7 +79,7 @@ static func load_from_file(p_path: String) -> NesRom:
 	return rom
 
 
-func get_loading_error() -> int:
+func get_loading_error() -> NesRom.LoadingError:
 	return _loading_error
 
 
